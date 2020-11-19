@@ -187,6 +187,6 @@ io.on("connection", (socket) => {
   });
   //#endregion
 });
-
-server.listen(3001);
-console.log("http://localhost:" + 3001);
+var port = process.env.port || 3001;
+server.listen(port);
+console.log("http://localhost:" + port);
