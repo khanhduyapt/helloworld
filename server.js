@@ -22,6 +22,11 @@ const { json } = require("express");
 
 app.get("/", (req, res) => {
   //res.render("dashboard");
+  res.json({ msg: "Hello world" });
+});
+
+app.get("/join", (req, res) => {
+  //res.render("dashboard");
   res.render("Online_class", {
     roomId: "lop12A3",
     userId: randomInt(1000),
