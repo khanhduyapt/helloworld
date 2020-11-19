@@ -110,14 +110,16 @@ app.get("/api/students", async (req, res) => {
 //======================================================================
 */
 // VD
-const roomOfLoginUser = "khanhduyapt_lop12a3";
+const roomOfLoginUser = "Lop12a3";
+const userId = randomInt(1000);
 app.get("/", (req, res) => {
   res.render("Online_class", {
     roomId: roomOfLoginUser,
+    userId: randomInt(1000),
   });
 });
 
-const usersInRoom = {};
+const users = {};
 const socketToRoom = {};
 io.on("connection", (socket) => {
   console.log("Co nguoi ket noi");
@@ -133,35 +135,34 @@ io.on("connection", (socket) => {
   socket.on("step1_new_client_join_room", (data) => {
     console.log("step1_new_client_join_room" + JSON.stringify(data));
 
-    const room_id = data.room_id;
-    const client_socket_id = data.client_socket_id;
-    if (usersInRoom[room_id]) {
-      const length = usersInRoom[room_id].length;
-      if (length > 1) {
+    const roomID = data.roomId;
+    if (users[roomID]) {
+      const length = users[roomID].length;
+      if (length > 2) {
+        socket.emit("room full");
         console.log("room full");
         return;
       }
 
-      if (!usersInRoom[room_id].filter((id) => id == client_socket_id))
-        usersInRoom[room_id].push(client_socket_id);
+      users[roomID].push(socket.id);
     } else {
-      usersInRoom[room_id] = [client_socket_id];
+      users[roomID] = [socket.id];
     }
-    socketToRoom[client_socket_id] = room_id;
-    const otherUsersInThisRoom = usersInRoom[room_id].filter(
-      (id) => id !== client_socket_id
-    );
+    socketToRoom[socket.id] = roomID;
+    const usersInThisRoom = users[roomID].filter((id) => id !== socket.id);
+    console.log("    usersInThisRoom:", JSON.stringify(usersInThisRoom));
 
-    if (otherUsersInThisRoom) {
-      console.log("otherUsers:", JSON.stringify(otherUsersInThisRoom));
-      io.sockets.emit("step2_server_notice_all_users", otherUsersInThisRoom);
-    }
+    // sending to all clients, including sender
+    io.sockets.emit("step2_server_notice_all_users", usersInThisRoom);
   });
 
   socket.on("step3_client_sending_signal_one_by_one", (payload) => {
-    io.to(payload.server_socket_id).emit("step4_server_emit_has_user_joined", {
+    console.log(
+      `step3: sending signal-to: ${payload.userToSignal} has ${payload.callerID} joined.`
+    );
+    io.to(payload.userToSignal).emit("step4_server_emit_has_user_joined", {
       signal: payload.signal,
-      callerID: payload.client_socket_id,
+      callerID: payload.callerID,
     });
   });
 
@@ -175,10 +176,10 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const roomID = socketToRoom[socket.id];
-    let room = usersInRoom[roomID];
+    let room = users[roomID];
     if (room) {
       room = room.filter((id) => id !== socket.id);
-      usersInRoom[roomID] = room;
+      users[roomID] = room;
       console.log("disconnect:", socket.id);
 
       // sending to all clients
@@ -188,5 +189,5 @@ io.on("connection", (socket) => {
   //#endregion
 });
 
-server.listen(3001);
-console.log("http://localhost:" + 3001);
+server.listen(8080);
+console.log("http://localhost:" + 8080);

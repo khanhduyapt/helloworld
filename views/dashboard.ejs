@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css?v=1" />
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script>
+      $(function () {
+        $("#btnJoinClass").click(() => {
+          alert("btnJoinClass click");
+        });
+      });
+    </script>
+  </head>
+  <body class="dashboard">
+    <div class="dashboard__header">
+      <button class="dashboard__button-active">
+        <a href="/joinClass" class="dashboard__linkButton">Join</a>
+      </button>
+      <button class="dashboard__button-normal" id="btnJoinClass">button</button>
+    </div>
+    <div class="dashboard__body">
+      <button class="dashboard__button-normal">
+        <a href="/joinClass" class="dashboard__linkButton">Join</a>
+      </button>
+      <button class="dashboard__button-normal">button</button>
+      <button class="dashboard__button-normal">button</button>
+      <button class="dashboard__button-normal">button</button>
+      <button class="dashboard__button-normal">button</button>
+    </div>
+  </body>
+</html>

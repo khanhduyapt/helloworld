@@ -1,0 +1,91 @@
+* {
+  font-family: nunito, helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: black;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 10px;
+  padding-top: 0;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #dadbd3;
+  overflow: hidden;
+}
+
+/*#region dashboard__header*/
+.dashboard__header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: #ededed;
+  width: 98%;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 20px;
+  height: fit-content;
+}
+
+/*#endregion dashboard__header*/
+
+/*#region dashboard_body*/
+.dashboard__body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: #ededed;
+  width: 98%;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  height: fit-content;
+}
+/*#endregion dashboard__body*/
+
+/*#region app__buttons*/
+
+.dashboard__button-normal {
+  background: #ccc;
+  font-size: 1.15em;
+  border: 2px solid #ccc;
+  min-width: 8em;
+  min-height: 2.5em;
+  border-radius: 6px;
+  outline: none;
+  margin: 10px;
+  transition: transform 10ms;
+}
+
+.dashboard__button-normal:hover {
+  background: white;
+  transform: scale(1.07);
+}
+
+.dashboard__button-active {
+  background: #5bc6c6;
+  font-size: 1.15em;
+  border: 2px solid #5bc6c6;
+  min-width: 8em;
+  min-height: 2.5em;
+  border-radius: 6px;
+  outline: none;
+  margin: 10px;
+  transition: transform 10ms;
+}
+.dashboard__button-active:hover {
+  background: white;
+  color: #5bc6c6;
+  transform: scale(1.07);
+}
+
+.dashboard__linkButton {
+  text-decoration: none;
+  cursor: default;
+}
+/*#endregion app__buttons*/

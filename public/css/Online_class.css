@@ -1,0 +1,240 @@
+* {
+  font-family: nunito, helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: black;
+}
+
+.app {
+  background: #4190c1;
+  display: grid;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+.app__body {
+  display: flex;
+  flex-direction: column;
+  background-color: #ededed;
+  margin: 0;
+  height: 98vh;
+  width: 100%;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+}
+
+.app__buttons {
+  background-image: linear-gradient(45deg, #363638, #363638);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+}
+
+.app__buttons-normal {
+  background: #ccc;
+  font-size: 1.15em;
+  border: 2px solid #ccc;
+  min-width: 8em;
+  min-height: 2.5em;
+  border-radius: 6px;
+  outline: none;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 10ms;
+  height: fit-content;
+}
+
+.app__buttons-normal:hover {
+  background: white;
+  transform: scale(1.07);
+}
+
+.app__buttons-active {
+  background: #5bc6c6;
+  color: white;
+  border: 2px solid #5bc6c6;
+  font-size: 1.15em;
+  min-width: 8em;
+  min-height: 2.5em;
+  border-radius: 6px;
+  outline: none;
+  margin: 10px;
+  height: fit-content;
+}
+.app__buttons-active:hover {
+  background: white;
+  color: #5bc6c6;
+}
+
+.app__buttons-exit {
+  background: #bf79a8;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  min-width: 4em;
+  min-height: 2em;
+  border-radius: 6px;
+  outline: none;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 10ms;
+  height: fit-content;
+  position: absolute;
+  top: 13px;
+  right: 10px;
+}
+.app__buttons-exit:hover {
+  background: white;
+  transform: scale(1.07);
+}
+/* ------------------------------------------------- */
+
+.app__contents {
+  background-image: linear-gradient(45deg, #363638, #363638);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  position: fixed;
+  top: 110px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+/* ----------------------------------- */
+
+/* ----------------------------------- */
+.app__right {
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+  max-width: 350px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 10px;
+  border: none;
+  overflow-y: auto;
+}
+
+.app__right__bottom-chat {
+  background-image: linear-gradient(to left, #1c1c1f, #363638);
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  flex: 1;
+  margin-top: 5px;
+  overflow-y: auto;
+  height: auto;
+  min-height: 30px;
+}
+
+.chat__message {
+  position: relative;
+  padding: 5px;
+  width: fit-content;
+  border-radius: 10px;
+  background-color: #ededed;
+  margin: 3px;
+}
+
+.chat__receiver {
+  background-color: #cdf8c6;
+  padding: 0;
+  position: relative;
+  padding: 5px;
+  width: fit-content;
+  border-radius: 10px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+  margin-left: auto;
+}
+
+.chat__name {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+/* ----------------------------------- */
+.app__right__bottom-chatInput {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.app__right__bottom-chatInput > form {
+  display: flex;
+  flex: 1;
+}
+
+.app__right__bottom-chatInput > form > input {
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline-width: 0;
+  background: #ccc;
+  width: 100% !important;
+}
+
+.app__right__bottom-chatInput > form > button {
+  display: none;
+}
+
+/* ----------------------------------- */
+
+.app__center-lecture {
+  background-image: linear-gradient(to right, #1c1c1f, #363638);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.app__center_teacherVideo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.app__center_studentVideo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.video_600_800 {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+}
+
+.video_300_400 {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+}
