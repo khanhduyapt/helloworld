@@ -6,33 +6,52 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/Online_class.css?v=1" />
     <script src="bundle.js"></script>
+    <script src="/js/adapter-latest.js" defer></script>
+    <script src="/js/main.js" defer></script>
   </head>
   <body class="app">
-    <div class="app__body">
-      <div class="app__buttons">
-        <button
-          class="app__buttons-normal"
-          onclick="btnTurnOnCameraClick()"
-          id="btnTurnOnCamera"
-        >
-          Turn on Camera
-        </button>
-        <button
-          class="app__buttons-active"
-          onclick="btnTurnOffMicClick()"
-          id="btnTurnOffMic"
-        >
-          Turn off Mic
-        </button>
-        <button
-          class="app__buttons-normal"
-          onclick="btnShareScreenClick()"
-          id="btnShareScreen"
-        >
-          Share Screen
-        </button>
-        <p id="message">message</p>
+    <div class="app__contents">
+      <div style="visibility: hidden">
+        <input type="text" hidden value="<%= roomId %>" id="roomId" /><br />
+        <input type="text" hidden id="userId" alt="userId" /><br />
+        <input type="text" hidden id="userName" alt="userName" /><br />
+        <input type="text" hidden id="fullName" alt="fullName" /><br />
+        <p hidden id="message">message</p>
+      </div>
+      <div class="app__center" id="divAppCenter">
+        <video id="gum-local" autoplay playsinline muted></video>
 
+        <div class="app__buttons">
+          <button
+            class="img__button"
+            onclick="btnTurnOnCameraClick()"
+            id="btnTurnOnCamera"
+          >
+            <img src="/icons/videocam-24px.svg" alt="Video" />
+          </button>
+          <button
+            class="img__button"
+            onclick="btnTurnOffMicClick()"
+            id="btnTurnOffMic"
+          >
+            <img src="/icons/mic-24px.svg" alt="Video" />
+          </button>
+          <button class="img__button" id="startButton" alt="Share Screen">
+            <img src="/icons/screen_share-24px.svg" alt="Share Screen" />
+          </button>
+          <button class="img__button" id="btn70_30" alt="Share Screen">
+            <img src="/icons/view_sidebar-24px.svg" alt="Share Screen" />
+          </button>
+          <button class="img__button" id="btn50_50" alt="Share Screen">
+            <img src="/icons/view_stream-24px.svg" alt="Share Screen" />
+          </button>
+          <button class="img__button" id="btnChat" alt="Share Screen">
+            <img src="/icons/speaker_notes-24px.svg" alt="Share Screen" />
+          </button>
+        </div>
+      </div>
+
+      <div class="app__right" id="divAppRight">
         <button
           class="app__buttons-exit"
           onclick="btnEndCoursesClick()"
@@ -40,41 +59,31 @@
         >
           Exit
         </button>
-      </div>
-      <div class="app__contents">
-        <div>
-          <input type="text" hidden value="<%= roomId %>" id="roomId" /><br />
-          <input type="text" hidden id="userId" alt="userId" /><br />
-          <input type="text" hidden id="userName" alt="userName" /><br />
-          <input type="text" hidden id="fullName" alt="fullName" /><br />
-        </div>
-        <div class="app__center-lecture">
-          <div class="app__center_teacherVideo" id="teacherVideoGrid"></div>
-          <div class="app__center_studentVideo" id="studentVideoGrid"></div>
-        </div>
-
-        <div class="app__right">
-          <div class="app__right__bottom-chat" id="app__right__chatContents">
-            <p class="chat__receiver">
+        <div class="app__right__chat">
+          <div class="app__right__chatContents" id="app__right__chatContents">
+            <!-- <p class="chat__receiver">
               <span class="chat__name">Duydk</span>
               message
             </p>
             <p class="chat__message">
               <span class="chat__name"> </span> a message
-            </p>
+            </p> -->
           </div>
-
-          <div class="app__right__bottom-chatInput">
-            <form>
-              <input
-                type="text"
-                placeholder="Type a message"
-                id="txtMessage"
-                autocomplete="off"
-              />
-              <button type="submit" id="btnSubmitMessage">Send</button>
-            </form>
-          </div>
+        </div>
+        <div class="app__right__chatInput">
+          <form>
+            <input
+              type="text"
+              placeholder="Type a message"
+              id="txtMessage"
+              autocomplete="off"
+            />
+            <button type="submit" id="btnSubmitMessage">Send</button>
+          </form>
+        </div>
+        <div class="app__right__video">
+          <div class="app__center_teacherVideo" id="teacherVideoGrid"></div>
+          <div class="app__center_studentVideo" id="studentVideoGrid"></div>
         </div>
       </div>
     </div>

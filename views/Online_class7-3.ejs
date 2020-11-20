@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/Online_class.css?v=1" />
+    <script src="bundle.js"></script>
+    <script src="/js/adapter-latest.js" defer></script>
+    <script src="/js/main.js" defer></script>
+  </head>
+  <body class="app">
+    <div class="app__body">
+      <div class="app__buttons">
+        <button
+          class="app__buttons-normal"
+          onclick="btnTurnOnCameraClick()"
+          id="btnTurnOnCamera"
+        >
+          Turn on Camera
+        </button>
+        <button
+          class="app__buttons-active"
+          onclick="btnTurnOffMicClick()"
+          id="btnTurnOffMic"
+        >
+          Turn off Mic
+        </button>
+        <button
+          class="app__buttons-normal"
+          onclick="btnShareScreenClick()"
+          id="btnShareScreen"
+        >
+          Share Screen
+        </button>
+        <button class="app__buttons-normal" id="startButton">Start</button>
+        <p id="message">message</p>
+
+        <button
+          class="app__buttons-exit"
+          onclick="btnEndCoursesClick()"
+          id="btnEndCourses"
+        >
+          Exit
+        </button>
+      </div>
+      <div class="app__contents">
+        <div>
+          <input type="text" hidden value="<%= roomId %>" id="roomId" /><br />
+          <input type="text" hidden id="userId" alt="userId" /><br />
+          <input type="text" hidden id="userName" alt="userName" /><br />
+          <input type="text" hidden id="fullName" alt="fullName" /><br />
+        </div>
+        <div class="app__center-lecture">
+          <video id="gum-local" autoplay playsinline muted></video>
+          <div class="app__center_teacherVideo" id="teacherVideoGrid"></div>
+          <div class="app__center_studentVideo" id="studentVideoGrid"></div>
+        </div>
+
+        <div class="app__right">
+          <div class="app__right__bottom-chat" id="app__right__chatContents">
+            <p class="chat__receiver">
+              <span class="chat__name">Duydk</span>
+              message
+            </p>
+            <p class="chat__message">
+              <span class="chat__name"> </span> a message
+            </p>
+          </div>
+
+          <div class="app__right__bottom-chatInput">
+            <form>
+              <input
+                type="text"
+                placeholder="Type a message"
+                id="txtMessage"
+                autocomplete="off"
+              />
+              <button type="submit" id="btnSubmitMessage">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

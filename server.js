@@ -21,8 +21,8 @@ const { json } = require("express");
 // initData();
 
 app.get("/", (req, res) => {
-  //res.render("dashboard");
-  res.json({ msg: "Hello world" });
+  res.render("index");
+  // res.json({ msg: "Hello world" });
 });
 
 app.get("/join", (req, res) => {

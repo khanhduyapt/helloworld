@@ -29,13 +29,12 @@
 }
 
 .app__buttons {
+  background-image: linear-gradient(45deg, #363638, #363638);
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: transparent;
-  position: absolute;
-  left: 15px;
-  bottom: 12px;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
 }
 
 .app__buttons-normal {
@@ -94,23 +93,6 @@
   background: white;
   transform: scale(1.07);
 }
-
-.img__button {
-  background: transparent;
-  border-radius: 6px;
-  margin: 10px;
-  cursor: pointer;
-  transition: transform 10ms;
-  outline: none;
-  border: none;
-}
-
-.img__button > img {
-  width: 40px;
-  background: white;
-  border-radius: 10px;
-  padding: 0 5px;
-}
 /* ------------------------------------------------- */
 
 .app__contents {
@@ -122,10 +104,10 @@
   padding-right: 5px;
   padding-bottom: 5px;
   position: fixed;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  top: 110px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
 }
 
 /* ----------------------------------- */
@@ -133,32 +115,24 @@
 /* ----------------------------------- */
 .app__right {
   display: flex;
-  flex: 0.25;
   flex-direction: column;
+  min-width: 350px;
+  max-width: 350px;
   margin-left: 5px;
+  margin-right: 5px;
   border-radius: 10px;
   border: none;
   overflow-y: auto;
 }
-.app__right__chat {
-  height: 40%;
-}
 
-.app__right__video {
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-.app__right__chatContents {
+.app__right__bottom-chat {
   background-image: linear-gradient(to left, #1c1c1f, #363638);
   border-radius: 10px;
-  height: 100%;
   border: 1px solid #ccc;
+  flex: 1;
   margin-top: 5px;
   overflow-y: auto;
+  height: auto;
   min-height: 30px;
 }
 
@@ -190,20 +164,18 @@
 }
 
 /* ----------------------------------- */
-
-.app__right__chatInput {
+.app__right__bottom-chatInput {
   display: flex;
   align-items: center;
-  height: 50px;
-  margin-top: 5px;
+  height: 60px;
 }
 
-.app__right__chatInput > form {
+.app__right__bottom-chatInput > form {
   display: flex;
   flex: 1;
 }
 
-.app__right__chatInput > form > input {
+.app__right__bottom-chatInput > form > input {
   border-radius: 10px;
   padding: 10px;
   border: none;
@@ -212,24 +184,21 @@
   width: 100% !important;
 }
 
-.app__right__chatInput > form > button {
-  border-radius: 10px;
-  margin: 0 0 0 5px;
-  background: #ccc;
-  outline: none;
-  border: none;
-  color: gray;
+.app__right__bottom-chatInput > form > button {
+  display: none;
 }
 
 /* ----------------------------------- */
 
-.app__center {
+.app__center-lecture {
   background-image: linear-gradient(to right, #1c1c1f, #363638);
-  flex: 0.75;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-left: 5px;
+  margin-right: 5px;
   margin-top: 5px;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -238,25 +207,24 @@
 
 .app__center_teacherVideo {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  flex: 0.5;
-  border-radius: 10px;
-  margin-bottom: 5px;
+  margin: 5px;
 }
 
 .app__center_studentVideo {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  flex: 0.5;
-  border-radius: 10px;
+  margin: 5px;
 }
 
 .video_600_800 {
   height: auto;
   width: 100%;
   object-fit: cover;
+  padding: 5px;
+  margin: 5px;
   border-radius: 10px;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
@@ -265,6 +233,8 @@
   height: auto;
   width: 100%;
   object-fit: cover;
+  padding: 5px;
+  margin: 5px;
   border-radius: 10px;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }

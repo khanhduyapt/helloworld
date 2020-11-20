@@ -7,7 +7,7 @@
     <style>
       .wrapper {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(10, 1fr);
         grid-auto-rows: 98vh;
         gap: 5px;
         position: relative;
@@ -15,7 +15,7 @@
       .box1 {
         background: aqua;
         grid-column-start: 1;
-        grid-column-end: 1;
+        grid-column-end: 8;
         grid-row-start: 1;
         grid-row-end: 1;
         position: relative;
@@ -24,35 +24,33 @@
       }
       .box2 {
         background: chocolate;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 23vw;
-        height: 400px;
+        grid-column-start: 8;
+        grid-column-end: 11;
+        grid-row-start: 1;
+        grid-row-end: 1;
+        position: relative;
+        width: 100%;
+        height: 48vh;
       }
       .box3 {
         background: lightblue;
-        position: absolute;
-        height: fit-content;
-        right: 0px;
-        top: 400px;
-        width: 23vw;
-      }
-
-      .box3_full {
-        background: lightblue;
-        position: absolute;
-        height: 95vh;
-        right: 0px;
-        left: 0px;
-        top: 30px;
-        width: 75vw;
+        grid-column-start: 8;
+        grid-column-end: 11;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        margin-top: -51vh;
       }
     </style>
   </head>
   <body>
     <div class="wrapper">
-      <div class="box1">One</div>
+      <div class="box1">
+        <div class="top">One top</div>
+        <div class="top">One bottom</div>
+      </div>
       <div class="box2">Two</div>
       <div class="box3">Three</div>
     </div>
