@@ -136,7 +136,7 @@ io.on("connection", (socket) => {
 
   //#region JOIN ROOM
   socket.on("step1_new_client_join_room", (data) => {
-    console.log("step1_new_client_join_room" + JSON.stringify(data));
+    console.log("step1_new_client " + JSON.stringify(data));
 
     const room_id = data.room_id;
     const client_socket_id = data.client_socket_id;
@@ -156,16 +156,33 @@ io.on("connection", (socket) => {
       (id) => id !== client_socket_id
     );
 
-    if (otherUsersInThisRoom) {
-      console.log("otherUsers:", JSON.stringify(otherUsersInThisRoom));
-      io.sockets.emit("step2_server_notice_all_users", otherUsersInThisRoom);
+    if (otherUsersInThisRoom.length > 0) {
+      console.log("   otherUsers:", otherUsersInThisRoom[0]);
+      // io.sockets.emit("step2_server_notice_all_users", otherUsersInThisRoom[0]);
+
+      // io.sockets.emit("step2_server_notice_all_users", otherUsersInThisRoom[0]);
+      io.to(otherUsersInThisRoom[0]).emit(
+        "step2_server_notice_all_users",
+        client_socket_id
+      );
+      io.to(client_socket_id).emit(
+        "step2_server_notice_all_users",
+        otherUsersInThisRoom[0]
+      );
     }
   });
 
-  socket.on("step3_client_sending_signal_one_by_one", (payload) => {
-    io.to(payload.server_socket_id).emit("step4_server_emit_has_user_joined", {
-      signal: payload.signal,
-      callerID: payload.client_socket_id,
+  socket.on("step3_client_sending_signal", (data) => {
+    console.log(
+      "step3_client_sending signal to: " +
+        data.to_socket_id +
+        " from: " +
+        data.from_socket_id
+    );
+
+    io.to(data.to_socket_id).emit("step4_server_emit_has_signal", {
+      signal: data.signal,
+      callerID: data.from_socket_id,
     });
   });
 

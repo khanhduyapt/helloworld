@@ -20,7 +20,7 @@
       <p hidden id="message">message</p>
     </div>
 
-    <div class="app__right" id="divChat">
+    <div class="app__right" id="divChat" style="visibility: collapse">
       <div class="app__right__chat">
         <div class="app__right__chatContents" id="app__right__chatContents">
           <!-- <p class="chat__receiver">
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="app__right__video" id="divVideos">
+    <div class="app__right__videoFullScreen" id="divVideos">
       <div id="teacherVideoGrid"></div>
       <div id="studentVideoGrid"></div>
     </div>
@@ -65,16 +65,16 @@
       >
         <img src="/icons/mic-24px.svg" alt="Video" />
       </button>
-      <button class="img__button" id="startButton" alt="Share Screen">
+      <button class="img__button" id="startButton">
         <img src="/icons/screen_share-24px.svg" alt="Share Screen" />
       </button>
-      <button class="img__button" id="btn50_50" alt="Share Screen">
-        <img src="/icons/people_outline-24px.svg" alt="Share Screen" />
+      <button class="img__button" id="btn50_50">
+        <img id="img5050" src="/icons/people_outline-24px.svg" alt="50 50" />
       </button>
-      <button class="img__button" id="btnChat" alt="Share Screen">
+      <button class="img__button" id="btnChat">
         <img
           id="imgChat"
-          src="/icons/speaker_notes-24px.svg"
+          src="/icons/speaker_notes_off-24px.svg"
           alt="Share Screen"
         />
       </button>

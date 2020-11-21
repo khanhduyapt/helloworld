@@ -62,9 +62,17 @@ btn50_50.addEventListener("click", () => {
   if (divVideos.classList.contains("app__right__videoFullScreen")) {
     divVideos.classList.remove("app__right__videoFullScreen");
     divVideos.classList.add("app__right__video");
+
+    document
+      .getElementById("img5050")
+      .setAttribute("src", "/icons/view_sidebar-24px.svg");
   } else {
     divVideos.classList.remove("app__right__video");
     divVideos.classList.add("app__right__videoFullScreen");
+
+    document
+      .getElementById("img5050")
+      .setAttribute("src", "/icons/people_outline-24px.svg");
   }
 });
 

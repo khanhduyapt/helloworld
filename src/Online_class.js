@@ -4,12 +4,11 @@ window.onload = function () {
   const socket = io("/");
 
   const Peer = require("simple-peer");
-  var peers = [];
-  var peersRef = [];
-  const videoConstraints = {
-    height: 600,
-    width: 800,
-  };
+
+  var localPeer;
+  var friendSocketId;
+
+  const videoConstraints = { width: { exact: 960 }, height: { exact: 720 } };
 
   var btnSubmitMessage = document.getElementById("btnSubmitMessage");
   btnSubmitMessage.addEventListener("click", function (event) {
@@ -38,67 +37,72 @@ window.onload = function () {
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then((stream) => {
-        var video = document.getElementById("studentVideo");
+        let video = document.getElementById("studentVideo");
         if (!video) video = document.createElement("video");
+        video.setAttribute("id", socket.id);
         addStudentVideoStream(video, stream);
 
         socket.emit("step1_new_client_join_room", {
           room_id: $("#roomId").val(),
           client_socket_id: socket.id,
         });
-
-        socket.on("step2_server_notice_all_users", (usersInThisRoom) => {
-          console.log(usersInThisRoom);
-          const peersFromServer = [];
-          usersInThisRoom.forEach((server_socket_id) => {
-            console.log(server_socket_id);
-            const newPeer = createPeer(server_socket_id, socket.id, stream);
-            peersFromServer.push(newPeer);
-
-            peersRef.push({
-              peerID: server_socket_id,
-              peer: newPeer,
-            });
-            console.log("peersRef", peersRef);
-          });
-
-          peers = [...peersFromServer];
-          console.log(peers);
-        });
-
-        socket.on("step4_server_emit_has_user_joined", (payload) => {
-          console.log("step4_server_emit_has_user_joined");
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.push({
-            peerID: payload.callerID,
-            peer,
-          });
-
-          peers = [...peers, peer];
-          console.log("add to peers");
-        });
-
-        socket.on("step6_server_receiving_returned_signal", (payload) => {
-          console.log("step6_server_receiving_returned_signal");
-
-          const item = peersRef.find((p) => p.peerID === payload.id);
-          if (item === null) return;
-
-          item.peer.signal(payload.signal);
-          item.peer.on("stream", (stream) => {
-            var video = document.createElement("video");
-
-            addTeacherVideoStream(video, stream);
-
-            console.log(payload.id + "streaming...");
-          });
-        });
-
-        socket.on("step7_server_notice_disconnect", (userId) => {
-          $("#" + userId).remove();
-        });
       });
   };
+
+  socket.on("step2_server_notice_all_users", (friend_socket_id) => {
+    if (friend_socket_id != socket.id) {
+      friendSocketId = friend_socket_id;
+      let myVideo = document.getElementById("studentVideo");
+
+      localPeer = new Peer({
+        initiator: true,
+        trickle: false,
+        stream: myVideo.srcObject,
+      });
+
+      localPeer.on("signal", (signal) => {
+        socket.emit("step3_client_sending_signal", {
+          to_socket_id: friend_socket_id,
+          from_socket_id: socket.id,
+          signal,
+        });
+      });
+    }
+  });
+
+  socket.on("step4_server_emit_has_signal", (payload) => {
+    const friendPeer = new Peer({
+      initiator: false,
+      trickle: false,
+    });
+    friendPeer.signal(payload.signal);
+
+    console.log("step5_client_returning_signal", payload);
+
+    friendPeer.on("signal", (signal) => {
+      socket.emit("step5_client_returning_signal", {
+        signal,
+        callerID: payload.callerID,
+      });
+    });
+
+    friendPeer.on("stream", (stream) => {
+      var video = document.createElement("video");
+      video.setAttribute("id", friendSocketId);
+      addTeacherVideoStream(video, stream);
+
+      console.log("friendPeer streaming...");
+    });
+  });
+
+  socket.on("step6_server_receiving_returned_signal", (payload) => {
+    localPeer.signal(payload.signal);
+    console.log("step6_server_receiving_returned_signal");
+  });
+
+  socket.on("step7_server_notice_disconnect", (userId) => {
+    $("#" + userId).remove();
+  });
 
   window.btnTurnOffMicClick = function () {
     console.log("btnTurnOffMicClick");
@@ -133,44 +137,5 @@ window.onload = function () {
     video.className = "video_300_400";
     video.id = "studentVideo";
     $("#studentVideoGrid").append(video);
-  }
-
-  function createPeer(server_socket_id, client_socket_id, stream) {
-    const newPeer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
-    });
-
-    newPeer.on("signal", (signal) => {
-      console.log(
-        "createPeer=>signal=>sending signal to:",
-        server_socket_id,
-        client_socket_id
-      );
-      socket.emit("step3_client_sending_signal_one_by_one", {
-        server_socket_id: server_socket_id,
-        client_socket_id: client_socket_id,
-        signal,
-      });
-    });
-
-    return newPeer;
-  }
-
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream,
-    });
-
-    peer.on("signal", (signal) => {
-      socket.emit("step5_client_returning_signal", { signal, callerID });
-    });
-
-    peer.signal(incomingSignal);
-
-    return peer;
   }
 };
