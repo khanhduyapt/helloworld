@@ -14,7 +14,6 @@
     "@google-cloud/firestore": "^4.7.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "exprss": "0.0.1-security",
     "jquery": "^3.5.1",
     "simple-peer": "^9.9.3",
     "socket.io": "^3.0.3",
