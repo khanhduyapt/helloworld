@@ -8,7 +8,7 @@ window.onload = function () {
   var localPeer;
   var friendSocketId;
 
-  const videoConstraints = { width: { exact: 960 }, height: { exact: 720 } };
+  const videoConstraints = { width: { exact: 640 }, height: { exact: 480 } };
 
   var btnSubmitMessage = document.getElementById("btnSubmitMessage");
   btnSubmitMessage.addEventListener("click", function (event) {
@@ -97,7 +97,6 @@ window.onload = function () {
 
   socket.on("step6_server_receiving_returned_signal", (payload) => {
     localPeer.signal(payload.signal);
-    console.log("step6_server_receiving_returned_signal");
   });
 
   socket.on("step7_server_notice_disconnect", (userId) => {
