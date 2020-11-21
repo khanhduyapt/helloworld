@@ -54,22 +54,36 @@ if (navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices) {
 }
 //=============================================================
 
-const btn70_30 = document.getElementById("btn70_30");
-btn70_30.addEventListener("click", () => {
-  console.log("btn50_50");
-});
-
 const btn50_50 = document.getElementById("btn50_50");
 btn50_50.addEventListener("click", () => {
   console.log("btn50_50");
-  let divAppCenter = document.getElementById("divAppCenter");
-  let divAppRight = document.getElementById("divAppRight");
+  let divVideos = document.getElementById("divVideos");
 
-  divAppCenter.setAttribute("visibility", "collapse");
-  // divAppRight.
+  if (divVideos.classList.contains("app__right__videoFullScreen")) {
+    divVideos.classList.remove("app__right__videoFullScreen");
+    divVideos.classList.add("app__right__video");
+  } else {
+    divVideos.classList.remove("app__right__video");
+    divVideos.classList.add("app__right__videoFullScreen");
+  }
 });
 
 const btnChat = document.getElementById("btnChat");
 btnChat.addEventListener("click", () => {
   console.log("btnChat");
+  let divChat = document.getElementById("divChat");
+  let visibility = divChat.style.visibility;
+  if (visibility === "collapse") {
+    document
+      .getElementById("imgChat")
+      .setAttribute("src", "/icons/speaker_notes-24px.svg");
+
+    divChat.style.visibility = "visible";
+  } else {
+    document
+      .getElementById("imgChat")
+      .setAttribute("src", "/icons/speaker_notes_off-24px.svg");
+
+    divChat.style.visibility = "collapse";
+  }
 });

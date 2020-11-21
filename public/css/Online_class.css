@@ -4,30 +4,20 @@
   color: black;
 }
 
-.app {
-  background: #4190c1;
-  display: grid;
+.app__contents {
+  background-image: linear-gradient(45deg, #363638, #363638);
+  display: flex;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding-top: 0;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  justify-content: center;
+  height: 99vh;
+  position: relative;
+  border-radius: 10px;
+  flex-direction: row;
+  margin: 5px;
   overflow: hidden;
 }
 
-.app__body {
-  display: flex;
-  flex-direction: column;
-  background-color: #ededed;
-  margin: 0;
-  height: 98vh;
-  width: 100%;
-  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
-  border-radius: 10px;
-}
-
+/* ------------------------------------------------- */
 .app__buttons {
   display: flex;
   flex-direction: row;
@@ -103,6 +93,11 @@
   transition: transform 10ms;
   outline: none;
   border: none;
+  transition: transform 10ms;
+}
+
+.img__button:hover {
+  transform: scale(1.1);
 }
 
 .img__button > img {
@@ -111,37 +106,27 @@
   border-radius: 10px;
   padding: 0 5px;
 }
-/* ------------------------------------------------- */
-
-.app__contents {
-  background-image: linear-gradient(45deg, #363638, #363638);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
-  position: fixed;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-}
 
 /* ----------------------------------- */
 
 /* ----------------------------------- */
 .app__right {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 20vw;
+  height: 40vh;
+  z-index: 100;
   display: flex;
-  flex: 0.25;
   flex-direction: column;
   margin-left: 5px;
   border-radius: 10px;
   border: none;
   overflow-y: auto;
 }
+
 .app__right__chat {
-  height: 40%;
+  height: 80%;
 }
 
 .app__right__video {
@@ -149,7 +134,22 @@
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  position: absolute;
+  height: fit-content;
+  right: 0px;
+  top: 40vh;
+  width: 23vw;
+  margin-right: 10px;
+}
+
+.app__right__videoFullScreen {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  width: 100%;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
 }
 
 .app__right__chatContents {
@@ -223,36 +223,6 @@
 
 /* ----------------------------------- */
 
-.app__center {
-  background-image: linear-gradient(to right, #1c1c1f, #363638);
-  flex: 0.75;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-top: 5px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  overflow: auto;
-}
-
-.app__center_teacherVideo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex: 0.5;
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-.app__center_studentVideo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex: 0.5;
-  border-radius: 10px;
-}
-
 .video_600_800 {
   height: auto;
   width: 100%;
@@ -267,4 +237,8 @@
   object-fit: cover;
   border-radius: 10px;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+}
+
+#screenVideo {
+  height: 98vh;
 }

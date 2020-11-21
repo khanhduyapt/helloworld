@@ -147,8 +147,7 @@ io.on("connection", (socket) => {
         return;
       }
 
-      if (!usersInRoom[room_id].filter((id) => id == client_socket_id))
-        usersInRoom[room_id].push(client_socket_id);
+      usersInRoom[room_id].push(client_socket_id);
     } else {
       usersInRoom[room_id] = [client_socket_id];
     }
