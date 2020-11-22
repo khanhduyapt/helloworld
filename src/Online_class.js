@@ -5,11 +5,6 @@ window.onload = function () {
 
   const Peer = require("simple-peer");
 
-  var localPeer;
-  var friendSocketId;
-
-  const videoConstraints = { width: { exact: 640 }, height: { exact: 480 } };
-
   var btnSubmitMessage = document.getElementById("btnSubmitMessage");
   btnSubmitMessage.addEventListener("click", function (event) {
     event.preventDefault();
@@ -31,11 +26,16 @@ window.onload = function () {
     );
   });
 
+  var localPeer;
+  const videoConstraints = {
+    width: { min: 640, max: 1280 },
+    height: { min: 480, max: 720 },
+  };
   window.btnTurnOnCameraClick = function () {
     console.log("btnTurnOnCameraClick");
 
     navigator.mediaDevices
-      .getUserMedia({ video: videoConstraints, audio: true })
+      .getUserMedia({ video: videoConstraints, audio: false })
       .then((stream) => {
         let video = document.getElementById("studentVideo");
         if (!video) video = document.createElement("video");
@@ -51,7 +51,7 @@ window.onload = function () {
 
   socket.on("step2_server_notice_all_users", (friend_socket_id) => {
     if (friend_socket_id != socket.id) {
-      friendSocketId = friend_socket_id;
+      $("#to_socket_id").val = friend_socket_id;
       let myVideo = document.getElementById("studentVideo");
 
       localPeer = new Peer({
@@ -88,7 +88,7 @@ window.onload = function () {
 
     friendPeer.on("stream", (stream) => {
       var video = document.createElement("video");
-      video.setAttribute("id", friendSocketId);
+      video.setAttribute("id", $("#to_socket_id").val());
       addTeacherVideoStream(video, stream);
 
       console.log("friendPeer streaming...");
@@ -103,16 +103,130 @@ window.onload = function () {
     $("#" + userId).remove();
   });
 
+  //#region Share Screen, peer1 sends screen video to peer2.
+  var peer1;
+  var peer2;
+
+  window.btnShareScreenClick = function () {
+    console.log("btnShareScreenClick");
+    navigator.mediaDevices
+      .getDisplayMedia({
+        video: { width: screen.width, height: screen.height },
+        audio: true,
+      })
+      .then((stream) => {
+        var video = document.getElementById("screenVideo");
+        video.srcObject = stream;
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+        });
+
+        socket.emit("screen1_teacher_share_screen", {
+          room_id: $("#roomId").val(),
+          fr_id: socket.id,
+        });
+      })
+      .catch(() => {});
+  };
+
+  socket.on("screen2_server_notice_share_screen", (friend_socket_id) => {
+    if (friend_socket_id != socket.id) {
+      var screenVideo = document.getElementById("screenVideo");
+      console.log("screen2_server_notice_share_screen", friend_socket_id);
+      peer1 = new Peer({
+        initiator: true,
+        trickle: false,
+        stream: screenVideo.srcObject,
+      });
+
+      peer1.on("signal", (signal) => {
+        socket.emit("screen3_client_screen_signal", {
+          to_socket_id: friend_socket_id,
+          from_socket_id: socket.id,
+          signal,
+        });
+      });
+    }
+  });
+
+  socket.on("screen4_server_emit_sceen_signal", (payload) => {
+    console.log("screen4_server_emit_sceen_signal", payload);
+
+    const peer2 = new Peer({
+      initiator: false,
+      trickle: false,
+    });
+    peer2.signal(payload.signal);
+    peer2.on("signal", (signal) => {
+      socket.emit("screen5_client_returning_sceen_signal", {
+        signal,
+        callerID: payload.callerID,
+      });
+    });
+
+    peer2.on("stream", (stream) => {
+      var video = document.getElementById("screenVideo");
+      video.srcObject = stream;
+      video.addEventListener("loadedmetadata", () => {
+        video.play();
+      });
+
+      console.log("peer2 streaming...");
+    });
+  });
+
+  socket.on("screen6_server_returned_sceen_signal", (payload) => {
+    peer1.signal(payload.signal);
+  });
+
+  //#endregion Share Screen
+
   window.btnTurnOffMicClick = function () {
     console.log("btnTurnOffMicClick");
   };
 
-  window.btnShareScreenClick = function () {
-    console.log("btnShareScreenClick");
-  };
-
   window.btnEndCoursesClick = function () {
     console.log("btnEndCoursesClick");
+  };
+
+  window.btnPeople5050Click = function () {
+    console.log("btnPeople5050Click");
+    let divVideos = document.getElementById("divVideos");
+
+    if (divVideos.classList.contains("app__right__videoFullScreen")) {
+      divVideos.classList.remove("app__right__videoFullScreen");
+      divVideos.classList.add("app__right__video");
+
+      document
+        .getElementById("img5050")
+        .setAttribute("src", "/icons/view_sidebar-24px.svg");
+    } else {
+      divVideos.classList.remove("app__right__video");
+      divVideos.classList.add("app__right__videoFullScreen");
+
+      document
+        .getElementById("img5050")
+        .setAttribute("src", "/icons/people_outline-24px.svg");
+    }
+  };
+
+  window.btnShowChatboxClick = function () {
+    console.log("btnShowChatboxClick");
+    let divChat = document.getElementById("divChat");
+    let visibility = divChat.style.visibility;
+    if (visibility === "collapse") {
+      document
+        .getElementById("imgChat")
+        .setAttribute("src", "/icons/speaker_notes-24px.svg");
+
+      divChat.style.visibility = "visible";
+    } else {
+      document
+        .getElementById("imgChat")
+        .setAttribute("src", "/icons/speaker_notes_off-24px.svg");
+
+      divChat.style.visibility = "collapse";
+    }
   };
 
   //------------------------------------------

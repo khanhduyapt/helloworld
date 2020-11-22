@@ -12,11 +12,14 @@ console.log("main.js started!");
 if (adapter.browserDetails.browser == "firefox") {
   adapter.browserShim.shimGetDisplayMedia(window, "screen");
 }
-
+const screenConstraints = {
+  width: screen.width,
+  height: screen.height,
+};
 const startButton = document.getElementById("startButton");
 startButton.addEventListener("click", () => {
   navigator.mediaDevices
-    .getDisplayMedia({ video: true })
+    .getDisplayMedia({ audio: true, video: screenConstraints })
     .then(handleSuccess, handleError);
 });
 
@@ -38,11 +41,13 @@ function handleError(error) {
 }
 
 function errorMsg(msg, error) {
-  const errorElement = document.querySelector("#errorMsg");
-  errorElement.innerHTML += `<p>${msg}</p>`;
-  if (typeof error !== "undefined") {
-    console.error(error);
-  }
+  alert(msg + "<br>" + error);
+  // const errorElement = document.querySelector("#errorMsg");
+  // //errorElement.innerHTML += `<p>${msg}</p>`;
+  // errorElement.innerHTML += "<p>" + msg + "</p>";
+  // if (typeof error !== "undefined") {
+  //   console.error(error);
+  // }
 }
 
 if (navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices) {
@@ -54,44 +59,44 @@ if (navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices) {
 }
 //=============================================================
 
-const btn50_50 = document.getElementById("btn50_50");
-btn50_50.addEventListener("click", () => {
-  console.log("btn50_50");
-  let divVideos = document.getElementById("divVideos");
+// const btn50_50 = document.getElementById("btn50_50");
+// btn50_50.addEventListener("click", () => {
+//   console.log("btn50_50");
+//   let divVideos = document.getElementById("divVideos");
 
-  if (divVideos.classList.contains("app__right__videoFullScreen")) {
-    divVideos.classList.remove("app__right__videoFullScreen");
-    divVideos.classList.add("app__right__video");
+//   if (divVideos.classList.contains("app__right__videoFullScreen")) {
+//     divVideos.classList.remove("app__right__videoFullScreen");
+//     divVideos.classList.add("app__right__video");
 
-    document
-      .getElementById("img5050")
-      .setAttribute("src", "/icons/view_sidebar-24px.svg");
-  } else {
-    divVideos.classList.remove("app__right__video");
-    divVideos.classList.add("app__right__videoFullScreen");
+//     document
+//       .getElementById("img5050")
+//       .setAttribute("src", "/icons/view_sidebar-24px.svg");
+//   } else {
+//     divVideos.classList.remove("app__right__video");
+//     divVideos.classList.add("app__right__videoFullScreen");
 
-    document
-      .getElementById("img5050")
-      .setAttribute("src", "/icons/people_outline-24px.svg");
-  }
-});
+//     document
+//       .getElementById("img5050")
+//       .setAttribute("src", "/icons/people_outline-24px.svg");
+//   }
+// });
 
-const btnChat = document.getElementById("btnChat");
-btnChat.addEventListener("click", () => {
-  console.log("btnChat");
-  let divChat = document.getElementById("divChat");
-  let visibility = divChat.style.visibility;
-  if (visibility === "collapse") {
-    document
-      .getElementById("imgChat")
-      .setAttribute("src", "/icons/speaker_notes-24px.svg");
+// const btnChat = document.getElementById("btnChat");
+// btnChat.addEventListener("click", () => {
+//   console.log("btnChat");
+//   let divChat = document.getElementById("divChat");
+//   let visibility = divChat.style.visibility;
+//   if (visibility === "collapse") {
+//     document
+//       .getElementById("imgChat")
+//       .setAttribute("src", "/icons/speaker_notes-24px.svg");
 
-    divChat.style.visibility = "visible";
-  } else {
-    document
-      .getElementById("imgChat")
-      .setAttribute("src", "/icons/speaker_notes_off-24px.svg");
+//     divChat.style.visibility = "visible";
+//   } else {
+//     document
+//       .getElementById("imgChat")
+//       .setAttribute("src", "/icons/speaker_notes_off-24px.svg");
 
-    divChat.style.visibility = "collapse";
-  }
-});
+//     divChat.style.visibility = "collapse";
+//   }
+// });

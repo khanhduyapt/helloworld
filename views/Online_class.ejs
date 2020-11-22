@@ -6,17 +6,16 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/Online_class.css?v=1" />
     <script src="bundle.js"></script>
-    <script src="/js/adapter-latest.js" defer></script>
-    <script src="/js/main.js" defer></script>
   </head>
   <body class="app__contents">
-    <video id="screenVideo" autoplay playsinline muted></video>
+    <video id="screenVideo" autoplay playsinline></video>
 
     <div style="visibility: hidden">
       <input type="text" hidden value="<%= roomId %>" id="roomId" /><br />
-      <input type="text" hidden id="userId" alt="userId" /><br />
-      <input type="text" hidden id="userName" alt="userName" /><br />
-      <input type="text" hidden id="fullName" alt="fullName" /><br />
+      <input type="text" hidden id="to_socket_id" /><br />
+      <input type="text" hidden id="userId" /><br />
+      <input type="text" hidden id="userName" /><br />
+      <input type="text" hidden id="fullName" /><br />
       <p hidden id="message">message</p>
     </div>
 
@@ -65,13 +64,18 @@
       >
         <img src="/icons/mic-24px.svg" alt="Video" />
       </button>
-      <button class="img__button" id="startButton">
-        <img src="/icons/screen_share-24px.svg" alt="Share Screen" />
+      <button
+        class="img__button"
+        id="btnShareScreen"
+        onclick="btnShareScreenClick()"
+      >
+        <img src="/icons/screen_share-24px.svg" />
       </button>
-      <button class="img__button" id="btn50_50">
+
+      <button class="img__button" id="btn50_50" onclick="btnPeople5050Click()">
         <img id="img5050" src="/icons/people_outline-24px.svg" alt="50 50" />
       </button>
-      <button class="img__button" id="btnChat">
+      <button class="img__button" id="btnChat" onclick="btnShowChatboxClick()">
         <img
           id="imgChat"
           src="/icons/speaker_notes_off-24px.svg"
