@@ -1,0 +1,33 @@
+.carousel {
+  height: 600px !important;
+}
+
+.carousel__item > img {
+  height: 600px !important;
+  object-fit: cover;
+  width: 100%;
+  max-height: 600px !important;
+  margin: auto;
+  display: block;
+}
+
+.carousel__item__aption {
+  border-radius: 50px;
+  color: #fff;
+  text-align: center;
+  top: 40%;
+  position: absolute;
+  user-select: none;
+  line-height: 1.25;
+  margin-bottom: 1em;
+  font-weight: 100;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.8);
+}
+
+.carousel__item__aption > h1 {
+  font-size: 4em !important;
+}
+
+.carousel__item__aption > p {
+  font-size: 3em !important;
+}
