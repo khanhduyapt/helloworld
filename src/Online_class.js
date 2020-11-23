@@ -8,7 +8,7 @@ window.onload = function () {
   var btnSubmitMessage = document.getElementById("btnSubmitMessage");
   btnSubmitMessage.addEventListener("click", function (event) {
     event.preventDefault();
-    var message = $("#txtMessage").val();
+    let message = $("#txtMessage").val();
     $("#app__right__chatContents").append(
       `<p class="chat__receiver"><span class="chat__name">Duydk</span>` +
         message +
@@ -87,7 +87,7 @@ window.onload = function () {
     });
 
     friendPeer.on("stream", (stream) => {
-      var video = document.createElement("video");
+      let video = document.createElement("video");
       video.setAttribute("id", $("#to_socket_id").val());
       addTeacherVideoStream(video, stream);
 
@@ -115,7 +115,7 @@ window.onload = function () {
         audio: true,
       })
       .then((stream) => {
-        var video = document.getElementById("screenVideo");
+        let video = document.getElementById("screenVideo");
         video.srcObject = stream;
         video.addEventListener("loadedmetadata", () => {
           video.play();
@@ -125,13 +125,23 @@ window.onload = function () {
           room_id: $("#roomId").val(),
           fr_id: socket.id,
         });
+
+        stream.getVideoTracks()[0].addEventListener("ended", () => {
+          socket.emit("screen7_client_ended_share_screen", {
+            room_id: $("#roomId").val(),
+            fr_id: socket.id,
+            to_id: $("#to_socket_id").val(),
+          });
+        });
+
+        showPeople5050SmallAtRight();
       })
       .catch(() => {});
   };
 
   socket.on("screen2_server_notice_share_screen", (friend_socket_id) => {
     if (friend_socket_id != socket.id) {
-      var screenVideo = document.getElementById("screenVideo");
+      let screenVideo = document.getElementById("screenVideo");
       console.log("screen2_server_notice_share_screen", friend_socket_id);
       peer1 = new Peer({
         initiator: true,
@@ -165,12 +175,13 @@ window.onload = function () {
     });
 
     peer2.on("stream", (stream) => {
-      var video = document.getElementById("screenVideo");
+      let video = document.getElementById("screenVideo");
       video.srcObject = stream;
       video.addEventListener("loadedmetadata", () => {
         video.play();
       });
 
+      showPeople5050SmallAtRight();
       console.log("peer2 streaming...");
     });
   });
@@ -179,6 +190,13 @@ window.onload = function () {
     peer1.signal(payload.signal);
   });
 
+  socket.on("screen7_server_ended_share_screen", (payload) => {
+    let screenVideo = document.getElementById("screenVideo");
+    screenVideo.srcObject = null;
+
+    showPeople5050FullScreen();
+    console.log("ended share screen");
+  });
   //#endregion Share Screen
 
   window.btnTurnOffMicClick = function () {
@@ -194,19 +212,9 @@ window.onload = function () {
     let divVideos = document.getElementById("divVideos");
 
     if (divVideos.classList.contains("app__right__videoFullScreen")) {
-      divVideos.classList.remove("app__right__videoFullScreen");
-      divVideos.classList.add("app__right__video");
-
-      document
-        .getElementById("img5050")
-        .setAttribute("src", "/icons/view_sidebar-24px.svg");
+      showPeople5050SmallAtRight();
     } else {
-      divVideos.classList.remove("app__right__video");
-      divVideos.classList.add("app__right__videoFullScreen");
-
-      document
-        .getElementById("img5050")
-        .setAttribute("src", "/icons/people_outline-24px.svg");
+      showPeople5050FullScreen();
     }
   };
 
@@ -230,7 +238,27 @@ window.onload = function () {
   };
 
   //------------------------------------------
+  function showPeople5050SmallAtRight() {
+    let divVideos = document.getElementById("divVideos");
 
+    divVideos.classList.remove("app__right__videoFullScreen");
+    divVideos.classList.add("app__right__video");
+
+    document
+      .getElementById("img5050")
+      .setAttribute("src", "/icons/view_sidebar-24px.svg");
+  }
+
+  function showPeople5050FullScreen() {
+    let divVideos = document.getElementById("divVideos");
+
+    divVideos.classList.remove("app__right__video");
+    divVideos.classList.add("app__right__videoFullScreen");
+
+    document
+      .getElementById("img5050")
+      .setAttribute("src", "/icons/people_outline-24px.svg");
+  }
   //------------------------------------------
 
   function addTeacherVideoStream(video, stream) {

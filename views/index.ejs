@@ -53,7 +53,11 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="box1">One</div>
+      <div class="box1">
+        <form action="/logout?_method=DELETE" method="POST">
+          <button type="submit">Log Out</button>
+        </form>
+      </div>
       <div class="box2">Two</div>
       <div class="box3">Three</div>
     </div>
