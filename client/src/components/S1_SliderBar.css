@@ -1,5 +1,14 @@
-.carousel {
+.sliderbar {
   height: 600px !important;
+}
+
+.carousel-indicators > li {
+  visibility: collapse;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  top: auto;
 }
 
 .carousel__item > img {
@@ -21,13 +30,26 @@
   line-height: 1.25;
   margin-bottom: 1em;
   font-weight: 100;
-  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.8);
+  text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.9);
 }
 
 .carousel__item__aption > h1 {
-  font-size: 4em !important;
+  font-size: 3.5em !important;
 }
 
 .carousel__item__aption > p {
-  font-size: 3em !important;
+  font-size: 2.5em !important;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 1200px) {
+  .carousel {
+    height: 600px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel {
+    height: 300px !important;
+  }
 }

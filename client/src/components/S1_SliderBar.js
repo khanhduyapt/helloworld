@@ -1,8 +1,9 @@
 import React, { createRef, useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
-import "./SliderBar.css";
-function SliderBar() {
+import "./S1_SliderBar.css";
+
+function S1_SliderBar() {
   const photos = [
     {
       name: "photo1",
@@ -26,12 +27,11 @@ function SliderBar() {
   };
 
   return (
-    <div>
+    <div className="sliderbar">
       <Carousel
         className="carousel"
         activeIndex={index}
         onSelect={handleSelect}
-        data-interval="1000"
       >
         {photos.map((photo) => {
           return (
@@ -53,4 +53,4 @@ function SliderBar() {
   );
 }
 
-export default SliderBar;
+export default S1_SliderBar;
