@@ -6,11 +6,11 @@
 }
 
 .app {
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     rgba(50, 165, 105, 0.3) 1px,
     transparent 0px
   );
-  background-size: 20px 20px;
+  background-size: 20px 20px; */
 
   display: flex;
   flex-direction: column;
@@ -21,6 +21,20 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+}
+
+.blog__header {
+  padding-top: 5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.textLeft {
+  text-align: left;
 }
 
 h1 {

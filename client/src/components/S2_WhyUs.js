@@ -1,5 +1,8 @@
 import React from "react";
 import "./S2_WhyUs.css";
+import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
+
 function S2_WhyUs() {
   return (
     <div className="whyus">
@@ -40,34 +43,11 @@ function S2_WhyUs() {
         </ul>
       </div>
 
-      <div className="whyus__online">
-        <div className="whyus__online__title">
-          <h2>Tại sao lựa chọn tiếng Anh trực tuyến?</h2>
-        </div>
-        <ul className="whyus__online__benefit">
-          <li className="online1">
-            Không cần đưa đón
-            <br />
-            Có thể học ở bất kỳ đâu bạn thích.
-          </li>
-          <li className="online2">
-            Dễ dàng bắt đầu ngay hôm nay
-            <br />
-            Lựa chọn thời gian phù hợp với bé.
-          </li>
-          <li className="online3">
-            Học thử miễn phí
-            <br />
-            Lựa chọn lộ trình phù hợp với lứa tuổi.
-          </li>
-        </ul>
-      </div>
-
       <div className="whyus__motive__detail">
         <ul>
           <li id="motive1" className="skewR">
             <div className="skewL">
-              <div class="detailBox posR">
+              <div className="detailBox posR">
                 <h5>
                   <span>楽しみながら英語が身につく</span>
                 </h5>
@@ -82,23 +62,20 @@ function S2_WhyUs() {
                   </span>
                   んです。
                 </p>
-                <div class="linkBtn sizeM darkBtn bgff0">
-                  <a
-                    href="https://www.ripple-kidspark.com/user/curriculum/"
-                    id="motive1"
-                  >
+                <div className="linkBtn sizeM darkBtn bgff0">
+                  <a href="https://www.ripple-kidspark.com/user/curriculum/">
                     レッスンの特徴を詳しく見る
                   </a>
                 </div>
                 <a href="#motive2">
-                  <div class="nextMotive">NEXT</div>
+                  <div className="nextMotive">NEXT</div>
                 </a>
               </div>
             </div>
           </li>
           <li id="motive2" className="skewL">
             <div className="skewR">
-              <div class="detailBox posL nonview">
+              <div className="detailBox posL nonview">
                 <h5>
                   <span>英語経験ゼロからはじめられる</span>
                 </h5>
@@ -111,23 +88,20 @@ function S2_WhyUs() {
                   <span>累計レッスン数271万回超えの豊富な経験</span>
                   があり、最初は簡単な日本語も交えてレッスンを進められるので、まったくの未経験者もご安心ください。
                 </p>
-                <div class="linkBtn sizeM darkBtn bgff0">
-                  <a
-                    href="https://www.ripple-kidspark.com/user/ripple/teacher.php"
-                    id="motive2"
-                  >
+                <div className="linkBtn sizeM darkBtn bgff0">
+                  <a href="https://www.ripple-kidspark.com/user/ripple/teacher.php">
                     先生たちを詳しく見る
                   </a>
                 </div>
                 <a href="#motive3">
-                  <div class="nextMotive">NEXT</div>
+                  <div className="nextMotive">NEXT</div>
                 </a>
               </div>
             </div>
           </li>
           <li id="motive3" className="skewR">
             <div className="skewL">
-              <div class="detailBox posR">
+              <div className="detailBox posR">
                 <h5>
                   <span>月々2838円から、お手軽に</span>
                 </h5>
@@ -139,23 +113,20 @@ function S2_WhyUs() {
                   例えば、週2プランでご入会いただき、2人のお子様で週1回ずつレッスンを分ければ、お子様1人につき
                   <span>実質、月々2222円</span>でご受講いただけます。
                 </p>
-                <div class="linkBtn sizeM darkBtn bgff0">
-                  <a
-                    href="https://www.ripple-kidspark.com/user/payment/payment.php"
-                    id="motive3"
-                  >
+                <div className="linkBtn sizeM darkBtn bgff0">
+                  <a href="https://www.ripple-kidspark.com/user/payment/payment.php">
                     料金プランを詳しく見る
                   </a>
                 </div>
                 <a href="#motive4">
-                  <div class="nextMotive">NEXT</div>
+                  <div className="nextMotive">NEXT</div>
                 </a>
               </div>
             </div>
           </li>
           <li id="motive4" className="skewL">
             <div className="skewR">
-              <div class="detailBox posL nonview">
+              <div className="detailBox posL nonview">
                 <h5>
                   <span>日本の事務局が、しっかりサポート</span>
                 </h5>
@@ -168,13 +139,11 @@ function S2_WhyUs() {
                   <span>99.8%のお客様にご満足</span>
                   いただいております。ご不安なことがありましたら、まずは事務局にお問い合わせください。
                 </p>
-                <div class="linkBtn sizeM darkBtn bgff0">
-                  <a href="#inquiry" id="motive4">
-                    事務局に問い合わせる
-                  </a>
+                <div className="linkBtn sizeM darkBtn bgff0">
+                  <a href="#inquiry">事務局に問い合わせる</a>
                 </div>
-                <a href="#strength">
-                  <div class="nextMotive">NEXT</div>
+                <a href="#eduprogram">
+                  <div className="nextMotive">NEXT</div>
                 </a>
               </div>
             </div>
@@ -182,52 +151,74 @@ function S2_WhyUs() {
         </ul>
       </div>
 
-      <div className="whyus__strength skewR">
-        <div className="skewL">
-          <h5>
-            <span>
-              まだまだある、
-              <br class="br-sp" />
-              リップルキッズパークならではの強み
-            </span>
-          </h5>
-          <ul>
-            <li>
-              <ul>
-                <li>トラブルがあった際には、振替レッスンで対応</li>
-                <li>事前の申請があれば、レッスンの繰り越しも</li>
-              </ul>
-            </li>
-            <li>
-              <ul>
-                <li>9段階のレベル判定で最適なレッスンを</li>
-                <li>複数人で並んでレッスンも可能</li>
-              </ul>
-            </li>
-          </ul>
-          <div class="linkBtn sizeM darkBtn bgff0">
-            <a
-              href="https://www.ripple-kidspark.com/u/advantage/"
-              id="advantage"
-            >
-              詳しく見る
-            </a>
-          </div>
-        </div>
-      </div>
+      <div className="whyus__online">
+        <h1 className="blog__header">Điểm đặc biệt của Kimini</h1>
 
-      <div class="whyus__regist">
-        <div class="registinnner">
-          <span>2回まで完全無料で体験できる</span>
-          <div class="linkBtn sizeL registBtn">
-            <a
-              href="https://www.ripple-kidspark.com/user/login/member_regist.php"
-              id="registarea_regist1"
-            >
-              無料の体験レッスンを受ける
-            </a>
-          </div>
-        </div>
+        <CardDeck>
+          <Card className="whyus__online__benefit">
+            <Card.Header>Chú trọng vào tiếng Anh giao tiếp</Card.Header>
+            <Card.Img
+              variant="top"
+              src="https://glats.co.jp/static/img/home/Feature_img01_pc.jpg"
+            />
+            <Card.Body>
+              <Card.Text className="textLeft">
+                Sau khi chọn khóa học, lộ trình và nội dung khóa học sẽ bán sát
+                trình độ của bé.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Các bài kiểm tra nhỏ được ghép vào khóa học thông qua các trò
+                chơi.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Báo cáo kết quả học tập của con hàng tháng bằng email.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+
+          <Card className="whyus__online__benefit">
+            <Card.Header>Video Call trên nhiều thiết bị khác nhau</Card.Header>
+            <Card.Img
+              variant="top"
+              src="https://glats.co.jp/static/img/home/Feature_img02_pc.jpg"
+            />
+            <Card.Body>
+              <Card.Text className="textLeft">
+                Có thể học trực tiếp với giáo viên bằng Video Call trên trình
+                duyệt web của máy tính hoặc Ipad mà không cần cài đặt phức tạp.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Có thể dùng smart phone nếu không có máy tính, cô giáo sẽ giảng
+                bài trực tiếp qua app.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Luôn hướng đến phương án tốt nhất, phù hợp nhất với điều kiện
+                của học viên.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+
+          <Card className="whyus__online__benefit">
+            <Card.Header>Học theo lộ trình với thời gian phù hợp</Card.Header>
+            <Card.Img
+              variant="top"
+              src="https://glats.co.jp/static/img/home/Feature_img03_pc.jpg"
+            />
+            <Card.Body>
+              <Card.Text className="textLeft">
+                Có thể học bất kỳ thời điểm nào trong ngày.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Giao tiếp với giáo viên hàng tuần sẽ tạo sự tự tin khi giao
+                tiếp.
+              </Card.Text>
+              <Card.Text className="textLeft">
+                Một kèm một nên không phải lo lắng khi mắc lỗi với các học sinh
+                khác. Giáo viên sẽ nhẹ nhàng hỗ trợ sự phát triển của bé.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </CardDeck>
       </div>
     </div>
   );

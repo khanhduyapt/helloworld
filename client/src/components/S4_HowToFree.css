@@ -1,0 +1,64 @@
+.howfree {
+  width: 90%;
+  height: 50vh;
+  margin: 3rem auto 3rem;
+  text-align: center;
+}
+
+.howfree__bg {
+  background-size: cover;
+  background-image: url("https://image.shutterstock.com/z/stock-photo-contact-us-hand-of-a-businessman-holding-a-mobile-smartphone-with-the-icon-contact-us-connection-1135079063.jpg");
+  background-position: bottom;
+  background-attachment: fixed;
+}
+
+.howfree > .form-title {
+  color: #fff;
+  margin-top: 6rem;
+}
+
+.howfree__toast {
+  position: absolute;
+  right: 6vw;
+}
+
+.howfree__container {
+  width: 660px;
+  position: relative;
+  margin: 0 auto;
+  padding: 50px 10px;
+}
+
+.howfree__input {
+  width: 100%;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.howfree__submit {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  border: none;
+  border: 2px solid #f58200;
+  background-image: linear-gradient(to left, #74ebd5, #9face6);
+}
+.howfree__submit:hover {
+  background-image: linear-gradient(to left, #68e6cf, #92a0e0);
+}
+
+.howfree__require {
+  color: red;
+  text-align: left;
+  margin-left: 20px;
+}

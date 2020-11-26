@@ -1,5 +1,5 @@
 .sliderbar {
-  height: 600px !important;
+  height: 80vh !important;
 }
 
 .carousel-indicators > li {
@@ -8,14 +8,14 @@
 
 .carousel-control-next,
 .carousel-control-prev {
-  top: auto;
+  top: 40vh !important;
 }
 
 .carousel__item > img {
-  height: 600px !important;
+  height: 80vh !important;
   object-fit: cover;
   width: 100%;
-  max-height: 600px !important;
+  max-height: 90vh !important;
   margin: auto;
   display: block;
 }

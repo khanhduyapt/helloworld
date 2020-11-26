@@ -1,0 +1,220 @@
+.lession {
+  width: 90%;
+  height: 60vh;
+  margin: 0 auto 3rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+.lession:hover {
+  box-shadow: 2px 2px 1px 0px rgba(245, 130, 0, 0.7);
+}
+
+/* --------------------------------------------------- */
+.courses {
+  color: #fff;
+  transition: all 0.3s ease;
+  padding: 0;
+  border-radius: 20px;
+  transition: transform 0.1s;
+}
+.courses:hover {
+  transform: scale(1.01);
+}
+.courses > img {
+  border-radius: 0 0 20px 20px;
+  height: 18vh;
+}
+
+.courses1 {
+  background-color: #f89c1b;
+}
+.courses2 {
+  background-color: #ee3f60;
+}
+.courses3 {
+  background-color: #f36f21;
+}
+.courses4 {
+  background-color: #782a90;
+}
+.courses5 {
+  background-color: #007dc5;
+}
+.courses6 {
+  background-color: #dd1735;
+}
+.course__header1 {
+  color: #f89c1b;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.course__body1 {
+  background-image: url("https://llv.edu.vn/wp-content/themes/llf/images/vyl/herobanner-vyl.jpg");
+  background-size: cover;
+}
+
+.sourse__body1__icon {
+  position: absolute;
+  left: 30vw;
+}
+.sourse__body1__ul {
+  margin-left: 50vw;
+  margin-right: 1vw;
+  width: 40vw !important;
+  text-align: left;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sourse__body1__ul > li {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.sourse__body1__ul > li > h3 {
+  font-weight: 600;
+}
+
+.sourse__body1__li1 {
+  margin-left: 50px;
+  margin-bottom: 25px;
+  width: 25vw;
+  background: rgba(255, 170, 60, 0.3);
+}
+
+.sourse__body1__li2 {
+  margin-left: 150px;
+  margin-bottom: 25px;
+  width: 25vw;
+  background: rgba(255, 190, 51, 0.3);
+}
+
+.sourse__body1__li3 {
+  margin-left: 250px;
+  width: 25vw;
+  background-color: #fc3;
+  background: rgba(255, 216, 59, 0.3);
+}
+
+.course__body2 {
+  background-image: url("https://llv.edu.vn/wp-content/themes/llf/images/yl/herobanner-yl.jpg");
+  background-size: cover;
+}
+
+.course__body3 {
+  background-image: url("https://llv.edu.vn/wp-content/themes/llf/images/te/herobanner-te.jpg");
+  background-size: cover;
+}
+
+/* 
+.course__body4 {
+  background-image: url("");
+  background-size: cover;
+}
+
+.course__body5 {
+  background-image: url("");
+  background-size: cover;
+}
+
+.course__body6 {
+  background-image: url("");
+  background-size: cover;
+} */
+
+/* 
+@media screen and (min-width: 1280px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 205px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 162px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 768px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 200px;
+    margin: 20px 20px 0;
+  }
+}
+@media screen and (min-width: 640px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 195px;
+    margin: 5px 2px 0;
+  }
+}
+@media screen and (min-width: 480px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 195px;
+    margin: 10px 15px;
+  }
+}
+@media screen and (min-width: 414px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 185px;
+    margin: 2px;
+  }
+}
+@media screen and (min-width: 375px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 170px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 321px) {
+  .courses1,
+  .courses2,
+  .courses3,
+  .courses4,
+  .courses5,
+  .courses6 {
+    width: 195px;
+    margin: 5px 50px;
+  }
+} */
+/* --------------------------------------------------- */

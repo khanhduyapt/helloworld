@@ -1,0 +1,14 @@
+.navbar {
+  box-shadow: 2px 2px 1px 0px #ebebeb;
+}
+
+.navbar-brand {
+  font-size: 1.8rem !important;
+  font-weight: 700;
+}
+
+.nav-link {
+  font-size: 1.5rem !important;
+  font-weight: 600;
+  margin-right: 20px;
+}

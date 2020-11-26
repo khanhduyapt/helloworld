@@ -7,17 +7,18 @@ function S1_SliderBar() {
   const photos = [
     {
       name: "photo1",
-      url: "https://sohanews.sohacdn.com/2014/t565467-59b76.jpg",
+      url:
+        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198178.jpg",
     },
     {
       name: "photo2",
       url:
-        "https://image.plo.vn/w653/Uploaded/2020/vocgmvbg/2015_05_15/quynhchi_lapw.jpg",
+        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
     },
     {
       name: "photo3",
       url:
-        "https://nguoi-noi-tieng.com/photo/tieu-su-chi-pu-nguyen-thuy-chi-2445.jpg",
+        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
     },
   ];
   const [index, setIndex] = useState(0);

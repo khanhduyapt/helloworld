@@ -1,0 +1,36 @@
+.tabs {
+  text-align: center;
+  margin-top: 2vh;
+}
+
+.tab__buttons {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-right: 15px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+  transition: all ease-in-out 0.2s;
+  border-bottom: 10px solid transparent;
+}
+button:focus {
+  outline: none;
+}
+
+.tab__buttons > .active {
+  border-bottom: 10px solid #42b3f4;
+  color: black;
+}
+
+.courses__header {
+  width: 200px;
+  height: 130px;
+}
+.courses > img {
+  width: 200px;
+}

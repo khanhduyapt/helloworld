@@ -1,9 +1,9 @@
 .whyus {
-  padding-top: calc(3rem + 70px);
-  background: url(http://localhost:3000/img/bg_pc.webp) center 0 #f5f5f5;
+  padding-top: 3rem;
+  /* background: url(http://localhost:3000/img/bg_pc.webp) center 0 #f5f5f5;
   background-repeat: repeat;
   background-size: 160px 160px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid gray; */
 }
 
 .whyus__title {
@@ -17,16 +17,16 @@
 }
 
 .motive1 {
-  background-image: url("https://www.ripple-kidspark.com/u/common/images/index/motive1_ic.png");
+  background-image: url("https://image.shutterstock.com/image-photo/asian-girl-student-wear-wireless-600w-1687801057.jpg");
 }
 .motive2 {
-  background-image: url("https://www.ripple-kidspark.com/u/common/images/index/motive2_ic.png");
+  background-image: url("https://image.shutterstock.com/image-photo/asian-girl-student-online-learning-600w-1675256440.jpg");
 }
 .motive3 {
-  background-image: url("https://www.ripple-kidspark.com/u/common/images/index/motive3_ic.png");
+  background-image: url("https://image.shutterstock.com/image-photo/cute-asian-little-child-girl-600w-1007688394.jpg");
 }
 .motive4 {
-  background-image: url("https://www.ripple-kidspark.com/u/common/images/index/motive4_ic.png");
+  background-image: url("https://image.shutterstock.com/image-photo/female-customer-support-operator-headset-600w-663954997.jpg");
 }
 
 .whyus__motive__box {
@@ -37,7 +37,7 @@
   min-height: 300px;
   margin: 20px;
   border-radius: 50%;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 1px 1px rgba(245, 130, 0, 0.7);
 }
 
 .whyus__motive__box > a {
@@ -45,11 +45,11 @@
   width: 100%;
   height: 100%;
   text-align: center;
-
   display: inline-block;
   flex-flow: column;
   justify-content: center;
-  color: black;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
   padding-left: 10px;
   padding-right: 10px;
   transition: transform 0.1s;
@@ -74,22 +74,14 @@
 /* ---------------------------------------------------------------------------- */
 /* #region Online */
 .whyus__online {
-  width: 85%;
-  max-width: 960px;
-  min-width: 720px;
-  margin: 0 auto 3rem;
-  padding: 1.5rem 0.5rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.8);
+  width: 90%;
+  height: fit-content;
+  margin: 3rem auto 3rem;
+  border: none;
   text-align: center;
-  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  transition: transform 0.1s;
-}
-.whyus__online:hover {
-  transform: scale(1.01);
 }
 
-.whyus__online__title {
+.whyus__online__header {
   display: inline-block;
   height: 1.4rem;
   background: url("https://www.ripple-kidspark.com/u/common/images/common/ripplele.png")
@@ -98,35 +90,28 @@
 }
 
 .whyus__online__benefit {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.online1 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/online1.png")
-    no-repeat 50% 30% /3rem;
-}
-.online2 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/online2.png")
-    no-repeat 50% 30% /3rem;
-}
-.online3 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/online3.png")
-    no-repeat 50% 30% /3rem;
-}
-.whyus__online__benefit > li {
   width: calc(100% / 3);
-  height: auto;
-  padding: 4rem 0.3rem 0;
-  font-size: 0.8rem;
+  margin-bottom: 3rem;
   line-height: 1rem;
   font-weight: 600;
   font: inherit;
   font-size: 1.2rem;
-  height: fit-content;
+  border: 1px solid #f58200;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
 }
+.whyus__online__benefit:hover {
+  transform: scale(1.01);
+  box-shadow: 2px 2px 1px 0px rgba(245, 130, 0, 0.7);
+}
+
+.card-header {
+  background: #f58200;
+  font-size: 1.5rem;
+  padding: 5px;
+  border-radius: 9px 9px 0 0 !important;
+}
+
 /* #endregion */
 
 /* #region motive__detail */
@@ -134,12 +119,13 @@
   position: relative;
   width: 100%;
   margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 .whyus__motive__detail > ul > li {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   min-height: 500px;
   overflow: hidden;
   display: inline-block;
@@ -152,25 +138,25 @@
 }
 
 #motive1 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/motive1.jpg")
+  background: url("https://image.shutterstock.com/image-photo/covid19-coronavirus-learning-home-school-600w-1676310628.jpg")
     right 45% no-repeat;
   background-size: cover;
   margin-top: 0;
 }
 #motive2 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/motive2.jpg")
+  background: url("https://image.shutterstock.com/image-photo/asian-girl-student-online-learning-600w-1675256440.jpg")
     right 45% no-repeat;
   background-size: cover;
   margin-top: -3rem;
 }
 #motive3 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/motive3.jpg")
+  background: url("https://image.shutterstock.com/image-photo/cute-asian-little-child-girl-600w-1007688394.jpg")
     right 45% no-repeat;
   background-size: cover;
   margin-top: -3rem;
 }
 #motive4 {
-  background: url("https://www.ripple-kidspark.com/u/common/images/index/motive4.jpg")
+  background: url("https://image.shutterstock.com/image-photo/female-customer-support-operator-headset-600w-663954997.jpg")
     right 45% no-repeat;
   background-size: cover;
   margin-top: -3rem;
@@ -178,9 +164,9 @@
 
 .detailBox {
   position: absolute;
-  top: calc(50vh - 1.5rem);
+  top: calc(40vh - 1.5rem);
   transform: translate(0, -50%);
-  width: 45%;
+  width: 30%;
   padding: 1rem 1rem;
   background: rgba(255, 255, 255, 0.8);
   opacity: 1;
@@ -197,7 +183,7 @@
 }
 
 .nonview {
-  opacity: 0.2;
+  opacity: 0.7;
   transition: all 0.7s;
   transform: translate(-3rem, -50%);
 }
