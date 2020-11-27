@@ -2,6 +2,8 @@ import React from "react";
 import "./S4_Courses.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
+import CourseModal from "./commons/CourseModal";
+import Rating from "./commons/Rating";
 
 function S4_Courses() {
   const contents = [
@@ -57,20 +59,43 @@ function S4_Courses() {
     },
   ];
 
+  const [modalShow, setModalShow] = React.useState(false);
+  const [modalData, setModalData] = React.useState([]);
+
   return (
     <div className="s4sourses">
+      <CourseModal
+        data={modalData}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+
       <h1 className="blog__header">Các khóa học nổi bật</h1>
       <div className="special__courses">
         <CardDeck className="special__courses__deck">
           {contents.map((course) => {
             return (
-              <Card className="special__courses__card">
-                <Card.Img variant="top" src={course.imgage} />
+              <Card className="special__courses__card" key={course.course_name}>
+                <Card.Img
+                  variant="top"
+                  src={course.imgage}
+                  className="card__link"
+                  onClick={() => {
+                    setModalData(course);
+                    setModalShow(true);
+                  }}
+                />
                 <Card.Body>
-                  <Card.Text className="textLeft">
-                    <a href={course.url}>{course.course_name}</a>
-                  </Card.Text>
-                  <Card.Text className="textLeft">
+                  <p
+                    className="card__link textLeft"
+                    onClick={() => {
+                      setModalData(course);
+                      setModalShow(true);
+                    }}
+                  >
+                    {course.course_name}
+                  </p>
+                  <div className="textLeft">
                     <div className="courses__card__lession">
                       <div className="courses__card__lession-item">
                         <p>Tiết học</p>
@@ -81,7 +106,7 @@ function S4_Courses() {
                         <p className="bold"> {course.lessions}</p>
                       </div>
                     </div>
-                  </Card.Text>
+                  </div>
                 </Card.Body>
                 <Card.Footer className="courses__card__footer text-muted">
                   <img src="http://localhost:3000/icon/www.png" alt="Web"></img>
@@ -93,13 +118,8 @@ function S4_Courses() {
                     src="http://localhost:3000/icon/zoom.png"
                     alt="Zoom"
                   ></img>
-                  <div className="courses__card__rating">
-                    {Array(5)
-                      .fill()
-                      .map((_, i) => (
-                        <p>⭐</p>
-                      ))}
-                  </div>
+
+                  <Rating star={5} />
                 </Card.Footer>
               </Card>
             );

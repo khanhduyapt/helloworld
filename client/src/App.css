@@ -37,6 +37,30 @@
   text-align: left;
 }
 
+.card__link {
+  cursor: pointer;
+  color: #0977bc;
+  text-decoration: underline;
+}
+.card__link:hover {
+  text-decoration: none;
+}
+
+.overlay {
+  position: relative;
+}
+
+.overlay:after {
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+}
 h1 {
   font-size: 3rem !important;
   letter-spacing: 0.05em !important;

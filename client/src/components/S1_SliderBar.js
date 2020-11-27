@@ -1,4 +1,4 @@
-import React, { createRef, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
 import "./S1_SliderBar.css";
@@ -21,8 +21,8 @@ function S1_SliderBar() {
         "https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
     },
   ];
-  const [index, setIndex] = useState(0);
 
+  const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
@@ -34,9 +34,9 @@ function S1_SliderBar() {
         activeIndex={index}
         onSelect={handleSelect}
       >
-        {photos.map((photo) => {
+        {photos.map((photo, idx) => {
           return (
-            <Carousel.Item className="carousel__item" key={photo.name}>
+            <Carousel.Item className="carousel__item" key={idx}>
               <img src={photo.url} alt={photo.name}></img>
 
               <Carousel.Caption className="carousel__item__aption">

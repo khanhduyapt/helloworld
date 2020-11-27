@@ -1,0 +1,30 @@
+.video__samples {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  padding: 0px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.video__samples__deck {
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(4, 20%);
+  grid-column-gap: 10px;
+  justify-content: center;
+}
+
+.video__samples__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.video__samples__player {
+  width: 100%;
+  min-width: 250px;
+  height: 250px !important;
+}

@@ -42,6 +42,7 @@ const TabButtons = ({ buttons, changeTab, activeTab }) => {
       {buttons.map((button) => {
         return (
           <button
+            key={button.id}
             className={button.id === activeTab ? "active" : ""}
             onClick={() => changeTab(button.id)}
           >

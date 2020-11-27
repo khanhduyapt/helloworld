@@ -17,8 +17,13 @@
 }
 
 .special__courses__card {
-  ]margin: 0 auto !important;
+  margin: 0 auto !important;
   margin-top: 10px !important;
+  max-width: 300px;
+}
+
+.special__courses__card > img {
+  object-fit: cover;
 }
 
 .courses__card__lession {
@@ -43,11 +48,4 @@
 .courses__card__footer > img {
   height: 30px;
   padding: 0;
-}
-
-.courses__card__rating {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  height: 25px;
 }

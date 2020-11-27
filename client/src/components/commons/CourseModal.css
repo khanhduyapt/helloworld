@@ -1,0 +1,22 @@
+.course__modal__60w {
+  width: 60%;
+  max-width: none !important;
+}
+
+.course__modal {
+  display: flex;
+}
+
+.couse__modal__left {
+  flex: 0.4;
+}
+
+.couse__modal__left-img {
+  max-width: 400px;
+  width: 100%;
+}
+
+.couse__modal__center {
+  flex: 0.6;
+  margin-left: 10px;
+}
