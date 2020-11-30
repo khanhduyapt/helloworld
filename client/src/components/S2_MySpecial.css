@@ -1,0 +1,19 @@
+.myspecial {
+  width: 90%;
+  height: fit-content;
+  margin: 3rem auto 3rem;
+  border: none;
+  text-align: center;
+}
+
+.myspecial__content {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.myspecial__content__deck {
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-column-gap: 10px;
+  justify-content: space-evenly;
+}

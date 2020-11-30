@@ -1,0 +1,19 @@
+.infinite__content {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.infinite__content__deck {
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-column-gap: 10px;
+  justify-content: space-evenly;
+}
+
+.infinite__loading {
+  text-align: center;
+}
+
+.infinite__error {
+  text-align: left;
+}

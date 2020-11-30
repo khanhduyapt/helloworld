@@ -11,108 +11,10 @@
   margin-bottom: 2rem;
 }
 
-.whyus__motive > ul {
+.whyus__motive {
   display: flex;
   justify-content: center;
 }
-
-.motive1 {
-  background-image: url("https://image.shutterstock.com/image-photo/asian-girl-student-wear-wireless-600w-1687801057.jpg");
-}
-.motive2 {
-  background-image: url("https://image.shutterstock.com/image-photo/asian-girl-student-online-learning-600w-1675256440.jpg");
-}
-.motive3 {
-  background-image: url("https://image.shutterstock.com/image-photo/cute-asian-little-child-girl-600w-1007688394.jpg");
-}
-.motive4 {
-  background-image: url("https://image.shutterstock.com/image-photo/female-customer-support-operator-headset-600w-663954997.jpg");
-}
-
-.whyus__motive__box {
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-  min-width: 300px;
-  min-height: 300px;
-  margin: 20px;
-  border-radius: 50%;
-  box-shadow: 1px 1px 1px 1px rgba(245, 130, 0, 0.7);
-}
-
-.whyus__motive__box > a {
-  text-decoration: none;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  display: inline-block;
-  flex-flow: column;
-  justify-content: center;
-  color: white;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-  padding-left: 10px;
-  padding-right: 10px;
-  transition: transform 0.1s;
-}
-
-.whyus__motive__box > a:hover {
-  transform: scale(1.05);
-  color: #e34140;
-}
-
-.whyus__motive__box > a > h1 {
-  height: 30%;
-  padding-top: 15%;
-  font-weight: 600;
-}
-
-.whyus__motive__box > a > h3 {
-  height: 65%;
-  padding-top: 10px;
-}
-
-/* ---------------------------------------------------------------------------- */
-/* #region Online */
-.whyus__online {
-  width: 90%;
-  height: fit-content;
-  margin: 3rem auto 3rem;
-  border: none;
-  text-align: center;
-}
-
-.whyus__online__header {
-  display: inline-block;
-  height: 1.4rem;
-  background: url("https://www.ripple-kidspark.com/u/common/images/common/ripplele.png")
-    no-repeat left top / 1.4rem;
-  margin-bottom: 1rem;
-}
-
-.whyus__online__benefit {
-  width: calc(100% / 3);
-  margin-bottom: 3rem;
-  line-height: 1rem;
-  font-weight: 600;
-  font: inherit;
-  font-size: 1.2rem;
-  border: 1px solid #f58200;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
-}
-.whyus__online__benefit:hover {
-  transform: scale(1.01);
-  box-shadow: 2px 2px 1px 0px rgba(245, 130, 0, 0.7);
-}
-
-.card-header {
-  background: #f58200;
-  font-size: 1.5rem;
-  padding: 5px;
-  border-radius: 9px 9px 0 0 !important;
-}
-
-/* #endregion */
 
 /* #region motive__detail */
 .whyus__motive__detail {
@@ -172,6 +74,8 @@
   opacity: 1;
   transition: all 0.7s;
   z-index: 1000;
+  background: rgba(255, 170, 60, 0.3);
+  border-radius: 10px;
 }
 
 .posR {
@@ -183,7 +87,7 @@
 }
 
 .nonview {
-  opacity: 0.7;
+  opacity: 1;
   transition: all 0.7s;
   transform: translate(-3rem, -50%);
 }

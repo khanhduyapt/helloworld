@@ -1,0 +1,36 @@
+.mediumCard {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  border: 1px solid #f58200;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+.mediumCard:hover {
+  box-shadow: 2px 2px 1px 0px rgba(245, 130, 0, 0.7);
+}
+
+.mediumCard__header {
+  background: #f58200;
+  font-size: 1.5rem;
+  height: 10%;
+  padding: 5px;
+  margin: 0;
+  border-radius: 9px 9px 0 0 !important;
+}
+
+.mediumCard__img {
+  width: 100%;
+  height: 40%;
+  min-height: 40%;
+  object-fit: cover;
+}
+
+.mediumCard__contents {
+  margin: 0;
+  padding: 1.25rem;
+}
+
+.mediumCard__contents > p {
+  text-align: left;
+}

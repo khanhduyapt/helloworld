@@ -1,0 +1,38 @@
+.roundCard {
+  width: 15vw;
+  height: 15vw;
+  min-width: 15vw;
+  min-height: 15vw;
+  margin: 20px;
+  border-radius: 50%;
+  box-shadow: 1px 1px 1px 1px rgba(245, 130, 0, 0.7);
+}
+
+.roundCard > a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: inline-block;
+  flex-flow: column;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: transform 0.1s;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.roundCard > a:hover {
+  text-decoration: none;
+}
+
+.roundCard > a > h1 {
+  height: 30%;
+  padding-top: 15%;
+  font-weight: 600;
+}
+
+.roundCard > a > h3 {
+  height: 65%;
+  padding-top: 10px;
+}

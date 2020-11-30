@@ -1,0 +1,44 @@
+.articleCard {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  margin-bottom: 4vh;
+}
+
+.articleCard__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.articleCard__header {
+  display: flex;
+  padding: 10px;
+  padding-left: 0;
+  justify-content: space-between;
+}
+
+.articleCard__header__title {
+  padding: 0;
+  margin: 0;
+}
+
+.articleCard__header__reads {
+  display: flex;
+}
+
+.articleCard__header__reads > svg {
+  margin-top: 5px;
+  color: #076db6;
+}
+
+.articleCard__header__reads > p {
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #076db6;
+}
+
+.articleCard__caterogy__name {
+  margin: 0;
+}

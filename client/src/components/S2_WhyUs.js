@@ -1,7 +1,6 @@
 import React from "react";
 import "./S2_WhyUs.css";
-import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
+import RoundCard from "./commons/RoundCard";
 
 function S2_WhyUs() {
   return (
@@ -10,37 +9,40 @@ function S2_WhyUs() {
         <h1>Tại sao Ripple Kids Park được chọn</h1>
       </div>
       <div className="whyus__motive">
-        <ul>
-          <li className="whyus__motive__box motive1">
-            <a href="#motive1" id="tomotive1">
-              <h1>1</h1>
-              <h3>Học tiếng Anh trong khi vui chơi</h3>
-            </a>
-          </li>
+        <RoundCard
+          image="https://image.shutterstock.com/image-photo/asian-girl-student-wear-wireless-600w-1687801057.jpg"
+          href="#motive1"
+          item_index="1"
+          title="Học tiếng Anh trong khi vui chơi"
+        />
 
-          <li className="whyus__motive__box motive2">
-            <a href="#motive2" id="tomotive2">
-              <h1>2</h1>
-              <h3>Bắt đầu từ con số 0</h3>
-            </a>
-          </li>
+        <RoundCard
+          image="https://image.shutterstock.com/image-photo/asian-girl-student-online-learning-600w-1675256440.jpg"
+          href="#motive2"
+          item_index="2"
+          title="Bắt đầu từ con số 0"
+        />
 
-          <li className="whyus__motive__box motive3">
-            <a href="#motive3" id="tomotive3">
-              <h1>3</h1>
-              <h3>Học dễ dàng chỉ từ 500k 1 tháng</h3>
-            </a>
-          </li>
+        <RoundCard
+          image="https://image.shutterstock.com/image-photo/cute-asian-little-child-girl-600w-1007688394.jpg"
+          href="#motive3"
+          item_index="3"
+          title="Học dễ dàng chỉ từ 500k 1 tháng"
+        />
 
-          <li className="whyus__motive__box motive4">
-            <a href="#motive4" id="tomotive4">
-              <h1>4</h1>
-              <h3>
-                Theo sát quá trình học tập của bé như người thân trong gia đình.
-              </h3>
-            </a>
-          </li>
-        </ul>
+        <RoundCard
+          image="https://image.shutterstock.com/image-photo/female-customer-support-operator-headset-600w-663954997.jpg"
+          href="#motive4"
+          item_index="4"
+          title="Theo sát quá trình học tập của bé"
+        />
+
+        <RoundCard
+          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFhHEDtbjcJc4Yw8e7DyIJMqPzBPNTeVvwHw&usqp=CAU"
+          href="#motive5"
+          item_index="5"
+          title="Đội ngũ kỹ thuật viên tận tình"
+        />
       </div>
 
       <div className="whyus__motive__detail">
@@ -149,76 +151,6 @@ function S2_WhyUs() {
             </div>
           </li>
         </ul>
-      </div>
-
-      <div className="whyus__online">
-        <h1 className="blog__header">Điểm đặc biệt của Kimini</h1>
-
-        <CardDeck>
-          <Card className="whyus__online__benefit">
-            <Card.Header>Chú trọng vào tiếng Anh giao tiếp</Card.Header>
-            <Card.Img
-              variant="top"
-              src="https://glats.co.jp/static/img/home/Feature_img01_pc.jpg"
-            />
-            <Card.Body>
-              <Card.Text className="textLeft">
-                Sau khi chọn khóa học, lộ trình và nội dung khóa học sẽ bán sát
-                trình độ của bé.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Các bài kiểm tra nhỏ được ghép vào khóa học thông qua các trò
-                chơi.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Báo cáo kết quả học tập của con hàng tháng bằng email.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          <Card className="whyus__online__benefit">
-            <Card.Header>Video Call trên nhiều thiết bị khác nhau</Card.Header>
-            <Card.Img
-              variant="top"
-              src="https://glats.co.jp/static/img/home/Feature_img02_pc.jpg"
-            />
-            <Card.Body>
-              <Card.Text className="textLeft">
-                Có thể học trực tiếp với giáo viên bằng Video Call trên trình
-                duyệt web của máy tính hoặc Ipad mà không cần cài đặt phức tạp.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Có thể dùng smart phone nếu không có máy tính, cô giáo sẽ giảng
-                bài trực tiếp qua app.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Luôn hướng đến phương án tốt nhất, phù hợp nhất với điều kiện
-                của học viên.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-
-          <Card className="whyus__online__benefit">
-            <Card.Header>Học theo lộ trình với thời gian phù hợp</Card.Header>
-            <Card.Img
-              variant="top"
-              src="https://glats.co.jp/static/img/home/Feature_img03_pc.jpg"
-            />
-            <Card.Body>
-              <Card.Text className="textLeft">
-                Có thể học bất kỳ thời điểm nào trong ngày.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Giao tiếp với giáo viên hàng tuần sẽ tạo sự tự tin khi giao
-                tiếp.
-              </Card.Text>
-              <Card.Text className="textLeft">
-                Một kèm một nên không phải lo lắng khi mắc lỗi với các học sinh
-                khác. Giáo viên sẽ nhẹ nhàng hỗ trợ sự phát triển của bé.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </CardDeck>
       </div>
     </div>
   );

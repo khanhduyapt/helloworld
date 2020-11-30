@@ -9,17 +9,17 @@
 }
 
 .special__courses__deck {
-  width: 90%;
+  width: 80%;
   display: grid;
-  grid-template-columns: repeat(4, 20%);
-  grid-column-gap: 10px;
+  grid-template-columns: repeat(3, 30%);
+  grid-column-gap: 3vw;
   justify-content: center;
 }
 
 .special__courses__card {
-  margin: 0 auto !important;
-  margin-top: 10px !important;
-  max-width: 300px;
+  width: 100%;
+  margin: 10px;
+  margin-bottom: 4vh !important;
 }
 
 .special__courses__card > img {

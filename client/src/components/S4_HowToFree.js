@@ -14,7 +14,7 @@ function S4_HowToFree() {
   //console.log(watch("full_name")); // watch input value by passing the name of it
 
   return (
-    <div className="howfree__bg">
+    <div className="howfree__bg" id="contacts">
       <div className="howfree">
         <Toast
           className="howfree__toast"

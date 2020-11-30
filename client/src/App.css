@@ -70,31 +70,3 @@ ul {
   list-style: none;
   padding: 0;
 }
-
-#backtoTop {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-size: 0.6rem;
-  transition: all 0.3s;
-  z-index: 9;
-}
-#backtoTop > a {
-  text-decoration: none;
-  display: -webkit-inline-flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: #f58200;
-  color: #fff;
-  width: 5vw;
-  min-width: 50px;
-  max-width: 100px;
-  height: 5vw;
-  min-height: 50px;
-  max-height: 100px;
-  text-align: center;
-  border-radius: 100px;
-  opacity: 0.6;
-  font-size: 1rem;
-}

@@ -49,9 +49,9 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
-  border: none;
   border: 2px solid #f58200;
   background-image: linear-gradient(to left, #74ebd5, #9face6);
+  box-shadow: 0px 12px 50px -12px #ff4c00;
 }
 .howfree__submit:hover {
   background-image: linear-gradient(to left, #68e6cf, #92a0e0);

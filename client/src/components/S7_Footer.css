@@ -1,0 +1,40 @@
+.to_contacts {
+  position: fixed;
+  bottom: 150px;
+  right: 0px;
+  font-size: 1.3rem;
+  transition: all 0.3s;
+  z-index: 10;
+  text-align: center;
+  background: antiquewhite;
+  border-radius: 50px 0 0 50px;
+  padding: 20px 20px 0 30px;
+}
+
+#backtoTop {
+  position: fixed;
+  bottom: 10px;
+  right: 0px;
+  font-size: 0.6rem;
+  transition: all 0.3s;
+  z-index: 9;
+}
+#backtoTop > a {
+  text-decoration: none;
+  display: -webkit-inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #f58200;
+  color: #fff;
+  width: 5vw;
+  min-width: 50px;
+  max-width: 100px;
+  height: 5vw;
+  min-height: 50px;
+  max-height: 100px;
+  text-align: center;
+  border-radius: 100px;
+  opacity: 0.6;
+  font-size: 1rem;
+}
