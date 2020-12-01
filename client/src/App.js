@@ -9,21 +9,33 @@ import S4_HowToFree from "./components/S4_HowToFree";
 import S5_ChoosePlan from "./components/S5_ChoosePlan";
 import S6_InfiniteContents from "./components/S6_InfiniteContents";
 import S7_Footer from "./components/S7_Footer";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import A1_Dashboard from "./admin/A1_Dashboard";
 
 function App() {
   return (
-    <div className="app">
-      <S0_Menu />
-      <S1_SliderBar />
-      <S2_WhyUs />
-      <S2_MySpecial />
-      <S3_Satisfact />
-      <S4_Courses />
-      <S5_ChoosePlan />
-      <S4_HowToFree />
-      <S6_InfiniteContents />
-      <S7_Footer />
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Switch>
+          <Route path="/admin">
+            <A1_Dashboard />
+          </Route>
+
+          <Route path="/">
+            <S0_Menu />
+            <S1_SliderBar />
+            <S2_WhyUs />
+            <S2_MySpecial />
+            <S3_Satisfact />
+            <S4_Courses />
+            <S5_ChoosePlan />
+            <S4_HowToFree />
+            <S6_InfiniteContents />
+            <S7_Footer />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

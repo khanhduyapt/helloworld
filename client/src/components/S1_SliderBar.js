@@ -42,7 +42,7 @@ function S1_SliderBar() {
               <Carousel.Caption className="carousel__item__aption">
                 <h1>First slide label {photo.name}</h1>
                 <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum{" "}
+                  Nulla vitae elit libero, a pharetra augue mollis interdum
                   {photo.name}.
                 </p>
               </Carousel.Caption>

@@ -8,3 +8,17 @@ Content-Type: application/json
 ###
 
 GET "http://localhost:8080/api/students/"
+
+###
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+  "username": "d@d.d",
+  "password": "d"
+}
+
+###
+GET http://localhost:3001/api/posts
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNjc5NjAwMH0.W9SFcFS5I602iBIGkOpwKwm_eXLXg3XxEG99BLhbRFI
+
