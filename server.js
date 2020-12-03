@@ -148,7 +148,7 @@ app.get("/api/articles", (req, res) => {
   // FirestoreClient.getArticles(page).then((data) => {
   //   res.json(data);
   // });
-
+  console.log("/api/articles", new Date().toUTCString());
   const data = [
     {
       id: "3SRDx5JBR3If86u8jC4i",

@@ -1,10 +1,17 @@
+.vocabulary__modal {
+  width: 70vw !important;
+  min-width: 70vw !important;
+}
 .course__modal__60w {
-  width: 60%;
+  width: 80%;
+  height: 80vh;
   max-width: none !important;
 }
 
 .course__modal {
   display: flex;
+  height: 70vh;
+  overflow-y: auto;
 }
 
 .couse__modal__left {

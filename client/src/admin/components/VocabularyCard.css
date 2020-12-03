@@ -1,12 +1,13 @@
 .vocabulary__card {
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .vocabulary__header {
   display: flex;
   flex-direction: row;
-  width: 25vw;
   margin-bottom: 20px;
   border-radius: 10px;
   border: 1px solid #f58200;
@@ -30,9 +31,11 @@
 .vocabulary__header__title {
   font-size: 1.2rem;
   margin: 0;
+  font-weight: 600;
+  color: #0977bc;
 }
 .vocabulary__header__short_content {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0;
 }
 /* ============================================= */
@@ -44,9 +47,18 @@
 }
 
 /* ============================================= */
-.visibility__collapse {
-  visibility: collapse;
+.visibility__hide {
+  display: none;
 }
-.visibility__visible {
-  visibility: visible;
+
+.visibility__show {
+  display: block;
+}
+
+/* ============================================= */
+.vocabulary__header__control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 10px 20px 5px;
 }

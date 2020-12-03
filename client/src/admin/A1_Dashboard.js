@@ -17,6 +17,7 @@ import Satisfact from "./components/Satisfact";
 import ChoosePlan from "./components/ChoosePlan";
 import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
+import VocabularyEditor from "./components/VocabularyEditor";
 
 function A1_Dashboard() {
   return (
@@ -68,6 +69,10 @@ function A1_Dashboard() {
             <Route path="/admin/vocabularies">
               <Vocabularies />
             </Route>
+            <Route
+              path="/admin/vocaeditor"
+              component={VocabularyEditor}
+            ></Route>
           </Switch>
         </div>
       </div>

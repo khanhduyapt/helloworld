@@ -1,0 +1,18 @@
+.vocabulary__editor__controls {
+  display: flex;
+  /* justify-content: space-between; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  border-bottom: 1px solid #f58200;
+  border-radius: 0 0 10px 10px;
+}
+
+.vocabulary__editor__controls_button {
+  font-size: 1.5rem !important;
+  border-radius: 10px;
+}
+
+.vocabulary__editor__main {
+  padding: 20px;
+}

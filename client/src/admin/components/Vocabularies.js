@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Vocabularies.css";
 import axios from "axios";
 import VocabularyCard from "./VocabularyCard";
-import { json } from "express";
+
 // import { DataGrid } from "@material-ui/data-grid";
 
 function Vocabularies() {
@@ -70,7 +70,7 @@ function Vocabularies() {
     <div className="Vocabularies">
       <div className="vocabularies__datagrid">
         {Articles.map((item, index) => {
-          return <VocabularyCard data={item} />;
+          return <VocabularyCard key={`voca_${item.id}`} data={item} />;
         })}
       </div>
     </div>
