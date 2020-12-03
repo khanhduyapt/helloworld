@@ -2,7 +2,7 @@ const FirestoreClient = require("./firestoreClient");
 const { v4: uuidv4 } = require("uuid");
 
 const {
-  FS_COLLECTION_NAME,
+  FS_COLLECTION,
   FS_CENTERS,
   FS_TEACHERS,
   FS_STUDENTS,

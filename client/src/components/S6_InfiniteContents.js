@@ -33,21 +33,21 @@ function S6_InfiniteContents() {
           {books.map((book, index) => {
             if (books.length === index + 1) {
               return (
-                <div ref={lastBookElementRef} key={book}>
-                  {book}
+                <div ref={lastBookElementRef} key={book.id}>
+                  {book.title}
                 </div>
               );
             } else {
               return (
                 <ArticleCard
-                  key={book}
-                  title={book}
+                  key={book.id}
+                  title={book.title}
                   artical_url="https://llv.edu.vn/vi/kham-pha-nhung-cau-noi-khich-le-tinh-than-bang-thanh-ngu-tieng-anh/"
-                  category_name="category_name Ngữ pháp tiếng Anh"
+                  category_name={book.category_name}
                   category_url="https://llv.edu.vn/vi/ngu-phap/"
-                  read_count="153"
-                  short_content="Trong cuộc sống, có nhiều lúc chúng ta sẽ cảm thấy chán nản, xuống tinh thần vì những gian nan, khó khăn, trắc trở. Đôi khi, một câu nói mang tính động viên, khích lệ lại là tất cả những gì chúng ta cần để có thêm động lực vượt qua những sóng gió ấy."
-                  thumbnail="https://llv.edu.vn/media/2020/11/Screenshot_2-1-600x314.jpg"
+                  read_count={book.read_count}
+                  short_content={book.short_content}
+                  thumbnail={book.thumbnail}
                 ></ArticleCard>
               );
             }

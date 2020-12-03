@@ -22,3 +22,38 @@ content-type: application/json
 GET http://localhost:3001/api/posts
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNjc5NjAwMH0.W9SFcFS5I602iBIGkOpwKwm_eXLXg3XxEG99BLhbRFI
 
+###
+
+GET http://localhost:3001/api/students
+
+###
+
+GET http://localhost:3001/api/articles?p=5
+
+###
+
+POST http://localhost:3001/api/article
+content-type: application/json
+
+{
+    "title": "Từ vựng Tiếng Anh về dụng cụ học tập",
+    "thumbnail": "https://www.voca.vn/assets/img/news/market-store-icon-1540363857.jpg",
+    "short_content": "Tổng hợp tất tần tật từ vựng tiếng anh về dụng cụ học tập được trình bày sinh động với hình ảnh, ví dụ, âm thanh giúp bạn dễ dàng ghi nhớ và ứng dụng.",
+    "contents": "Danh sách từ vựng Tiếng Anh về dụng cụ học tập",
+    "category_name": "Từ vựng tiếng Anh theo chủ đề"
+}
+
+###
+
+PUT http://localhost:3001/api/article
+content-type: application/json
+
+{
+  "id": "JLDDsx1AO3MdG65ij2GY",
+  "title": "Từ vựng về các cửa hàng",
+  "thumbnail": "https://www.voca.vn/assets/img/news/market-store-icon-1540363857.jpg",
+  "short_content": "Tổng hợp tất tần tật từ vựng tiếng anh về các cửa hàng được trình bày sinh động với hình ảnh, ví dụ, âm thanh giúp bạn dễ dàng ghi nhớ và ứng dụng.",
+  "contents": "Danh sách từ vựng:",
+  "category_name": "Từ vựng tiếng Anh theo chủ đề"
+}
+

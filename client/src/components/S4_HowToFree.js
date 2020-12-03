@@ -5,7 +5,7 @@ import Toast from "react-bootstrap/Toast";
 
 function S4_HowToFree() {
   const [show, setShow] = useState(false);
-  const { register, handleSubmit, watch, errors, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm();
   const onSubmit = (data) => {
     console.log(data);
     setShow(true);

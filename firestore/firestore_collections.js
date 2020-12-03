@@ -5,13 +5,14 @@ const FS_ROLE = {
   GUEST: "guest",
 };
 
-const FS_COLLECTION_NAME = {
+const FS_COLLECTION = {
   LANGUAGE_CENTERS: "language_centers",
   TEACHERS: "teachers",
   STUDENTS: "students",
   COURSE_INFO: "course_info",
   STUDENT_SCHEDULE: "student_course_schedules",
   COURSE_REPORTS: "course_reports",
+  ARTICLES: "articles",
 };
 
 const FS_CENTERS = {
@@ -88,7 +89,7 @@ const FS_STUDENT_SCHEDULE = {
 };
 
 module.exports = {
-  FS_COLLECTION_NAME: FS_COLLECTION_NAME,
+  FS_COLLECTION: FS_COLLECTION,
   FS_CENTERS: FS_CENTERS,
   FS_TEACHERS: FS_TEACHERS,
   FS_STUDENTS: FS_STUDENTS,

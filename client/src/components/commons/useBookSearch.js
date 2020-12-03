@@ -13,20 +13,21 @@ export default function useBookSearch(pageNumber) {
     let cancel;
     axios({
       method: "GET",
-      url: "http://openlibrary.org/search.json",
-      params: { q: "Game", page: pageNumber },
+      url: "http://localhost:3001/api/articles",
+      params: { p: pageNumber },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
         setBooks((prevBooks) => {
-          return [
-            ...new Set([...prevBooks, ...res.data.docs.map((b) => b.title)]),
-          ];
+          return [...prevBooks, ...res.data];
         });
-        setHasMore(res.data.docs.length > 0);
+
+        // console.log("page:", pageNumber, " data count:", books.length);
+        setHasMore(res.data.length > 0);
         setLoading(false);
       })
       .catch((e) => {
+        console.log("error:", e);
         if (axios.isCancel(e)) return;
         setError(true);
       });

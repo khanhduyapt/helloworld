@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Tabs.css";
 
 export default class Tabs extends React.Component {
@@ -54,7 +54,11 @@ const TabButtons = ({ buttons, changeTab, activeTab }) => {
                 </h3>
               </div>
 
-              <img src={button.image} className="img-responsive"></img>
+              <img
+                src={button.image}
+                alt={button.label}
+                className="img-responsive"
+              ></img>
             </div>
           </button>
         );

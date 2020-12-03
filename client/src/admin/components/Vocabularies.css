@@ -1,0 +1,4 @@
+.vocabularies__datagrid {
+  display: flex;
+  flex-direction: column;
+}

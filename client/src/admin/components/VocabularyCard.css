@@ -1,0 +1,52 @@
+.vocabulary__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.vocabulary__header {
+  display: flex;
+  flex-direction: row;
+  width: 25vw;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+}
+
+.vocabulary__header__img {
+  padding: 10px;
+}
+
+.vocabulary__header__img > img {
+  object-fit: cover;
+  min-width: 7vw;
+  max-width: 7vw;
+}
+
+.vocabulary__header__content {
+  flex: 1;
+  padding: 5px;
+}
+
+.vocabulary__header__title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.vocabulary__header__short_content {
+  font-size: 1rem;
+  margin: 0;
+}
+/* ============================================= */
+.vocabulary__detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* ============================================= */
+.visibility__collapse {
+  visibility: collapse;
+}
+.visibility__visible {
+  visibility: visible;
+}

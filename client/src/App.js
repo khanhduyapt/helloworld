@@ -22,8 +22,8 @@ function App() {
           </Route>
 
           <Route path="/">
-            <S0_Menu />
-            <S1_SliderBar />
+            {/* <S0_Menu /> */}
+            {/* <S1_SliderBar />
             <S2_WhyUs />
             <S2_MySpecial />
             <S3_Satisfact />
@@ -31,7 +31,7 @@ function App() {
             <S5_ChoosePlan />
             <S4_HowToFree />
             <S6_InfiniteContents />
-            <S7_Footer />
+            <S7_Footer /> */}
           </Route>
         </Switch>
       </div>

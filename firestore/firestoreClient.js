@@ -1,7 +1,9 @@
 const Firestore = require("@google-cloud/firestore");
-const { FS_COLLECTION_NAME, FS_ROLE } = require("./firestore_collections");
+const { FS_COLLECTION, FS_ROLE } = require("./firestore_collections");
 
 const path = require("path");
+const { timeStamp } = require("console");
+const { Timestamp } = require("@google-cloud/firestore");
 
 class FirestoreClient {
   constructor() {
@@ -16,50 +18,42 @@ class FirestoreClient {
 
   async saveCenter(data) {
     const docRef = this.Firestore.collection(
-      FS_COLLECTION_NAME.LANGUAGE_CENTERS
+      FS_COLLECTION.LANGUAGE_CENTERS
     ).doc(data.ShortName);
     await docRef.set(data);
   }
 
   async saveTeacher(centerShortName, teacher) {
-    const docRef = this.Firestore.collection(
-      FS_COLLECTION_NAME.LANGUAGE_CENTERS
-    )
+    const docRef = this.Firestore.collection(FS_COLLECTION.LANGUAGE_CENTERS)
       .doc(centerShortName)
-      .collection(FS_COLLECTION_NAME.TEACHERS)
+      .collection(FS_COLLECTION.TEACHERS)
       .doc(teacher.TeacherAccount);
 
     await docRef.set(teacher);
   }
 
   async saveStudent(centerShortName, student) {
-    const docRef = this.Firestore.collection(
-      FS_COLLECTION_NAME.LANGUAGE_CENTERS
-    )
+    const docRef = this.Firestore.collection(FS_COLLECTION.LANGUAGE_CENTERS)
       .doc(centerShortName)
-      .collection(FS_COLLECTION_NAME.STUDENTS)
+      .collection(FS_COLLECTION.STUDENTS)
       .doc(student.StudentAccount);
 
     await docRef.set(student);
   }
 
   async saveCourse(centerShortName, course) {
-    const docRef = this.Firestore.collection(
-      FS_COLLECTION_NAME.LANGUAGE_CENTERS
-    )
+    const docRef = this.Firestore.collection(FS_COLLECTION.LANGUAGE_CENTERS)
       .doc(centerShortName)
-      .collection(FS_COLLECTION_NAME.COURSE_INFO)
+      .collection(FS_COLLECTION.COURSE_INFO)
       .doc(course.CourseName);
 
     await docRef.set(course);
   }
 
   async saveStudentSchedule(centerShortName, schedule) {
-    const docRef = this.Firestore.collection(
-      FS_COLLECTION_NAME.LANGUAGE_CENTERS
-    )
+    const docRef = this.Firestore.collection(FS_COLLECTION.LANGUAGE_CENTERS)
       .doc(centerShortName)
-      .collection(FS_COLLECTION_NAME.STUDENT_SCHEDULE)
+      .collection(FS_COLLECTION.STUDENT_SCHEDULE)
       .doc(schedule.Id);
 
     await docRef.set(schedule);
@@ -113,6 +107,86 @@ class FirestoreClient {
   // {
   //   const docRef = this.Firestore.collection(rootCollection).doc(rootDocName).collection()
   // }
+
+  async getArticles(page) {
+    try {
+      const markers = [];
+
+      // const record_per_page = 250;
+      // const startAt = (page - 1) * record_per_page;
+      // const endAt = page * record_per_page;
+
+      await this.Firestore.collection(FS_COLLECTION.ARTICLES)
+        // .orderBy("modify_date", "desc")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc, index) => {
+            // if (startAt <= index && index < endAt) {
+            markers.push({ id: doc.id, ...doc.data() });
+            //console.log("get:", index);
+            // }
+          });
+        });
+
+      return markers;
+    } catch (error) {
+      console.log("getArticles", error);
+    }
+  }
+
+  async addArticle({
+    title,
+    thumbnail,
+    short_content,
+    contents,
+    category_name,
+    read_count,
+    last_modify_id,
+    last_modify_account,
+  }) {
+    // Add a new document with a generated id.
+    const res = await this.Firestore.collection(FS_COLLECTION.ARTICLES).add({
+      title,
+      thumbnail,
+      short_content,
+      contents,
+      category_name,
+      read_count,
+      create_date: new Date().toUTCString(),
+      modify_date: new Date().toUTCString(),
+      last_modify_id,
+      last_modify_account,
+    });
+
+    return { id: res.id };
+  }
+
+  async updateArticle({
+    id,
+    title,
+    thumbnail,
+    short_content,
+    contents,
+    category_name,
+    last_modify_id,
+    last_modify_account,
+  }) {
+    // Add a new document with a generated id.
+    const res = await this.Firestore.collection(FS_COLLECTION.ARTICLES)
+      .doc(id)
+      .set({
+        title,
+        thumbnail,
+        short_content,
+        contents,
+        category_name,
+        modify_date: new Date().toUTCString(),
+        last_modify_id,
+        last_modify_account,
+      });
+
+    return { id: res };
+  }
 }
 
 module.exports = new FirestoreClient();
