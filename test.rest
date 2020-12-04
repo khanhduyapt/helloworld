@@ -57,3 +57,6 @@ content-type: application/json
   "category_name": "Từ vựng tiếng Anh theo chủ đề"
 }
 
+###
+
+GET http://localhost:3001/users

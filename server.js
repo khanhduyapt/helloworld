@@ -9,6 +9,7 @@ const socket = require("socket.io");
 const io = socket(server);
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const { FS_COLLECTION, FS_ROLE } = require("./firestore/firestore_collections");
 //------------------------------------------
@@ -90,6 +91,21 @@ app.get("/join", checkAuthenticated, (req, res) => {
     userId: randomInt(1000),
   });
 }); //TODO
+
+//#region mongosee
+const uri = process.env.LOCAL_MONGODB; //LOCAL_MONGODB=mongodb://localhost:27017/helloworld
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB database connection established successfully");
+});
+
+const exercisesRouter = require("./routes/exercises");
+const usersRouter = require("./routes/users");
+
+app.use("/exercises", exercisesRouter);
+app.use("/users", usersRouter);
+//#endregion
 
 app.post("/api/login", (req, res) => {
   // Todo: authenticate user here
@@ -616,7 +632,8 @@ app.get("/api/articles", (req, res) => {
 });
 
 app.post("/api/article", (req, res) => {
-  FirestoreClient.addArticle({
+  const data = {
+    id: req.body.id,
     title: req.body.title,
     thumbnail: req.body.thumbnail,
     short_content: req.body.short_content,
@@ -625,9 +642,15 @@ app.post("/api/article", (req, res) => {
     read_count: 1,
     last_modify_id: getCallerIP(req),
     last_modify_account: "duydk",
-  }).then((data) => {
-    res.json(data);
-  });
+  };
+
+  console.log("app.post /api/article", JSON.stringify(data));
+
+  // FirestoreClient.addArticle(data).then((data) => {
+  //   res.json(data);
+  // });
+
+  res.json({ status: "OK" });
 });
 
 app.put("/api/article", (req, res) => {

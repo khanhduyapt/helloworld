@@ -6,21 +6,27 @@ import VocabularyModal from "./VocabularyModal";
 
 function VocabularyCard({ data }) {
   const [modalShow, setModalShow] = useState(false);
-  const [modalData, setModalData] = useState([]);
+  const handleRegistData = (newdata) => {
+    console.log("handleRegistData", newdata);
+    data.title = newdata.title;
+    data.short_content = newdata.short_content;
+    data.thumbnail = newdata.thumbnail;
+    data.contents = newdata.contents;
+  };
 
   return (
     <div className="vocabulary__card">
       <VocabularyModal
-        data={modalData}
+        data={data}
         show={modalShow}
         onHide={() => setModalShow(false)}
+        onRegister={handleRegistData}
       />
 
       <div className="vocabulary__header">
         <div
           className="vocabulary__header__img card__link"
           onClick={() => {
-            setModalData(data);
             setModalShow(true);
           }}
         >
@@ -31,7 +37,6 @@ function VocabularyCard({ data }) {
             data_id={data.id}
             className="vocabulary__header__title card__link"
             onClick={() => {
-              setModalData(data);
               setModalShow(true);
             }}
           >
@@ -42,19 +47,9 @@ function VocabularyCard({ data }) {
           </p>
         </div>
         <div className="vocabulary__header__control">
-          {/* <Link
-            className="card__link"
-            to={{
-              pathname: "/admin/vocaeditor",
-              state: data,
-            }}
-          >
-            Edit
-          </Link> */}
           <p
             className="card__link"
             onClick={() => {
-              setModalData(data);
               setModalShow(true);
             }}
           >
