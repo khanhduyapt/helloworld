@@ -7,7 +7,6 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import axios from "axios";
-import { Height } from "@material-ui/icons";
 
 function VocabularyModal(props) {
   const [ToastVisible, setToastVisible] = useState(false);

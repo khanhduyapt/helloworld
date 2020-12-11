@@ -57,6 +57,10 @@
   font-weight: 700;
 }
 
+.card__link__danger {
+  color: #ff4742 !important;
+}
+
 .overlay {
   position: relative;
 }
@@ -76,7 +80,7 @@
 .btn__outline__danger {
   z-index: 10;
   font-size: 1.5em;
-  min-width: 8em;
+  min-width: 6em;
   background: #ff4742;
   border: 2px solid #ff4742;
   color: white;
@@ -93,7 +97,7 @@
 .btn__outline__normal {
   z-index: 10;
   font-size: 1.5em;
-  min-width: 8em;
+  min-width: 6em;
   background-color: #f58200;
   background-image: linear-gradient(to left, #74ebd5, #9face6);
   border: 2px solid #f58200;

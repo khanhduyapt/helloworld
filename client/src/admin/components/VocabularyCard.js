@@ -2,9 +2,30 @@ import React, { useState } from "react";
 import "./VocabularyCard.css";
 import VocabularyModal from "./VocabularyModal";
 import ReactHtmlParser from "react-html-parser";
+import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 function VocabularyCard({ data }) {
   const [modalShow, setModalShow] = useState(false);
+
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const handleCloseConfirmDelete = () => setShowConfirmDialog(false);
+  const handleShowConfirmDelete = () => setShowConfirmDialog(true);
+  const handleDeleteItem = () => {
+    axios
+      .delete(`http://localhost:3001/articles/${data._id}`)
+      .then((res) => {
+        // console.log("handleDelete", data._id);
+        var elem = document.getElementById(data._id);
+        elem.parentNode.removeChild(elem);
+
+        setShowConfirmDialog(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   const handleRegistData = (newdata) => {
     //console.log("handleRegistData", newdata);
     data.title = newdata.title;
@@ -21,6 +42,35 @@ function VocabularyCard({ data }) {
         onHide={() => setModalShow(false)}
         onRegister={handleRegistData}
       />
+
+      <Modal
+        show={showConfirmDialog}
+        onHide={handleCloseConfirmDelete}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xóa bài viết</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="vocabulary__card__delete">
+          <img src={data.thumbnail} alt={data.title} />
+          <p>
+            Bạn có muốn xóa bài viêt:
+            <br />
+            <span className="card__link">{data.title}</span>
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn__outline__normal"
+            onClick={handleCloseConfirmDelete}
+          >
+            Close
+          </button>
+          <button className="btn__outline__danger" onClick={handleDeleteItem}>
+            Delete
+          </button>
+        </Modal.Footer>
+      </Modal>
 
       <div className="vocabulary__header">
         <div
@@ -53,6 +103,12 @@ function VocabularyCard({ data }) {
             }}
           >
             View
+          </p>
+          <p
+            className="card__link card__link__danger"
+            onClick={handleShowConfirmDelete}
+          >
+            Delete
           </p>
         </div>
       </div>
