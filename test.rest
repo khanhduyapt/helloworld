@@ -60,3 +60,39 @@ content-type: application/json
 ###
 
 GET http://localhost:3001/users
+
+###
+GET http://localhost:3001/articles
+
+
+###
+POST http://localhost:3001/articles/add
+content-type: application/json
+
+{
+    "category_name": "Tin vit",
+    "thumbnail": "https://nghesiviet.vn/storage/files/7/kieutrinh/hot-girl-kieu-trinh.jpg",
+    "title": "Tiểu Sử Hot Girl Kiều Trinh",
+    "short_content": "Hot girl Kiều Trinh tên đầy đủ là Nguyễn Hoàng Kiều Trinh. ",
+    "contents": "Cô sinh năm 1994, hiện đang là sinh viên năm cuối chuyên ngành Marketing của Trường Quốc tế PSB College. Cô gái Sài Gòn được giới trẻ biết đến qua phim ngắn của Chi Pu cùng các bộ ảnh với vai trò model trên nhiều tạp chí, trang tin điện tử."
+}
+
+###
+GET http://localhost:3001/articles/5fd2e9c0f13c813b9001213e
+
+
+###
+DELETE http://localhost:3001/articles/5fd2e9c0f13c813b9001213e
+
+###
+
+POST http://localhost:3001/articles/update/5fd2e89721a03436b86c7f94
+content-type: application/json
+
+{
+    "category_name": "Tin vit Tin vit Tin vit",
+    "thumbnail": "https://znews-photo.zadn.vn/w660/Uploaded/mdf_drkydd/2018_04_10/2013.jpg",
+    "title": "Kiều Trinh: Từ 'cô gái trà sữa' tới hot girl theo phong cách sexy",
+    "short_content": "Hot girl Kiều Trinh tên đầy đủ là Nguyễn Hoàng Kiều Trinh. ",
+    "contents": "https://zingnews.vn/kieu-trinh-tu-co-gai-tra-sua-toi-hot-girl-theo-phong-cach-sexy-post833163.html"
+}

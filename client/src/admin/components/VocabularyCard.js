@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import "./VocabularyCard.css";
 import VocabularyModal from "./VocabularyModal";
+import ReactHtmlParser from "react-html-parser";
 
 function VocabularyCard({ data }) {
   const [modalShow, setModalShow] = useState(false);
   const handleRegistData = (newdata) => {
-    console.log("handleRegistData", newdata);
+    //console.log("handleRegistData", newdata);
     data.title = newdata.title;
     data.short_content = newdata.short_content;
     data.thumbnail = newdata.thumbnail;
@@ -15,7 +14,7 @@ function VocabularyCard({ data }) {
   };
 
   return (
-    <div className="vocabulary__card">
+    <div className="vocabulary__card" id={data._id}>
       <VocabularyModal
         data={data}
         show={modalShow}
@@ -34,16 +33,16 @@ function VocabularyCard({ data }) {
         </div>
         <div className="vocabulary__header__content">
           <p
-            data_id={data.id}
+            data_id={data._id}
             className="vocabulary__header__title card__link"
             onClick={() => {
               setModalShow(true);
             }}
           >
-            {data.title}
+            {ReactHtmlParser(data.title)}
           </p>
           <p className="vocabulary__header__short_content">
-            {data.short_content}
+            {ReactHtmlParser(data.short_content)}
           </p>
         </div>
         <div className="vocabulary__header__control">
