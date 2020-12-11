@@ -1,4 +1,3 @@
-const FirestoreClient = require("./firestoreClient");
 const { v4: uuidv4 } = require("uuid");
 
 const {
@@ -29,10 +28,6 @@ const initData = function () {
     Website: "https://chipchip.edu.vn/",
     Email: "contact@chipchip.edu.vn",
     MST: "0107540008",
-  };
-
-  const saveLangueageCenter = async (object) => {
-    await FirestoreClient.saveCenter(object);
   };
 
   //   saveLangueageCenter(pantado);
@@ -68,10 +63,6 @@ const initData = function () {
     DateJoiningcompany: "11/07/2020",
     Role: FS_ROLE.ADMIN,
     LoginPassword: "phuongvu123",
-  };
-
-  const saveTeacher = async (centerShortName, teacher) => {
-    await FirestoreClient.saveTeacher(centerShortName, teacher);
   };
 
   // saveTeacher(pantado.ShortName, hoanglehaiyenvcvb);
@@ -140,10 +131,6 @@ const initData = function () {
   const saveStudent = async (centerShortName, student) => {
     await FirestoreClient.saveStudent(centerShortName, student);
   };
-
-  saveStudent(pantado.ShortName, hientaivu2016);
-  saveStudent(pantado.ShortName, aosenthatbao);
-  saveStudent(pantado.ShortName, emgaimua211006);
   //#endregion Students
 
   // #region Courses
@@ -190,9 +177,6 @@ const initData = function () {
       "- Có thể nghe hiểu, giao tiếp tốt trong nhiều tình huống, giải thích, diễn đạt mạch lạc nhiều ý tưởng sáng tạo + \n +" +
       "- Khám phá lịch sử, văn hóa, ngôn ngữ, xã hội, rèn luyện kỹ năng giải quyết vấn đề, tiếp cận các vấn đề mang tính toàn cầu.",
   };
-  const saveCourse = async (centerShortName, course) => {
-    await FirestoreClient.saveCourse(centerShortName, course);
-  };
 
   // saveCourse(pantado.ShortName, Level0);
   // saveCourse(pantado.ShortName, Level1);
@@ -221,11 +205,6 @@ const initData = function () {
     Timetable_sun: "",
     NumberOfLessonsRemain: 60,
   };
-
-  const saveStudentSchedule = async (centerShortName, schedule) => {
-    await FirestoreClient.saveStudentSchedule(centerShortName, schedule);
-  };
-
   //saveStudentSchedule(pantado.ShortName, hientaivu2016_SCHEDULE);
   //#endregion
 };

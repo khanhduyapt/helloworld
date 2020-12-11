@@ -11,7 +11,13 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-const { FS_COLLECTION, FS_ROLE } = require("./firestore/firestore_collections");
+const FS_ROLE = {
+  ADMIN: "admin",
+  TEACHER: "teacher",
+  STUDENT: "student",
+  GUEST: "guest",
+};
+
 //------------------------------------------
 // Todo: authenticate user here
 const users = [
@@ -51,10 +57,6 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-//#region initData
-const FirestoreClient = require("./firestore/firestoreClient");
-const { initData } = require("./firestore/InsertDummyData");
-const { json } = require("express");
 //#endregion initData
 
 //#region SocketIO
@@ -144,30 +146,12 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
-
-app.get("/api/students", (req, res) => {
-  FirestoreClient.getCollectionByPath(
-    FS_COLLECTION.LANGUAGE_CENTERS +
-      "/" +
-      "pantado" +
-      "/" +
-      FS_COLLECTION.STUDENTS +
-      "/"
-  ).then((data) => {
-    res.json(data);
-  });
-});
 //#region articles
 
 app.get("/api/articles", (req, res) => {
   let page = req.query.p;
   if (!page) page = 1;
 
-  //Error: 8 RESOURCE_EXHAUSTED: Quota exceeded. TODO
-  //console.log(page);
-  // FirestoreClient.getArticles(page).then((data) => {
-  //   res.json(data);
-  // });
   console.log("/api/articles", new Date().toUTCString());
   const data = [
     {
@@ -650,15 +634,11 @@ app.post("/api/article", (req, res) => {
 
   console.log("app.post /api/article", JSON.stringify(data));
 
-  // FirestoreClient.addArticle(data).then((data) => {
-  //   res.json(data);
-  // });
-
   res.json({ status: "OK" });
 });
 
 app.put("/api/article", (req, res) => {
-  FirestoreClient.updateArticle({
+  const data = {
     id: req.body.id,
     title: req.body.title,
     thumbnail: req.body.thumbnail,
@@ -667,9 +647,10 @@ app.put("/api/article", (req, res) => {
     category_name: req.body.category_name,
     last_modify_id: getCallerIP(req),
     last_modify_account: "duydk",
-  }).then((data) => {
-    res.json(data);
-  });
+  };
+  console.log("app.put /api/article", JSON.stringify(data));
+
+  res.json({ status: "OK" });
 });
 //#endregion articles
 
