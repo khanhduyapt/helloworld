@@ -1,17 +1,11 @@
 .vocabulary__modal {
-  width: 70vw !important;
-  min-width: 70vw !important;
+  width: 80vw !important;
+  min-width: 80vw !important;
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 86vh;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.vocabulary__modal__60w {
-  width: 80%;
-  height: 80vh;
-  max-width: none !important;
 }
 
 .vocabulary__title {
@@ -40,14 +34,13 @@
 }
 
 .vocabulary__modal__top__img {
-  width: 20vw;
   margin-right: 10px;
 }
 
 .vocabulary__modal__top__img > img {
-  width: 100%;
-  object-fit: cover;
+  max-width: 20vh !important;
   max-height: 25vh !important;
+  object-fit: cover;
 }
 
 .vocabulary__modal__center {

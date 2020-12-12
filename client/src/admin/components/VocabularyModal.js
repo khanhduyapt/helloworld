@@ -20,6 +20,15 @@ function VocabularyModal(props) {
   const [short_content, setShortContent] = useState(props.data.short_content);
   const [contents, setContents] = useState(props.data.contents);
 
+  const resetForm = () => {
+    setId("");
+    setTitle("");
+    setSelectBox(category_options[0]);
+    setThumbnail("");
+    setShortContent("");
+    setContents("");
+  };
+
   const myRefname = useRef(null);
 
   const onSubmitForm = (data, e) => {
@@ -32,25 +41,39 @@ function VocabularyModal(props) {
       contents,
       category_name: selectBox,
     };
-
     //console.log("onSubmitForm", newdata);
-    axios
-      .post(`http://localhost:3001/articles/update/${id}`, newdata)
-      .then((res) => {
-        props.onRegister(newdata);
+    if (id) {
+      axios
+        .post(`http://localhost:3001/articles/update/${id}`, newdata)
+        .then((res) => {
+          props.onRegister(newdata);
 
-        setToastVisible(true);
-        myRefname.current.click();
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+          setToastVisible(true);
+          myRefname.current.click();
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else {
+      axios
+        .post(`http://localhost:3001/articles/add`, newdata)
+        .then((res) => {
+          props.onRegister(res.data);
+          resetForm();
+          setToastVisible(true);
+          myRefname.current.click();
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   };
 
   return (
     <Modal
       {...props}
       animation={false}
+      backdrop="static"
       dialogClassName="vocabulary__modal"
       centered
     >
@@ -67,7 +90,6 @@ function VocabularyModal(props) {
         </Toast.Body>
       </Toast>
       <form onSubmit={handleSubmit(onSubmitForm)} autoComplete="off">
-        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div className="vocabulary__modal">
             <div className="vocabulary__title">
@@ -151,12 +173,12 @@ function VocabularyModal(props) {
                 </div>
 
                 <label className="vocabulary__label">
-                  Giới thiệu ngắn về nội dung bài viết:
+                  Giới thiệu ngắn về bài viết:
                 </label>
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
-                    placeholder: "Giới thiệu ngắn về nội dung bài viết.",
+                    placeholder: "Giới thiệu ngắn về bài viết.",
                     toolbar: {
                       items: [
                         "heading",

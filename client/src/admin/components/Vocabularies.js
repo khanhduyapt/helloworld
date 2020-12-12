@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./Vocabularies.css";
 import axios from "axios";
 import VocabularyCard from "./VocabularyCard";
+import VocabularyModal from "./VocabularyModal";
 
 function Vocabularies() {
   const [Articles, setArticles] = useState([]);
-
+  const [isShowAddModel, setShowAddModel] = useState(false);
+  const handleRegistArticle = (data) => {
+    if (data._id) {
+      setArticles([data, ...Articles]);
+    }
+  };
+  let newItem = {
+    _id: "",
+    category_name: "",
+    thumbnail: "",
+    title: "",
+    short_content: "",
+    contents: "",
+  };
   useEffect(() => {
     let cancel;
 
@@ -31,8 +45,20 @@ function Vocabularies() {
 
   return (
     <div className="Vocabularies">
+      <VocabularyModal
+        data={newItem}
+        show={isShowAddModel}
+        onHide={() => setShowAddModel(false)}
+        onRegister={handleRegistArticle}
+      />
+
       <div className="vocabularies__controls">
-        <button className="btn__outline__normal">Add new</button>
+        <button
+          className="btn__outline__normal"
+          onClick={() => setShowAddModel(true)}
+        >
+          Add new
+        </button>
       </div>
       <div className="vocabularies__datagrid">
         {Articles.map((item, index) => {

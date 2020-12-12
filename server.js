@@ -10,7 +10,6 @@ const io = socket(server);
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 const FS_ROLE = {
   ADMIN: "admin",
   TEACHER: "teacher",
@@ -115,6 +114,10 @@ app.use("/users", usersRouter);
 
 const articleRouter = require("./routes/articles.router");
 app.use("/articles", articleRouter);
+
+const uploadRouter = require("./routes/upload.router");
+app.use("/upload", uploadRouter);
+
 //#endregion
 
 app.post("/api/login", (req, res) => {
@@ -137,18 +140,22 @@ app.get("/api/posts", authenticateToken, (req, res) => {
 });
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  // console.log("authHeader:", authHeader);
+  try {
+    const authHeader = req.headers["authorization"];
+    // console.log("authHeader:", authHeader);
 
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401); //has not token
+    const token = authHeader && authHeader.split(" ")[1];
+    if (token == null) return res.sendStatus(401); //has not token
 
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-    console.log(err);
-    if (err) return res.sendStatus(403); //has token but timeout or invalid
-    req.user = user;
-    next();
-  });
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403); //has token but timeout or invalid
+      req.user = user;
+      next();
+    });
+  } catch (err) {
+    console.log("authenticateToken: ", err);
+    return res.sendStatus(401); //has not token
+  }
 }
 
 //==============================================
@@ -156,7 +163,7 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-
+  console.log("login require!");
   res.redirect("/login");
 }
 
@@ -168,6 +175,6 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 //==============================================
-var port = process.env.port || 3001;
+var port = process.env.PORT || 3001;
 server.listen(port);
 console.log("http://localhost:" + port);

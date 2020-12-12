@@ -4,6 +4,7 @@
   padding: 20px;
   height: 100vh;
   border-right: 1px solid #f58200;
+  border-bottom: 1px solid #f58200;
   box-shadow: 7px 0 60px rgba(0, 0, 0, 0.05);
 }
 .dashboard__menu__header {

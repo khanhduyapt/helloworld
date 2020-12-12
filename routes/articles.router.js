@@ -4,12 +4,13 @@ let { getCallerIP, getUserName } = require("./utils");
 
 articleRouter.route("/").get((req, res) => {
   Article.find()
+    .sort({ updatedAt: -1 })
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 articleRouter.route("/add").post((req, res) => {
-  console.log("articleRouter.route->add");
+  // console.log("articleRouter.route->add");
   const newItem = new Article({
     category_name: req.body.category_name,
     thumbnail: req.body.thumbnail,
@@ -29,7 +30,7 @@ articleRouter.route("/add").post((req, res) => {
 });
 
 articleRouter.route("/:id").get((req, res) => {
-  console.log("articleRouter.route->findById:", req.params.id);
+  // console.log("articleRouter.route->findById:", req.params.id);
 
   Article.findById(req.params.id)
     .then((item) => res.json(item))
@@ -37,7 +38,7 @@ articleRouter.route("/:id").get((req, res) => {
 });
 
 articleRouter.route("/:id").delete((req, res) => {
-  console.log("articleRouter.route->delete:", req.params.id);
+  // console.log("articleRouter.route->delete:", req.params.id);
 
   Article.findByIdAndDelete(req.params.id)
     .then(() => res.json({ msg: "deleted.", id: req.params.id }))
@@ -45,7 +46,7 @@ articleRouter.route("/:id").delete((req, res) => {
 });
 
 articleRouter.route("/update/:id").post((req, res) => {
-  console.log("articleRouter.route->update:", req.params);
+  // console.log("articleRouter.route->update:", req.params);
   Article.findById(req.params.id)
     .then((item) => {
       item.title = req.body.title;

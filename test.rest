@@ -86,7 +86,7 @@ DELETE http://localhost:3001/articles/5fd2e9c0f13c813b9001213e
 
 ###
 
-POST http://localhost:3001/articles/update/5fd2e89721a03436b86c7f94
+POST http://localhost:3001/articles/update/5fd44dfd16546e3914a9d6eb
 content-type: application/json
 
 {
@@ -96,3 +96,6 @@ content-type: application/json
     "short_content": "Hot girl Kiều Trinh tên đầy đủ là Nguyễn Hoàng Kiều Trinh. ",
     "contents": "https://zingnews.vn/kieu-trinh-tu-co-gai-tra-sua-toi-hot-girl-theo-phong-cach-sexy-post833163.html"
 }
+
+###
+DELETE http://localhost:3001/upload/5fd4e21325991323ecc7b33a

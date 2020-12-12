@@ -52,11 +52,11 @@ function VocabularyCard({ data }) {
           <Modal.Title>Xóa bài viết</Modal.Title>
         </Modal.Header>
         <Modal.Body className="vocabulary__card__delete">
-          <img src={data.thumbnail} alt={data.title} />
+          <img src={data.thumbnail} alt={ReactHtmlParser(data.title)} />
           <p>
             Bạn có muốn xóa bài viêt:
             <br />
-            <span className="card__link">{data.title}</span>
+            <span className="card__link">{ReactHtmlParser(data.title)}</span>
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -79,7 +79,7 @@ function VocabularyCard({ data }) {
             setModalShow(true);
           }}
         >
-          <img src={data.thumbnail} alt={data.title} />
+          <img src={data.thumbnail} alt={ReactHtmlParser(data.title)} />
         </div>
         <div className="vocabulary__header__content">
           <p
@@ -102,7 +102,7 @@ function VocabularyCard({ data }) {
               setModalShow(true);
             }}
           >
-            View
+            Edit
           </p>
           <p
             className="card__link card__link__danger"
