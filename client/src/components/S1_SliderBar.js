@@ -1,31 +1,41 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
 import "./S1_SliderBar.css";
+import AxiosCommon from "./commons/AxiosCommon";
 
 function S1_SliderBar() {
-  const photos = [
-    {
-      name: "photo1",
-      url:
-        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198178.jpg",
-    },
-    {
-      name: "photo2",
-      url:
-        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
-    },
-    {
-      name: "photo3",
-      url:
-        "https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
-    },
-  ];
+  //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198178.jpg",
+  //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
+  //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
 
+  
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+
+  const [UpImages, setUpImages] = useState([]);
+  const config = {
+    headers: {
+      Accept: "application/json",
+      Authorization:
+        "Bearer " +
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
+    },
+  };
+  useEffect(() => {
+    AxiosCommon.get("/upload/sliderbar", config)
+      .then((res) => {
+        console.log("upload success file: ", res);
+        setUpImages(() => {
+          return [...res.data];
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   return (
     <div className="sliderbar">
@@ -34,17 +44,17 @@ function S1_SliderBar() {
         activeIndex={index}
         onSelect={handleSelect}
       >
-        {photos.map((photo, idx) => {
+        {UpImages.map((item) => {
           return (
-            <Carousel.Item className="carousel__item" key={idx}>
-              <img src={photo.url} alt={photo.name}></img>
+            <Carousel.Item className="carousel__item" key={item._id}>
+              <img
+                src={AxiosCommon.defaults.baseURL + "/images/" + item.filename}
+                alt={item.header}
+              ></img>
 
               <Carousel.Caption className="carousel__item__aption">
-                <h1>First slide label {photo.name}</h1>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum
-                  {photo.name}.
-                </p>
+                <h1>{item.header}</h1>
+                <p>{item.content}</p>
               </Carousel.Caption>
             </Carousel.Item>
           );

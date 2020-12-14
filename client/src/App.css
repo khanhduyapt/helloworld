@@ -44,14 +44,19 @@
   padding: 5px 10px;
   background-color: #fffce3;
 }
+.card__link__disable {
+  cursor: default !important;
+  color: gray !important;
+}
 
 .card__link {
   cursor: pointer;
+  background-color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
   color: #0977bc;
   text-decoration: none;
-  border-bottom: none;
+  border: none;
 }
 .card__link:hover {
   font-weight: 700;
@@ -81,6 +86,7 @@
   z-index: 10;
   font-size: 1.5em;
   min-width: 6em;
+  height: fit-content;
   background: #ff4742;
   border: 2px solid #ff4742;
   color: white;
@@ -98,6 +104,7 @@
   z-index: 10;
   font-size: 1.5em;
   min-width: 6em;
+  height: fit-content;
   background-color: #f58200;
   background-image: linear-gradient(to left, #74ebd5, #9face6);
   border: 2px solid #f58200;
