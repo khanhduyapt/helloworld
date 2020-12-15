@@ -14,7 +14,8 @@
 }
 
 .vocabulary__header__img {
-  padding: 10px;
+  padding: 10px 10px 10px 0px;
+  margin-left: 10px;
 }
 
 .vocabulary__header__img > img {

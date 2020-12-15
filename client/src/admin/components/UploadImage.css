@@ -20,6 +20,7 @@
 .upload__image__chooser {
   display: flex;
   margin-bottom: 10px;
+  justify-content: space-between;
 }
 
 .upload__image__choosefile {
@@ -40,10 +41,15 @@
   margin-bottom: 10px;
 }
 
+.upload__image__buttons {
+  display: flex;
+}
+
 .upload__image__submit {
   width: fit-content;
   margin-left: auto;
   margin-bottom: 20px;
+  margin-left: auto;
 }
 
 .upload__image__contents {
@@ -57,10 +63,15 @@
 }
 
 .upload__contents__img {
+  min-width: 7vw;
+  max-width: 7vw;
+  margin-right: 10px;
+}
+
+.upload__contents__img > img {
   object-fit: cover;
   min-width: 7vw;
   max-width: 7vw;
-  margin: 10px;
 }
 
 ::-webkit-file-upload-button {

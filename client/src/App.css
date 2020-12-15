@@ -55,7 +55,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   color: #0977bc;
-  text-decoration: none;
+  text-decoration: none !important;
   border: none;
 }
 .card__link:hover {
@@ -94,6 +94,7 @@
   text-align: center;
   padding: 0.1em;
   font-weight: 600;
+  margin: 0 0 0 15px;
 }
 .btn__outline__danger:hover {
   background: white;
@@ -113,11 +114,18 @@
   text-align: center;
   padding: 0.1em;
   font-weight: 600;
+  margin: 0 0 0 15px;
 }
 
 .btn__outline__normal:hover {
   background: #fff;
   color: #f58200;
+}
+
+.main__top__controls {
+  display: flex;
+  padding: 20px 20px 0 20px;
+  justify-content: flex-end;
 }
 
 h1 {

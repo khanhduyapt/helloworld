@@ -17,6 +17,7 @@ import Satisfact from "./components/Satisfact";
 import ChoosePlan from "./components/ChoosePlan";
 import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
+import SliderbarEdit from "./components/SliderbarEdit";
 
 function A1_Dashboard() {
   return (
@@ -47,9 +48,12 @@ function A1_Dashboard() {
             <Route path="/admin/admins">
               <Admins />
             </Route>
-            <Route path="/admin/sliderbar">
-              <Sliderbar />
-            </Route>
+            <Route
+              path="/admin/sliderbar/:id"
+              component={SliderbarEdit}
+            ></Route>
+            <Route path="/admin/sliderbar" component={Sliderbar}></Route>
+
             <Route path="/admin/myspecial">
               <MySpecial />
             </Route>
@@ -68,21 +72,6 @@ function A1_Dashboard() {
             <Route path="/admin/vocabularies">
               <Vocabularies />
             </Route>
-
-            {/* <Link
-              className="card__link"
-              to={{
-                pathname: "/admin/vocaeditor",
-                state: data,
-              }}
-            >
-              Edit
-            </Link> */}
-
-            {/* <Route
-              path="/admin/vocaeditor"
-              component={VocabularyEditor}
-            ></Route> */}
           </Switch>
         </div>
       </div>

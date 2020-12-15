@@ -52,7 +52,7 @@ function Vocabularies() {
         onRegister={handleRegistArticle}
       />
 
-      <div className="vocabularies__controls">
+      <div className="main__top__controls">
         <button
           className="btn__outline__normal"
           onClick={() => setShowAddModel(true)}

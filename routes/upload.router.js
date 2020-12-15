@@ -35,23 +35,70 @@ uploadRouter.route("/sliderbar").get((req, res) => {
 uploadRouter
   .route("/sliderbar")
   .post(upload.single("img"), (req, res, next) => {
-    const uploadedFile = res.req.file.filename;
-    // console.log("header:", res.req.body.header);
-    // console.log("uploadRouter.route->add", JSON.stringify(req.body));
-    const newItem = new UpImage({
-      category: "sliderbar",
-      filename: uploadedFile,
-      header: req.body.header,
-      content: req.body.content,
-      uploader_id: getCallerIP(req),
-      uploader_account: getUserName(req),
-    });
+    console.log("/sliderbar", res.req.body);
 
-    //console.log(JSON.stringify(newItem));
-    newItem
-      .save()
-      .then((item) => res.json(item))
-      .catch((err) => res.status(400).json("Error: " + err));
+    const _id = res.req.body._id;
+    const _filename = res.req.body._filename;
+    const _header = res.req.body._header;
+    const _content = res.req.body._content;
+    const _file = res.req.file;
+
+    let newFilename = undefined;
+    if (_file) {
+      newFilename = res.req.file.filename;
+    }
+    //console.log("body:", _id, _filename, _header, _content, _file, newFilename);
+
+    //I. Có Id: (1) không có ảnh -> update content; (2) có ảnh -> delete ảnh cũ, update content.
+    if (_id !== "add") {
+      if (newFilename) {
+        UpImage.findById(_id).then((item) => {
+          const oldFilepath = getImagesFolder(item.filename);
+          //console.log("delete:", oldFilepath);
+          fs.unlinkSync(oldFilepath);
+
+          item.filename = newFilename;
+          item.header = _header;
+          item.content = _content;
+          item.uploader_id = getCallerIP(req);
+          item.uploader_account = getUserName(req);
+
+          item
+            .save()
+            .then((newitem) => res.json(newitem))
+            .catch((err) => res.status(400).json("Error: " + err));
+        });
+      } else {
+        UpImage.findById(_id).then((item) => {
+          item.header = _header;
+          item.content = _content;
+          item
+            .save()
+            .then((newitem) => res.json(newitem))
+            .catch((err) => res.status(400).json("Error: " + err));
+        });
+      }
+    }
+    //II. không có id: (3) không ảnh: cancel, (4): có ảnh: tạo mới.
+    else {
+      if (newFilename) {
+        const newItem = new UpImage({
+          category: "sliderbar",
+          filename: newFilename,
+          header: req.body.header,
+          content: req.body.content,
+          uploader_id: getCallerIP(req),
+          uploader_account: getUserName(req),
+        });
+
+        newItem
+          .save()
+          .then((item) => res.json(item))
+          .catch((err) => res.status(400).json("Error: " + err));
+      } else {
+        res.status(201).json({ msg: "Cần chọn ảnh để upload lên server." });
+      }
+    }
   });
 
 uploadRouter.route("/:id").get((req, res) => {
@@ -67,12 +114,7 @@ uploadRouter.route("/:id").delete((req, res) => {
 
   UpImage.findByIdAndDelete(req.params.id)
     .then((item) => {
-      const filepath = path.join(
-        __dirname,
-        "..",
-        "/public/images/",
-        item.filename
-      );
+      const filepath = getImagesFolder(item.filename);
 
       console.log("delete:", filepath);
       fs.unlinkSync(filepath);
@@ -81,5 +123,9 @@ uploadRouter.route("/:id").delete((req, res) => {
     })
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+function getImagesFolder(filename) {
+  return path.join(__dirname, "..", "/public/images/", filename);
+}
 
 module.exports = uploadRouter;

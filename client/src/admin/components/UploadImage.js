@@ -1,32 +1,35 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 
 import "./UploadImage.css";
 
-function UploadImage({ category }) {
-  //console.log("data:", data);
-  const { register, handleSubmit, setValue } = useForm();
+function UploadImage({
+  _category,
+  _id,
+  _filename,
+  _header,
+  _content,
+  _callback_link,
+}) {
+  //console.log("UploadImage:", _category, _id, _filename, _header, _content);
+  const { register, handleSubmit, errors } = useForm();
   const [imagePath, setImagePath] = useState("");
 
   const [header, setHeader] = useState("");
   const [content, setContent] = useState("");
+  const [callback_link, setCallbackLink] = useState("");
+  const refBackLink = useRef(null);
 
-  const config = {
-    headers: {
-      Accept: "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Content-type": "multipart/form-data",
-      Authorization:
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
-    },
-  };
-
-  const [isUploadDisabled, setIsUploadDisabled] = useState(true);
+  useEffect(() => {
+    if (_header) setHeader(_header);
+    if (_content) setContent(_content);
+    if (_callback_link) setCallbackLink(_callback_link);
+  }, [_header, _content, _callback_link]);
 
   const handleChangeFile = (e) => {
-    setIsUploadDisabled(true);
     try {
       if (e.target && e.target.files) {
         const file = e.target.files[0];
@@ -35,7 +38,6 @@ function UploadImage({ category }) {
         else {
           console.log("File:", e.target.value);
           setImagePath(e.target.value);
-          setIsUploadDisabled(false);
         }
       }
     } catch (error) {}
@@ -45,28 +47,39 @@ function UploadImage({ category }) {
     e.preventDefault();
 
     // console.log("upload: ", data);
+    let formData = new FormData();
     if (data && data.sliderbar1 && data.sliderbar1.length > 0) {
-      console.log("upload length: ", data.sliderbar1.length);
-      let formData = new FormData();
+      //console.log("upload: ", data.sliderbar1[0]);
       formData.append("img", data.sliderbar1[0]);
-      formData.append("header", header);
-      formData.append("content", content);
-      AxiosCommon.post(`/upload/${category}`, formData, config)
-        .then((res) => {
-          console.log("upload successfully: ", res);
-          if (res.status === 200) {
-            alert("upload successfully" + "/n" + res.data.filename);
-            setImagePath("");
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    } else {
-      console.log("Chọn ảnh!");
     }
+    formData.append("_id", _id);
+    formData.append("_filename", _filename);
+    formData.append("_header", data.header);
+    formData.append("_content", data.content);
 
-    setIsUploadDisabled(true);
+    const config = {
+      headers: {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "multipart/form-data",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
+      },
+    };
+
+    AxiosCommon.post(`/upload/${_category}`, formData, config)
+      .then((res) => {
+        console.log("upload successfully: ", res);
+        if (res.status === 200) {
+          refBackLink.current.click();
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -78,8 +91,12 @@ function UploadImage({ category }) {
         className="upload__image__form"
       >
         <div className="upload__image__chooser">
+          {errors.sliderbar1 && (
+            <h1 style={{ color: "red" }}>{errors.sliderbar1.message}</h1>
+          )}
+
           <input
-            ref={register({ required: true })}
+            ref={register}
             type="file"
             accept="image/*"
             name="sliderbar1"
@@ -92,9 +109,8 @@ function UploadImage({ category }) {
             type="button"
             className="card__link upload__image__clear"
             onClick={() => {
-              console.log("Xóa");
+              //console.log("Xóa");
               setImagePath("");
-              setIsUploadDisabled(true);
             }}
           >
             Xóa
@@ -102,9 +118,19 @@ function UploadImage({ category }) {
         </div>
 
         <div className="upload__image__contents">
-          <img className="upload__contents__img"></img>
+          <div className="upload__contents__img">
+            {_filename && (
+              <img
+                key={_id}
+                src={AxiosCommon.defaults.baseURL + "/images/" + _filename}
+                alt={_header}
+              ></img>
+            )}
+          </div>
+
           <div className="upload__contents__inputs">
             <input
+              ref={register}
               name="header"
               value={header}
               onChange={(e) => setHeader(e.target.value)}
@@ -113,6 +139,7 @@ function UploadImage({ category }) {
             ></input>
 
             <textarea
+              ref={register}
               name="content"
               rows={5}
               value={content}
@@ -120,17 +147,20 @@ function UploadImage({ category }) {
               placeholder="Nội dung chi tiết"
               className="form__input upload__image__content"
             ></textarea>
+
+            <div className="upload__image__buttons">
+              <Link to={callback_link} ref={refBackLink} className="card__link">
+                Back
+              </Link>
+
+              <input
+                className="upload__image__submit card__link card__link__danger"
+                type="submit"
+                value="Upload"
+              ></input>
+            </div>
           </div>
         </div>
-
-        <input
-          className={
-            "upload__image__submit card__link " +
-            (isUploadDisabled === true ? " card__link__disable" : "")
-          }
-          type="submit"
-          value="Upload"
-        ></input>
       </form>
     </div>
   );
