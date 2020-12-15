@@ -13,7 +13,7 @@ export default function useBookSearch(pageNumber) {
     let cancel;
     axios({
       method: "GET",
-      url: "http://localhost:3001/api/articles",
+      url: "http://localhost:3001/articles",
       params: { p: pageNumber },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })

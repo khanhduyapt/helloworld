@@ -98,4 +98,10 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:3001/upload/5fd4e21325991323ecc7b33a
+GET http://localhost:3001/upload/sliderbar
+
+###
+GET http://localhost:3001/upload/5fd71aafcfcba631c09b7124
+
+###
+DELETE http://localhost:3001/upload/5fd7124b78295d2878339efe

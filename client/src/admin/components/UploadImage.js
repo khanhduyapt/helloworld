@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import "./UploadImage.css";
 
@@ -54,17 +56,14 @@ function UploadImage({
     }
     formData.append("_id", _id);
     formData.append("_filename", _filename);
-    formData.append("_header", data.header);
-    formData.append("_content", data.content);
+    formData.append("_header", header);
+    formData.append("_content", content);
 
     const config = {
       headers: {
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
         "Content-type": "multipart/form-data",
-        Authorization:
-          "Bearer " +
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
+        Authorization: "Bearer " + localStorage.sid,
       },
     };
 
@@ -129,24 +128,29 @@ function UploadImage({
           </div>
 
           <div className="upload__contents__inputs">
-            <input
-              ref={register}
-              name="header"
-              value={header}
-              onChange={(e) => setHeader(e.target.value)}
-              placeholder="Tiêu đề của ảnh"
-              className="form__input upload__image__header"
-            ></input>
+            <label className="upload__contents__label">Tiêu đề:</label>
+            <CKEditor
+              editor={ClassicEditor}
+              config={{
+                placeholder: "Tiêu đề",
+              }}
+              data={header}
+              onChange={(e, editor) => setHeader(editor.getData())}
+            />
 
-            <textarea
-              ref={register}
-              name="content"
-              rows={5}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Nội dung chi tiết"
-              className="form__input upload__image__content"
-            ></textarea>
+            <label className="upload__contents__label">
+              Nội dung bài viết:
+            </label>
+            <div className="upload__contents__ckeditor">
+              <CKEditor
+                editor={ClassicEditor}
+                config={{
+                  placeholder: "Nội dung bài viết.",
+                }}
+                data={content}
+                onChange={(e, editor) => setContent(editor.getData())}
+              />
+            </div>
 
             <div className="upload__image__buttons">
               <Link to={callback_link} ref={refBackLink} className="card__link">

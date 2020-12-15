@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sliderbar.css";
 import AxiosCommon from "../../components/commons/AxiosCommon";
+import ReactHtmlParser from "react-html-parser";
 
 function Sliderbar() {
+  const CNAME = "sliderbar";
   const [countImg, setCountImg] = useState(0);
   const [UpImages, setUpImages] = useState([]);
 
   useEffect(() => {
-    AxiosCommon.get("/upload/sliderbar", AxiosCommon.defaults.headers)
+    AxiosCommon.get(`/upload/category/${CNAME}`, AxiosCommon.defaults.headers)
       .then((res) => {
         //console.log("upload success file: ", res);
         setUpImages(() => {
@@ -22,14 +24,14 @@ function Sliderbar() {
       });
   }, []);
 
-  const handleDelete = (id, header) => {
-    console.log("delete:", id);
+  const handleDelete = (_id, _header) => {
+    //console.log("delete:", _id, _header);
 
     if (
-      window.confirm("Bạn có muốn xóa bài viết?\n" + `"` + header + `"`) ===
+      window.confirm("Bạn có muốn xóa bài viết?\n" + `"` + _header + `"`) ===
       true
     ) {
-      AxiosCommon.delete(`/upload/${id}`, AxiosCommon.defaults.headers)
+      AxiosCommon.delete(`/upload/${_id}`, AxiosCommon.defaults.headers)
         .then((res) => {
           console.log("delete:", res);
           var elem = document.getElementById("sliderbar__form__" + res.data.id);
@@ -77,8 +79,12 @@ function Sliderbar() {
               ></img>
 
               <div className="sliderbar__content__inputs">
-                <p className="sliderbar__content__header">{item.header}</p>
-                <p className="sliderbar__content__content">{item.content}</p>
+                <div className="sliderbar__content__header">
+                  {ReactHtmlParser(item.header)}
+                </div>
+                <div className="sliderbar__content__content">
+                  {ReactHtmlParser(item.content)}
+                </div>
               </div>
 
               <div className="sliderbar__content__buttons">

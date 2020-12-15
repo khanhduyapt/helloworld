@@ -4,6 +4,7 @@ const { getCallerIP, getUserName } = require("./utils");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const sharp = require("sharp");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -19,14 +20,22 @@ const storage = multer.diskStorage({
 
     callback(null, filename);
   },
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
+      return callback(/*res.end('Only images are allowed')*/ null, false);
+    }
+
+    callback(null, true);
+  },
 });
 
 const upload = multer({ storage, limits: { fileSize: 5000000 } }); //5Mb
 
-uploadRouter.route("/sliderbar").get((req, res) => {
+uploadRouter.route("/category/:cname").get((req, res) => {
   UpImage.find()
     .where("category")
-    .equals("sliderbar")
+    .equals(req.params.cname)
     .sort({ updatedAt: -1 })
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -35,7 +44,7 @@ uploadRouter.route("/sliderbar").get((req, res) => {
 uploadRouter
   .route("/sliderbar")
   .post(upload.single("img"), (req, res, next) => {
-    console.log("/sliderbar", res.req.body);
+    //console.log("/sliderbar", res.req.body);
 
     const _id = res.req.body._id;
     const _filename = res.req.body._filename;
@@ -124,6 +133,32 @@ uploadRouter.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// ---------------------------------------------------------
+//https://anonystick.com/blog-developer/nodejs-resize-image-trong-nodejs-su-dung-multer-va-sharp-bxIS8CfD
+/* upload.any() sử dụng func này chúng ta có thể upload được nhiều file */
+uploadRouter.route("/avatar").post(upload.any(), function (req, res, next) {
+  //let query = req.body;
+  if (!req.body && !req.files) {
+    res.json({ success: false });
+  } else {
+    /* res.json({ success: true, files: req.files }); */
+    /* req.files các file upload return về một array, qua đó chúng ta có thể dễ dàng xử lý  */
+    /* chú ý: nhớ rename file lại không nữa sinh ra lỗi. ở đay mình rename theo kích thuước mình resize. */
+    sharp(req.files[0].path)
+      .resize(262, 317)
+      .toFile(
+        "./public/images/" + "avatar_262x317_" + req.files[0].filename,
+        function (err) {
+          if (err) {
+            console.error("sharp>>>", err);
+          }
+          console.log("ok okoko");
+        }
+      );
+  }
+});
+
+//---------------------------------------------------------
 function getImagesFolder(filename) {
   return path.join(__dirname, "..", "/public/images/", filename);
 }

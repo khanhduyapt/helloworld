@@ -84,3 +84,16 @@
   text-decoration: none;
   border: none;
 }
+
+.upload__contents__label {
+  margin: 20px 0 0 0;
+  font-size: 1.1rem;
+}
+
+.upload__contents__ckeditor {
+  height: 100%;
+}
+
+.upload__contents__ckeditor .ck-editor__editable {
+  min-height: 40vh !important;
+}

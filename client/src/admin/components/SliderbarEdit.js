@@ -13,20 +13,9 @@ function SliderbarEdit(props) {
 
   useEffect(() => {
     setId(props.match.params.id);
-
-    console.log("SliderbarEdit id:", _id);
-
+    //console.log("SliderbarEdit id:", _id);
     if (_id && _id !== "add") {
-      const config = {
-        headers: {
-          Accept: "application/json",
-          Authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
-        },
-      };
-
-      AxiosCommon.get(`/upload/${_id}`, config)
+      AxiosCommon.get(`/upload/${_id}`, AxiosCommon.defaults.headers)
         .then((res) => {
           //console.log("getbyid successfully: ", res);
           if (res.status === 200) {

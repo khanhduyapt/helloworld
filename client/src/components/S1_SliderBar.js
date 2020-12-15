@@ -9,23 +9,15 @@ function S1_SliderBar() {
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
 
-  
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
   const [UpImages, setUpImages] = useState([]);
-  const config = {
-    headers: {
-      Accept: "application/json",
-      Authorization:
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNzc4MTMwM30.yyGfz6kr6rniSoextzAcx3T2aA13Peu3i-ZCfgfxP_o",
-    },
-  };
+
   useEffect(() => {
-    AxiosCommon.get("/upload/sliderbar", config)
+    AxiosCommon.get("/upload/sliderbar", AxiosCommon.defaults.headers)
       .then((res) => {
         console.log("upload success file: ", res);
         setUpImages(() => {

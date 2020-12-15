@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
+import ReactHtmlParser from "react-html-parser";
 import ArticleCard from "./commons/ArticleCard";
 import useBookSearch from "./commons/useBookSearch";
 import Spinner from "react-bootstrap/Spinner";
@@ -33,20 +34,20 @@ function S6_InfiniteContents() {
           {books.map((book, index) => {
             if (books.length === index + 1) {
               return (
-                <div ref={lastBookElementRef} key={book.id}>
-                  {book.title}
+                <div ref={lastBookElementRef} key={index + 1}>
+                  {ReactHtmlParser(book.title)}
                 </div>
               );
             } else {
               return (
                 <ArticleCard
-                  key={book.id}
-                  title={book.title}
+                  key={index}
+                  title={ReactHtmlParser(book.title)}
                   artical_url="https://llv.edu.vn/vi/kham-pha-nhung-cau-noi-khich-le-tinh-than-bang-thanh-ngu-tieng-anh/"
                   category_name={book.category_name}
                   category_url="https://llv.edu.vn/vi/ngu-phap/"
                   read_count={book.read_count}
-                  short_content={book.short_content}
+                  short_content={ReactHtmlParser(book.short_content)}
                   thumbnail={book.thumbnail}
                 ></ArticleCard>
               );
