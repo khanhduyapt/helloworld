@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HpHowToFree.css";
 import { useForm } from "react-hook-form";
 import Toast from "react-bootstrap/Toast";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function HpHowToFree() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+  }, []);
+
   const [show, setShow] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm();
   const onSubmit = (data) => {
@@ -31,9 +41,19 @@ function HpHowToFree() {
             </h5>
           </Toast.Body>
         </Toast>
-        <h2 className="form-title">Liên hệ với giáo viên</h2>
+        <h2
+          className="form-title"
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-center"
+        >
+          Liên hệ với giáo viên
+        </h2>
 
-        <div className="howfree__container">
+        <div
+          className="howfree__container"
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-center"
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               name="full_name"

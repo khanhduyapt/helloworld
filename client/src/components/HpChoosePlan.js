@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactPlayer from "react-player/lazy";
 import VideoModal from "./commons/VideoModal";
 import "./HpChoosePlan.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function HpChoosePlan() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+  }, []);
+
   const [videoData, setVideoData] = React.useState({});
   const [videoShow, setVideoShow] = React.useState(false);
 
@@ -68,7 +78,13 @@ function HpChoosePlan() {
         onHide={() => setVideoShow(false)}
       />
 
-      <h1 className="blog__header">Trải nghiệm lớp học trực tuyến</h1>
+      <h1
+        className="blog__header"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+      >
+        Trải nghiệm lớp học trực tuyến
+      </h1>
 
       <div className="video__samples">
         <div className="video__samples__deck">
@@ -81,6 +97,8 @@ function HpChoosePlan() {
                   setVideoData(video);
                   setVideoShow(true);
                 }}
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-center"
               >
                 <div className="overlay">
                   <ReactPlayer

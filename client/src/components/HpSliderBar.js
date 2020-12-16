@@ -4,6 +4,9 @@ import { Carousel } from "react-bootstrap";
 import "./HpSliderBar.css";
 import AxiosCommon from "./commons/AxiosCommon";
 import ReactHtmlParser from "react-html-parser";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function HpSliderBar() {
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198178.jpg",
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
@@ -17,6 +20,12 @@ function HpSliderBar() {
   const [UpImages, setUpImages] = useState([]);
 
   useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+
     AxiosCommon.get("/upload/category/sliderbar", AxiosCommon.defaults.headers)
       .then((res) => {
         console.log("upload success file: ", res);
@@ -44,7 +53,13 @@ function HpSliderBar() {
                 alt={item.header}
               ></img>
 
-              <Carousel.Caption className="carousel__item__aption">
+              <Carousel.Caption
+                className="carousel__item__aption"
+                data-aos="fade-up"
+                data-aos-easing="ease-in-sine"
+                data-aos-anchor-placement="top-bottom"
+                data-aos-once={false}
+              >
                 <div className="carousel__item__aptionHeader">
                   {ReactHtmlParser(item.header)}
                 </div>

@@ -8,7 +8,6 @@ import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import FlareIcon from "@material-ui/icons/Flare";
-import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import YouTubeIcon from "@material-ui/icons/YouTube";

@@ -3,12 +3,20 @@ import React, { useEffect, useState } from "react";
 import RoundCard from "./commons/RoundCard";
 import AxiosCommon from "./commons/AxiosCommon";
 import ReactHtmlParser from "react-html-parser";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function HpMySpecial() {
   const CNAME = "myspecial";
   const [UpImages, setUpImages] = useState([]);
 
   useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+
     AxiosCommon.get(`/upload/category/${CNAME}`, AxiosCommon.defaults.headers)
       .then((res) => {
         //console.log("upload success file: ", res);
@@ -26,7 +34,11 @@ function HpMySpecial() {
       <div className="whyus__title">
         <h1 className="blog__header">Điểm đặc biệt của Kimini</h1>
       </div>
-      <div className="whyus__motive">
+      <div
+        className="whyus__motive"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+      >
         {UpImages.map((item, index) => {
           return (
             <RoundCard
@@ -51,6 +63,9 @@ function HpMySpecial() {
                   backgroundImage: `url(${
                     AxiosCommon.defaults.baseURL + "/images/" + item.filename
                   })`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center center",
                 }}
               >
                 <div className={index % 2 === 1 ? "skewL" : "skewR"}>
@@ -58,6 +73,8 @@ function HpMySpecial() {
                     className={
                       "detailBox " + (index % 2 === 1 ? "posL" : "posR")
                     }
+                    data-aos="fade-up"
+                    data-aos-anchor-placement="top-bottom"
                   >
                     <h1>{ReactHtmlParser(item.header)}</h1>
                     <h5>{ReactHtmlParser(item.content)}</h5>

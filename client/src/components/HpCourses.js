@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HpCourses.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import CourseModal from "./commons/CourseModal";
 import Rating from "./commons/Rating";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function HpCourses() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+  }, []);
+
   const contents = [
     {
       course_name: "TOEIC - Cô Vũ Mai Phương",
@@ -70,12 +80,23 @@ function HpCourses() {
         onHide={() => setModalShow(false)}
       />
 
-      <h1 className="blog__header">Các khóa học nổi bật</h1>
+      <h1
+        className="blog__header"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+      >
+        Các khóa học nổi bật
+      </h1>
       <div className="special__courses">
         <CardDeck className="special__courses__deck">
           {contents.map((course) => {
             return (
-              <Card className="special__courses__card" key={course.course_name}>
+              <Card
+                className="special__courses__card"
+                key={course.course_name}
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-center"
+              >
                 <Card.Img
                   variant="top"
                   src={course.imgage}

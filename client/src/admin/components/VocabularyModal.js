@@ -10,7 +10,7 @@ import axios from "axios";
 
 function VocabularyModal(props) {
   const [ToastVisible, setToastVisible] = useState(false);
-  const { register, handleSubmit, errors, setValue } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const category_options = ["Bài viết", "Từ vựng", "Ngữ pháp"];
   const [id, setId] = useState(props.data._id);

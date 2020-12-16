@@ -41,7 +41,7 @@
 
 .detailBox {
   position: absolute;
-  top: calc(40vh - 1.5rem);
+  top: calc(30vh - 1.5rem);
   transform: translate(0, -50%);
   width: 30%;
   padding: 1rem 1rem;

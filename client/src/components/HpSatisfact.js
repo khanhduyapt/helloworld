@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HpSatisfact.css";
 import Tabs, { Tab } from "./commons/Tabs";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function HpSatisfact() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+      once: true,
+    });
+    AOS.refresh();
+  }, []);
+
   return (
-    <div className="satisfact">
+    <div
+      className="satisfact"
+      data-aos="fade-up"
+      data-aos-anchor-placement="top-center"
+    >
       <div className="tabs">
         <h1 className="blog__header">Chương trình đào tạo</h1>
         <Tabs>
@@ -14,7 +28,11 @@ function HpSatisfact() {
             main="Mẫu giáo"
             image="https://llv.edu.vn/images/img1-courses.jpg"
           >
-            <div className="lession course__body1">
+            <div
+              className="lession course__body1"
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-center"
+            >
               <h2 className="course__header1">
                 Học tiếng Anh theo cách trẻ bản ngữ học tiếng mẹ đẻ
               </h2>
