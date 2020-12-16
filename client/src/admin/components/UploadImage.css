@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 10px;
 }
 
 .upload__image__chooser {
@@ -43,6 +44,7 @@
 
 .upload__image__buttons {
   display: flex;
+  padding-top: 10px;
 }
 
 .upload__image__submit {

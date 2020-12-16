@@ -42,12 +42,12 @@ uploadRouter.route("/category/:cname").get((req, res) => {
 });
 
 uploadRouter
-  .route("/sliderbar")
+  .route("/:category")
   .post(upload.single("img"), (req, res, next) => {
-    //console.log("/sliderbar", res.req.body);
+    //console.log("/:category", res.req.body);
 
     const _id = res.req.body._id;
-    const _filename = res.req.body._filename;
+    const _category = res.req.body._category;
     const _header = res.req.body._header;
     const _content = res.req.body._content;
     const _file = res.req.file;
@@ -56,7 +56,7 @@ uploadRouter
     if (_file) {
       newFilename = res.req.file.filename;
     }
-    //console.log("body:", _id, _filename, _header, _content, _file, newFilename);
+    //console.log("body:", _id, _category, _header, _content, _file, newFilename);
 
     //I. Có Id: (1) không có ảnh -> update content; (2) có ảnh -> delete ảnh cũ, update content.
     if (_id !== "add") {
@@ -92,10 +92,10 @@ uploadRouter
     else {
       if (newFilename) {
         const newItem = new UpImage({
-          category: "sliderbar",
           filename: newFilename,
-          header: req.body.header,
-          content: req.body.content,
+          category: _category,
+          header: _header,
+          content: _content,
           uploader_id: getCallerIP(req),
           uploader_account: getUserName(req),
         });

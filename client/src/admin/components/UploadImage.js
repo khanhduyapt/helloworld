@@ -8,28 +8,50 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import "./UploadImage.css";
 
-function UploadImage({
-  _category,
-  _id,
-  _filename,
-  _header,
-  _content,
-  _callback_link,
-}) {
+// function UploadImage({
+//   _category,
+//   _id,
+//   _filename,
+//   _header,
+//   _content,
+//   _callback_link,
+// }) {
+function UploadImage(props) {
+  //console.log(props);
   //console.log("UploadImage:", _category, _id, _filename, _header, _content);
   const { register, handleSubmit, errors } = useForm();
   const [imagePath, setImagePath] = useState("");
-
+  const [_id, setId] = useState("");
+  const [category, setCategory] = useState("");
+  const [filename, setFilename] = useState("");
   const [header, setHeader] = useState("");
   const [content, setContent] = useState("");
   const [callback_link, setCallbackLink] = useState("");
   const refBackLink = useRef(null);
 
   useEffect(() => {
-    if (_header) setHeader(_header);
-    if (_content) setContent(_content);
-    if (_callback_link) setCallbackLink(_callback_link);
-  }, [_header, _content, _callback_link]);
+    const _id = props.match.params.id;
+    const _category = props.location.category;
+    setId(_id);
+    setCategory(_category);
+    //console.log("UploadImage:", _category, _id, _callback_link);
+    if (_id && _id !== "add") {
+      AxiosCommon.get(`/upload/${_id}`, AxiosCommon.defaults.headers)
+        .then((res) => {
+          //console.log("getbyid successfully: ", res);
+          if (res.status === 200) {
+            setFilename(res.data.filename);
+            setHeader(res.data.header);
+            setContent(res.data.content);
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+
+    setCallbackLink("/admin/" + _category);
+  }, [props.match.params.id, props.location.category]);
 
   const handleChangeFile = (e) => {
     try {
@@ -55,7 +77,7 @@ function UploadImage({
       formData.append("img", data.sliderbar1[0]);
     }
     formData.append("_id", _id);
-    formData.append("_filename", _filename);
+    formData.append("_category", category);
     formData.append("_header", header);
     formData.append("_content", content);
 
@@ -67,7 +89,7 @@ function UploadImage({
       },
     };
 
-    AxiosCommon.post(`/upload/${_category}`, formData, config)
+    AxiosCommon.post(`/upload/${category}`, formData, config)
       .then((res) => {
         console.log("upload successfully: ", res);
         if (res.status === 200) {
@@ -118,11 +140,11 @@ function UploadImage({
 
         <div className="upload__image__contents">
           <div className="upload__contents__img">
-            {_filename && (
+            {filename && (
               <img
                 key={_id}
-                src={AxiosCommon.defaults.baseURL + "/images/" + _filename}
-                alt={_header}
+                src={AxiosCommon.defaults.baseURL + "/images/" + filename}
+                alt={header}
               ></img>
             )}
           </div>
