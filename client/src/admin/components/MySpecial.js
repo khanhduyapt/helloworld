@@ -4,7 +4,7 @@ import UseImages from "./UseImages";
 function MySpecial() {
   return (
     <div className="MySpecial">
-      <h1>MySpecial</h1>
+      <h1 className="dashboard__header">Điểm đặc biệt của Kimini</h1>
       <UseImages CNAME="myspecial" />
     </div>
   );

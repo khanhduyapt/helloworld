@@ -3,9 +3,9 @@ import ReactHtmlParser from "react-html-parser";
 import ArticleCard from "./commons/ArticleCard";
 import useBookSearch from "./commons/useBookSearch";
 import Spinner from "react-bootstrap/Spinner";
-import "./S6_InfiniteContents.css";
+import "./HpInfiniteContents.css";
 
-function S6_InfiniteContents() {
+function HpInfiniteContents() {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { books, hasMore, loading, error } = useBookSearch(pageNumber);
@@ -64,4 +64,4 @@ function S6_InfiniteContents() {
   );
 }
 
-export default S6_InfiniteContents;
+export default HpInfiniteContents;

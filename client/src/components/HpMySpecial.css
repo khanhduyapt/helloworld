@@ -39,31 +39,6 @@
   transform: skew(0deg, 3deg);
 }
 
-#motive1 {
-  background: url("https://image.shutterstock.com/image-photo/covid19-coronavirus-learning-home-school-600w-1676310628.jpg")
-    right 45% no-repeat;
-  background-size: cover;
-  margin-top: 0;
-}
-#motive2 {
-  background: url("https://image.shutterstock.com/image-photo/asian-girl-student-online-learning-600w-1675256440.jpg")
-    right 45% no-repeat;
-  background-size: cover;
-  margin-top: -3rem;
-}
-#motive3 {
-  background: url("https://image.shutterstock.com/image-photo/cute-asian-little-child-girl-600w-1007688394.jpg")
-    right 45% no-repeat;
-  background-size: cover;
-  margin-top: -3rem;
-}
-#motive4 {
-  background: url("https://image.shutterstock.com/image-photo/female-customer-support-operator-headset-600w-663954997.jpg")
-    right 45% no-repeat;
-  background-size: cover;
-  margin-top: -3rem;
-}
-
 .detailBox {
   position: absolute;
   top: calc(40vh - 1.5rem);
@@ -74,7 +49,7 @@
   opacity: 1;
   transition: all 0.7s;
   z-index: 1000;
-  background: rgba(255, 170, 60, 0.3);
+  background: rgba(255, 249, 201, 0.8);
   border-radius: 10px;
 }
 

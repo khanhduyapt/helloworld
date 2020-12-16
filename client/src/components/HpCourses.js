@@ -1,11 +1,11 @@
 import React from "react";
-import "./S4_Courses.css";
+import "./HpCourses.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import CourseModal from "./commons/CourseModal";
 import Rating from "./commons/Rating";
 
-function S4_Courses() {
+function HpCourses() {
   const contents = [
     {
       course_name: "TOEIC - Cô Vũ Mai Phương",
@@ -130,4 +130,4 @@ function S4_Courses() {
   );
 }
 
-export default S4_Courses;
+export default HpCourses;

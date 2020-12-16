@@ -163,17 +163,6 @@ function AdminMenu() {
 
         <li>
           <Link
-            to="/admin/whyus"
-            className="dashboard__menu__item"
-            onClick={handleMenuAtive}
-          >
-            <LocalGroceryStoreIcon />
-            Tại sao chọn chúng tôi
-          </Link>
-        </li>
-
-        <li>
-          <Link
             to="/admin/satisfact"
             className="dashboard__menu__item"
             onClick={handleMenuAtive}

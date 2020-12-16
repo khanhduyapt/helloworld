@@ -1,7 +1,7 @@
 import React from "react";
-import "./S7_Footer.css";
+import "./HpFooter.css";
 
-function S7_Footer() {
+function HpFooter() {
   return (
     <div className="footer">
       <a href="#contacts">
@@ -20,4 +20,4 @@ function S7_Footer() {
   );
 }
 
-export default S7_Footer;
+export default HpFooter;

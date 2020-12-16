@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel } from "react-bootstrap";
-import "./S1_SliderBar.css";
+import "./HpSliderBar.css";
 import AxiosCommon from "./commons/AxiosCommon";
-
-function S1_SliderBar() {
+import ReactHtmlParser from "react-html-parser";
+function HpSliderBar() {
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198178.jpg",
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198163.jpg",
   //"https://image.shutterstock.com/image-photo/class-teacher-600w-21198130.jpg",
@@ -17,7 +17,7 @@ function S1_SliderBar() {
   const [UpImages, setUpImages] = useState([]);
 
   useEffect(() => {
-    AxiosCommon.get("/upload/sliderbar", AxiosCommon.defaults.headers)
+    AxiosCommon.get("/upload/category/sliderbar", AxiosCommon.defaults.headers)
       .then((res) => {
         console.log("upload success file: ", res);
         setUpImages(() => {
@@ -45,8 +45,13 @@ function S1_SliderBar() {
               ></img>
 
               <Carousel.Caption className="carousel__item__aption">
-                <h1>{item.header}</h1>
-                <p>{item.content}</p>
+                <div className="carousel__item__aptionHeader">
+                  {ReactHtmlParser(item.header)}
+                </div>
+
+                <div className="carousel__item__aptionContent">
+                  {ReactHtmlParser(item.content)}
+                </div>
               </Carousel.Caption>
             </Carousel.Item>
           );
@@ -56,4 +61,4 @@ function S1_SliderBar() {
   );
 }
 
-export default S1_SliderBar;
+export default HpSliderBar;

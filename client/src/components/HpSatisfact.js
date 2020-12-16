@@ -1,8 +1,8 @@
 import React from "react";
-import "./S3_Satisfact.css";
+import "./HpSatisfact.css";
 import Tabs, { Tab } from "./commons/Tabs";
 
-function S3_Satisfact() {
+function HpSatisfact() {
   return (
     <div className="satisfact">
       <div className="tabs">
@@ -109,4 +109,4 @@ function S3_Satisfact() {
   );
 }
 
-export default S3_Satisfact;
+export default HpSatisfact;

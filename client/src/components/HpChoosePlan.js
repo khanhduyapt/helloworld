@@ -1,9 +1,9 @@
 import React from "react";
 import ReactPlayer from "react-player/lazy";
 import VideoModal from "./commons/VideoModal";
-import "./S5_ChoosePlan.css";
+import "./HpChoosePlan.css";
 
-function S5_ChoosePlan() {
+function HpChoosePlan() {
   const [videoData, setVideoData] = React.useState({});
   const [videoShow, setVideoShow] = React.useState(false);
 
@@ -101,4 +101,4 @@ function S5_ChoosePlan() {
   );
 }
 
-export default S5_ChoosePlan;
+export default HpChoosePlan;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./A1_Dashboard.css";
+import "./AdDashboard.css";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AdminMenu from "./components/AdminMenu";
@@ -12,14 +12,13 @@ import Students from "./components/Students";
 import Admins from "./components/Admins";
 import Sliderbar from "./components/Sliderbar";
 import MySpecial from "./components/MySpecial";
-import WhyUs from "./components/WhyUs";
 import Satisfact from "./components/Satisfact";
 import ChoosePlan from "./components/ChoosePlan";
 import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
 import UploadImage from "./components/UploadImage";
 
-function A1_Dashboard() {
+function AdDashboard() {
   return (
     <BrowserRouter>
       <div className="dashboard">
@@ -52,9 +51,7 @@ function A1_Dashboard() {
             <Route path="/admin/sliderbar" component={Sliderbar}></Route>
             <Route path="/admin/myspecial/:id" component={UploadImage}></Route>
             <Route path="/admin/myspecial" component={MySpecial}></Route>
-            <Route path="/admin/whyus">
-              <WhyUs />
-            </Route>
+
             <Route path="/admin/satisfact">
               <Satisfact />
             </Route>
@@ -74,4 +71,4 @@ function A1_Dashboard() {
   );
 }
 
-export default A1_Dashboard;
+export default AdDashboard;

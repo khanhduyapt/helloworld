@@ -1,11 +1,11 @@
-import "./S0_Menu.css";
+import "./HpMenu.css";
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
-function S0_Menu() {
+function HpMenu() {
   return (
     <Navbar fixed="top" collapseOnSelect expand="xl" bg="light" variant="light">
       <Container>
@@ -37,4 +37,4 @@ function S0_Menu() {
   );
 }
 
-export default S0_Menu;
+export default HpMenu;

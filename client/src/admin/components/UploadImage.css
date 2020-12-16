@@ -32,6 +32,7 @@
 
 .upload__image__clear {
   margin-left: 20px;
+  margin-top: auto;
 }
 
 .upload__image__header {
@@ -56,6 +57,7 @@
 
 .upload__image__contents {
   display: flex;
+  flex-direction: column;
 }
 
 .upload__contents__inputs {
@@ -65,15 +67,18 @@
 }
 
 .upload__contents__img {
-  min-width: 7vw;
-  max-width: 7vw;
+  min-width: 10vw;
+  max-width: 10vw;
   margin-right: 10px;
+  display: flex;
+  max-height: 10vh;
+  min-height: 10vh;
 }
 
 .upload__contents__img > img {
   object-fit: cover;
-  min-width: 7vw;
-  max-width: 7vw;
+  min-width: 10vw;
+  max-height: 10vh;
 }
 
 ::-webkit-file-upload-button {

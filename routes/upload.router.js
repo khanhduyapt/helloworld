@@ -42,9 +42,9 @@ uploadRouter.route("/category/:cname").get((req, res) => {
 });
 
 uploadRouter
-  .route("/:category")
+  .route("/category/:cname")
   .post(upload.single("img"), (req, res, next) => {
-    //console.log("/:category", res.req.body);
+    //console.log("/:cname", res.req.body);
 
     const _id = res.req.body._id;
     const _category = res.req.body._category;
@@ -144,17 +144,21 @@ uploadRouter.route("/avatar").post(upload.any(), function (req, res, next) {
     /* res.json({ success: true, files: req.files }); */
     /* req.files các file upload return về một array, qua đó chúng ta có thể dễ dàng xử lý  */
     /* chú ý: nhớ rename file lại không nữa sinh ra lỗi. ở đay mình rename theo kích thuước mình resize. */
+
     sharp(req.files[0].path)
-      .resize(262, 317)
+      .resize(250, 250)
       .toFile(
-        "./public/images/" + "avatar_262x317_" + req.files[0].filename,
-        function (err) {
-          if (err) {
-            console.error("sharp>>>", err);
-          }
-          console.log("ok okoko");
-        }
-      );
+        "./public/images/" +
+          "avatar_250x250_UserName" +
+          req.files[0].filename.substring(req.files[0].filename.indexOf("."))
+      )
+      .then((output) => {
+        res.json({
+          avatar:
+            "avatar_250x250_UserName" +
+            req.files[0].filename.substring(req.files[0].filename.indexOf(".")),
+        });
+      });
   }
 });
 

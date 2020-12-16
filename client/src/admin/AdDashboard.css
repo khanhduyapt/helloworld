@@ -27,3 +27,9 @@
 .dashboard__content {
   flex: 1;
 }
+
+.dashboard__header {
+  padding-top: 2rem;
+  text-align: center;
+  font-size: 2rem !important;
+}

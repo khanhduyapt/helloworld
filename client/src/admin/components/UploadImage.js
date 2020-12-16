@@ -7,15 +7,8 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import "./UploadImage.css";
+import { Alert } from "bootstrap";
 
-// function UploadImage({
-//   _category,
-//   _id,
-//   _filename,
-//   _header,
-//   _content,
-//   _callback_link,
-// }) {
 function UploadImage(props) {
   //console.log(props);
   //console.log("UploadImage:", _category, _id, _filename, _header, _content);
@@ -23,11 +16,19 @@ function UploadImage(props) {
   const [imagePath, setImagePath] = useState("");
   const [_id, setId] = useState("");
   const [category, setCategory] = useState("");
-  const [filename, setFilename] = useState("");
   const [header, setHeader] = useState("");
   const [content, setContent] = useState("");
   const [callback_link, setCallbackLink] = useState("");
   const refBackLink = useRef(null);
+
+  const [imageUrl, setImageUrl] = useState("");
+  const config = {
+    headers: {
+      Accept: "application/json",
+      "Content-type": "multipart/form-data",
+      Authorization: "Bearer " + localStorage.sid,
+    },
+  };
 
   useEffect(() => {
     const _id = props.match.params.id;
@@ -40,7 +41,9 @@ function UploadImage(props) {
         .then((res) => {
           //console.log("getbyid successfully: ", res);
           if (res.status === 200) {
-            setFilename(res.data.filename);
+            setImageUrl(
+              AxiosCommon.defaults.baseURL + "/images/" + res.data.filename
+            );
             setHeader(res.data.header);
             setContent(res.data.content);
           }
@@ -57,11 +60,34 @@ function UploadImage(props) {
     try {
       if (e.target && e.target.files) {
         const file = e.target.files[0];
-        if (file.size > 5000000)
-          console.log("File size cannot exceed more than 5Mb");
+        if (file.size > 5000000) Alert("File size cannot exceed more than 5Mb");
         else {
           console.log("File:", e.target.value);
           setImagePath(e.target.value);
+
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageUrl(reader.result);
+          };
+
+          if (file) {
+            reader.readAsDataURL(file);
+            setImageUrl(reader.result);
+          }
+          // let formData = new FormData();
+          // formData.append("img", file);
+          // AxiosCommon.post(`/upload/avatar`, formData, config)
+          //   .then((res) => {
+          //     console.log("upload avatar: ", res);
+          //     if (res.status === 200) {
+          //       setFilename(res.data.avatar);
+          //     } else {
+          //       alert(res.data.msg);
+          //     }
+          //   })
+          //   .catch((error) => {
+          //     console.log(error.message);
+          //   });
         }
       }
     } catch (error) {}
@@ -81,15 +107,7 @@ function UploadImage(props) {
     formData.append("_header", header);
     formData.append("_content", content);
 
-    const config = {
-      headers: {
-        Accept: "application/json",
-        "Content-type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.sid,
-      },
-    };
-
-    AxiosCommon.post(`/upload/${category}`, formData, config)
+    AxiosCommon.post(`/upload/category/${category}`, formData, config)
       .then((res) => {
         console.log("upload successfully: ", res);
         if (res.status === 200) {
@@ -125,28 +143,25 @@ function UploadImage(props) {
             onChange={handleChangeFile}
             className="upload__image__choosefile"
           />
-
-          <button
-            type="button"
-            className="card__link upload__image__clear"
-            onClick={() => {
-              //console.log("Xóa");
-              setImagePath("");
-            }}
-          >
-            Xóa
-          </button>
         </div>
 
         <div className="upload__image__contents">
           <div className="upload__contents__img">
-            {filename && (
-              <img
-                key={_id}
-                src={AxiosCommon.defaults.baseURL + "/images/" + filename}
-                alt={header}
-              ></img>
-            )}
+            <img key={_id} src={imageUrl} alt={header}></img>
+
+            <button
+              type="button"
+              className="card__link upload__image__clear"
+              onClick={() => {
+                //console.log("Xóa");
+                setImagePath("");
+                setImageUrl(
+                  AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+                );
+              }}
+            >
+              Xóa
+            </button>
           </div>
 
           <div className="upload__contents__inputs">

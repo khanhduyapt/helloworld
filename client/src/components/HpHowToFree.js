@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./S4_HowToFree.css";
+import "./HpHowToFree.css";
 import { useForm } from "react-hook-form";
 import Toast from "react-bootstrap/Toast";
 
-function S4_HowToFree() {
+function HpHowToFree() {
   const [show, setShow] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm();
   const onSubmit = (data) => {
@@ -75,4 +75,4 @@ function S4_HowToFree() {
   );
 }
 
-export default S4_HowToFree;
+export default HpHowToFree;
