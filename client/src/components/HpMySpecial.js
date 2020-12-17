@@ -12,7 +12,7 @@ function HpMySpecial() {
 
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 1000,
       once: true,
     });
     AOS.refresh();
@@ -71,10 +71,11 @@ function HpMySpecial() {
                 <div className={index % 2 === 1 ? "skewL" : "skewR"}>
                   <div
                     className={
-                      "detailBox " + (index % 2 === 1 ? "posL" : "posR")
+                      "detailBox no__skew " +
+                      (index % 2 === 1 ? "posL" : "posR")
                     }
                     data-aos="fade-up"
-                    data-aos-anchor-placement="top-bottom"
+                    data-aos-anchor-placement="top-center"
                   >
                     <h1>{ReactHtmlParser(item.header)}</h1>
                     <h5>{ReactHtmlParser(item.content)}</h5>

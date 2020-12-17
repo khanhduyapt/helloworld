@@ -1,0 +1,86 @@
+.student__deck {
+  height: fit-content;
+  overflow-y: visible;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-column-gap: 3vw;
+  justify-content: center;
+}
+
+.student__form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+}
+
+.student__info {
+  display: flex;
+  flex-direction: row;
+}
+
+.student__image {
+  object-fit: cover;
+  min-width: 7vw;
+  max-width: 7vw;
+  height: 10vh;
+  margin: 10px;
+}
+
+.student__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.student__contents__field {
+  display: flex;
+}
+
+.student__field__label {
+  min-width: 150px;
+}
+.student__field__content {
+  flex: 1;
+  min-width: 400px;
+}
+
+.student__inputs {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 5px;
+}
+
+.student__inputs > input {
+  margin-bottom: 5px;
+}
+
+.student__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.student__buttons > p {
+  min-width: 100px;
+}
+
+.student__header {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+  color: #0977bc;
+}
+
+.student__contents {
+  font-size: 1.1rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 40%);
+}

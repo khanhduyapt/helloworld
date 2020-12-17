@@ -17,10 +17,15 @@
   height: fit-content;
 }
 
+.hor__center {
+  text-align: center;
+}
+
 .vertical__center {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  text-align: center;
 }
 
 .blog__header {
@@ -131,6 +136,10 @@
 h1 {
   font-size: 3rem !important;
   letter-spacing: 0.05em !important;
+}
+
+p {
+  margin-bottom: 0 !important;
 }
 
 ul {

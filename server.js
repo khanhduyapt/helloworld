@@ -10,13 +10,7 @@ const io = socket(server);
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const FS_ROLE = {
-  ADMIN: "admin",
-  TEACHER: "teacher",
-  STUDENT: "student",
-  GUEST: "guest",
-};
-
+const { FS_ROLE } = require("./routes/FS_ROLE");
 //------------------------------------------
 // Todo: authenticate user here
 const users = [
@@ -118,6 +112,8 @@ app.use("/articles", articleRouter);
 const uploadRouter = require("./routes/upload.router");
 app.use("/upload", uploadRouter);
 
+const userRouter = require("./routes/users.router");
+app.use("/user", userRouter);
 //#endregion
 
 app.post("/api/login", (req, res) => {

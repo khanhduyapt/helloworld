@@ -53,6 +53,10 @@
   border-radius: 10px;
 }
 
+.no__skew {
+  transform: skew(0) !important;
+}
+
 .posR {
   right: 0;
 }
@@ -61,11 +65,6 @@
   left: 3rem;
 }
 
-.nonview {
-  opacity: 1;
-  transition: all 0.7s;
-  transform: translate(-3rem, -50%);
-}
 /* #endregion */
 /* ------------------------------------------------------------------------ */
 .whyus__strength {

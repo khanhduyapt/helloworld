@@ -105,3 +105,64 @@ GET http://localhost:3001/upload/5fd71aafcfcba631c09b7124
 
 ###
 DELETE http://localhost:3001/upload/5fd7124b78295d2878339efe
+
+###========================================================================================
+###
+GET http://localhost:3001/user/students
+
+###
+POST http://localhost:3001/user/add
+content-type: application/json
+
+{
+  "account" : "phamthao", 
+  "password" : "123456", 
+  "role" : "student", 
+
+  "local_id" : "TC62", 
+  "fullname" : "Phạm Phương Thảo", 
+  "avatar" : "avatar_250x250_UserName.jpg",
+  "date_of_birth" : "Wed, 21 Oct 2015 10:21:30 GMT", 
+  "phone_number" : "123456789", 
+  "address" : "xxxxxxaddress", 
+  "email" : "phamthao@gmail.com", 
+  "facebook" : "xxxxxxfacebook", 
+  "zoom_id" : "xxxxxxzoom_id", 
+  "skype_id" : "xxxxxxskype_id", 
+
+  "parent_name" : "xxxxxxparent_name", 
+  "parent_phone" : "xxxxxxparent_phone", 
+  "parent_email" : "xxxxxxparent_email", 
+  "date_join" : "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+###
+POST http://localhost:3001/user/add
+content-type: application/json
+
+{
+  "account" : "d@d", 
+  "password" : "123", 
+  "role" : "admin", 
+
+  "local_id" : "TC01", 
+  "fullname" : "Doan Khanh Duy", 
+  "date_of_birth" : "Wed, 21 Oct 2015 10:21:30 GMT", 
+  "phone_number" : "123456789", 
+  "address" : "xxxxxxaddress", 
+  "email" : "d@d.d", 
+  "facebook" : "xxxxxxfacebook", 
+  "zoom_id" : "xxxxxxzoom_id", 
+  "skype_id" : "xxxxxxskype_id", 
+
+  "parent_name" : "xxxxxxparent_name", 
+  "parent_phone" : "xxxxxxparent_phone", 
+  "parent_email" : "xxxxxxparent_email", 
+  "date_join" : "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+###
+post  http://localhost:3001/user/update/5fdb1a64205db83db4a32000
+content-type: application/json
+
+{
+  "avatar" : "avatar_250x250_UserName.jpg"
+}

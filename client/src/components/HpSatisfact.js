@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 function HpSatisfact() {
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 1000,
       once: true,
     });
     AOS.refresh();
@@ -28,11 +28,7 @@ function HpSatisfact() {
             main="Mẫu giáo"
             image="https://llv.edu.vn/images/img1-courses.jpg"
           >
-            <div
-              className="lession course__body1"
-              data-aos="fade-up"
-              data-aos-anchor-placement="top-center"
-            >
+            <div className="lession course__body1">
               <h2 className="course__header1">
                 Học tiếng Anh theo cách trẻ bản ngữ học tiếng mẹ đẻ
               </h2>
