@@ -17,6 +17,7 @@ import ChoosePlan from "./components/ChoosePlan";
 import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
 import UploadImage from "./components/UploadImage";
+import StudentEdit from "./components/StudentEdit";
 
 function AdDashboard() {
   return (
@@ -41,9 +42,9 @@ function AdDashboard() {
             <Route path="/admin/teachers">
               <Teachers />
             </Route>
-            <Route path="/admin/students">
-              <Students />
-            </Route>
+
+            <Route path="/admin/student/:id" component={StudentEdit}></Route>
+            <Route path="/admin/students" component={Students}></Route>
             <Route path="/admin/admins">
               <Admins />
             </Route>
@@ -51,7 +52,6 @@ function AdDashboard() {
             <Route path="/admin/sliderbar" component={Sliderbar}></Route>
             <Route path="/admin/myspecial/:id" component={UploadImage}></Route>
             <Route path="/admin/myspecial" component={MySpecial}></Route>
-
             <Route path="/admin/satisfact">
               <Satisfact />
             </Route>

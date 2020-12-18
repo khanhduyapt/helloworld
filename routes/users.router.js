@@ -26,6 +26,8 @@ userRouter.route("/add").post((req, res) => {
     parent_email: req.body.parent_email,
     date_join: req.body.date_join,
 
+    notes: req.body.notes,
+
     last_modify_ip: getCallerIP(req),
     last_modify_account: getUserName(req),
   });
@@ -81,6 +83,8 @@ userRouter.route("/update/:id").post((req, res) => {
       if (req.body.parent_phone) item.parent_phone = req.body.parent_phone;
       if (req.body.parent_email) item.parent_email = req.body.parent_email;
       if (req.body.date_join) item.date_join = req.body.date_join;
+
+      if (req.body.notes) item.notes = req.body.notes;
 
       item.last_modify_ip = getCallerIP(req);
       item.last_modify_account = req.user;

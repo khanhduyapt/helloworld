@@ -1,3 +1,4 @@
+import "./UploadImage.css";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -5,8 +6,6 @@ import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-import "./UploadImage.css";
 import { Alert } from "bootstrap";
 
 function UploadImage(props) {
@@ -98,9 +97,9 @@ function UploadImage(props) {
 
     // console.log("upload: ", data);
     let formData = new FormData();
-    if (data && data.sliderbar1 && data.sliderbar1.length > 0) {
-      //console.log("upload: ", data.sliderbar1[0]);
-      formData.append("img", data.sliderbar1[0]);
+    if (data && data.user_image && data.user_image.length > 0) {
+      //console.log("upload: ", data.user_image[0]);
+      formData.append("img", data.user_image[0]);
     }
     formData.append("_id", _id);
     formData.append("_category", category);
@@ -123,22 +122,22 @@ function UploadImage(props) {
 
   return (
     <div className="upload__image">
-      <h5 className="upload__image__title">Chọn ảnh trên máy tính của bạn.</h5>
+      <h1 className="dashboard__header">Chọn ảnh trên máy tính của bạn</h1>
       <form
         onSubmit={handleSubmit(onSubmitForm)}
         autoComplete="off"
         className="upload__image__form"
       >
         <div className="upload__image__chooser">
-          {errors.sliderbar1 && (
-            <h1 style={{ color: "red" }}>{errors.sliderbar1.message}</h1>
+          {errors.user_image && (
+            <h1 style={{ color: "red" }}>{errors.user_image.message}</h1>
           )}
 
           <input
             ref={register}
             type="file"
             accept="image/*"
-            name="sliderbar1"
+            name="user_image"
             value={imagePath}
             onChange={handleChangeFile}
             className="upload__image__choosefile"

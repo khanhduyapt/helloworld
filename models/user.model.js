@@ -32,6 +32,8 @@ const userSchema = new Schema(
     parent_email: { type: String },
     date_join: { type: Date },
 
+    notes: { type: String },
+
     last_modify_ip: { type: String },
     last_modify_account: { type: String },
   },

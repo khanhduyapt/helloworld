@@ -41,8 +41,14 @@
 }
 
 .student__field__label {
-  min-width: 150px;
+  min-width: 40px;
 }
+
+.student__field__label > img {
+  height: 20px !important;
+  text-align: center;
+}
+
 .student__field__content {
   flex: 1;
   min-width: 400px;
@@ -51,7 +57,7 @@
 .student__inputs {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 50%;
   padding: 5px;
 }
 
@@ -82,5 +88,20 @@
   font-size: 1.1rem;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(2, 40%);
+  grid-template-columns: repeat(2, 50%);
+}
+
+.student__info__others {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.student__info__others > textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 5px;
+  border: none;
+  border-left: 1px solid #f58200;
 }

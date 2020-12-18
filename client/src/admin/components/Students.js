@@ -2,9 +2,9 @@ import "./Students.css";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
+import CardIcon from "../../components/commons/CardIcon";
 
 function Students() {
-  const CNAME = "sliderbar";
   const [StudentList, setStudentList] = useState([]);
   const refEditItem = useRef(null);
 
@@ -19,7 +19,7 @@ function Students() {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [CNAME]);
+  }, []);
 
   const handleDelete = (_id, _header) => {
     //console.log("delete:", _id, _header);
@@ -39,12 +39,13 @@ function Students() {
 
   return (
     <div className="students">
+      <h1 className="dashboard__header">Danh sách học viên</h1>
+
       <div className="main__top__controls">
         <Link
           className="card__link btn__outline__normal"
           to={{
-            pathname: `/user/${CNAME}/add`,
-            category: CNAME,
+            pathname: `/admin/student/add`,
           }}
         >
           Add new
@@ -61,7 +62,7 @@ function Students() {
             >
               <div className="student__info">
                 <img
-                  className="student__image card__link"
+                  className="student__image"
                   key={student._id}
                   src={
                     AxiosCommon.defaults.baseURL + "/images/" + student.avatar
@@ -77,7 +78,6 @@ function Students() {
                       className="card__link"
                       to={{
                         pathname: `/user/students/${student._id}`,
-                        category: CNAME,
                       }}
                     >
                       {student.fullname}
@@ -85,52 +85,76 @@ function Students() {
                   </div>
                   <div className="student__contents">
                     <div className="student__contents__field">
-                      <p className="student__field__label">Lớp: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="online_class.jpg" alt="Lớp" />
+                      </p>
                       <span className="card__link">Lớp abcdef</span>
                     </div>
-                    <div className="student__field__content">
+                    <div className="student__contents__field">
+                      <p className="student__field__label">
+                        <CardIcon icon="calendar_time.jpg" alt="Thời gian" />
+                      </p>
                       <p className="student__field__content">
-                        Thời gian :
                         <span className="card__link">start date</span> ~{" "}
                         <span className="card__link">end date</span>
                       </p>
                     </div>
 
                     <div className="student__contents__field">
-                      <p className="student__field__label">Tài khoản: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="account.jpg" alt="Tài khoản" />
+                      </p>
                       <p className="student__field__content">
                         {student.account}
                       </p>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">facebook: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="facebook.jpg" alt="Facebook" />
+                      </p>
                       <p className="student__field__content">
                         {student.facebook}
                       </p>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">phone_number: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="phone_number.png" alt="Facebook" />
+                      </p>
                       <p className="student__field__content">
                         {student.phone_number}
                       </p>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">skype_id: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="skype.png" alt="Skype" />
+                      </p>
                       <p className="student__field__content">
                         {student.skype_id}
                       </p>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">email: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="email.png" alt="Email" />
+                      </p>
                       <p className="student__field__content">{student.email}</p>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">zoom_id: </p>
+                      <p className="student__field__label">
+                        <CardIcon icon="zoom.png" alt="Zoom" />
+                      </p>
                       <p className="student__field__content">
                         {student.zoom_id}
                       </p>
                     </div>
                   </div>
+                </div>
+
+                <div className="student__info__others">
+                  <textarea
+                    name="student_notes"
+                    rows="5"
+                    placeholder="Tin nhắn chi tiết. &#10;Thời gian chích hợp để liên hệ với bạn."
+                  />
                 </div>
               </div>
 
@@ -138,8 +162,7 @@ function Students() {
                 <Link
                   className="card__link hor__center"
                   to={{
-                    pathname: `/user/${CNAME}/${student._id}`,
-                    category: CNAME,
+                    pathname: `/user/students/${student._id}`,
                   }}
                 >
                   Edit

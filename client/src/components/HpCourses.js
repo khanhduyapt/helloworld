@@ -130,13 +130,19 @@ function HpCourses() {
                   </div>
                 </Card.Body>
                 <Card.Footer className="courses__card__footer text-muted">
-                  <img src="http://localhost:3000/icon/www.png" alt="Web"></img>
+                  <img
+                    src="http://localhost:3000/icon/www.png"
+                    className="card__icon"
+                    alt="Web"
+                  ></img>
                   <img
                     src="http://localhost:3000/icon/skype.png"
+                    className="card__icon"
                     alt="Skype"
                   ></img>
                   <img
                     src="http://localhost:3000/icon/zoom.png"
+                    className="card__icon"
                     alt="Zoom"
                   ></img>
 

@@ -1,0 +1,145 @@
+.student__edit {
+  margin: 10px 20px;
+}
+
+.student__edit__form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px 20px 0px 25px;
+  min-width: 1060px;
+  max-width: 1060px;
+  margin: auto;
+}
+
+.student__image__chooser {
+  min-width: 10vw;
+  max-width: 10vw;
+  margin: 10px 10px 10px 25px;
+  display: flex;
+}
+
+.student__image__chooser > img {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+}
+
+.student__image__choosefile {
+  background-color: #fff;
+  font-size: 1.2rem;
+}
+
+.student__edit__info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.student__edit__image {
+  object-fit: cover;
+  min-width: 7vw;
+  max-width: 7vw;
+  height: 10vh;
+  margin: 10px;
+}
+
+.student__edit__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.student__field__content {
+  display: flex;
+  flex: 1;
+  min-width: 400px;
+  margin-bottom: 5px;
+}
+
+.student__field__label {
+  min-width: 200px;
+  max-width: 200px;
+  padding-top: 5px;
+}
+
+.student__field__label > img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.student__edit__inputs {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.student__edit__inputs > input {
+  margin-bottom: 5px;
+}
+
+.student__edit__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.student__edit__buttons > p {
+  min-width: 100px;
+}
+
+.student__edit__header {
+  display: flex;
+  margin: 0;
+  min-width: 500px;
+  max-width: 500px;
+  margin-bottom: 5px;
+}
+
+.student__edit__contents {
+  font-size: 1.1rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 100%);
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.student__edit__infoOther {
+  flex: 1;
+  padding-right: 7px;
+}
+
+.student__edit__infoOther > textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ebebeb;
+}
+
+.student__input__item {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.react-datepicker__input-container > input {
+  width: 120px;
+  outline: none;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}

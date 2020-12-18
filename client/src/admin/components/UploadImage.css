@@ -69,7 +69,7 @@
 .upload__contents__img {
   min-width: 10vw;
   max-width: 10vw;
-  margin-right: 10px;
+  margin: 10px;
   display: flex;
   max-height: 10vh;
   min-height: 10vh;

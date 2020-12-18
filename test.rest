@@ -133,7 +133,8 @@ content-type: application/json
   "parent_name" : "xxxxxxparent_name", 
   "parent_phone" : "xxxxxxparent_phone", 
   "parent_email" : "xxxxxxparent_email", 
-  "date_join" : "Wed, 21 Oct 2015 18:27:50 GMT"
+  "date_join" : "Wed, 21 Oct 2015 18:27:50 GMT",
+  "notes":"Lười học"
 }
 ###
 POST http://localhost:3001/user/add
