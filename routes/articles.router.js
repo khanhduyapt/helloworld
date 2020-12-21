@@ -49,11 +49,12 @@ articleRouter.route("/update/:id").post((req, res) => {
   // console.log("articleRouter.route->update:", req.params);
   Article.findById(req.params.id)
     .then((item) => {
-      item.title = req.body.title;
-      item.thumbnail = req.body.thumbnail;
-      item.category_name = req.body.category_name;
-      item.short_content = req.body.short_content;
-      item.contents = req.body.contents;
+      if (req.body.title) item.title = req.body.title;
+      if (req.body.thumbnail) item.thumbnail = req.body.thumbnail;
+      if (req.body.category_name) item.category_name = req.body.category_name;
+      if (req.body.short_content) item.short_content = req.body.short_content;
+      if (req.body.contents) item.contents = req.body.contents;
+
       item.last_modify_id = getCallerIP(req);
       item.last_modify_account = req.user;
 

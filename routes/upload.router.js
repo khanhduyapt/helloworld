@@ -3,9 +3,9 @@ const UpImage = require("../models/image.model");
 const { getCallerIP, getUserName } = require("./utils");
 const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
 const sharp = require("sharp");
 
+const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/images");
@@ -29,7 +29,6 @@ const storage = multer.diskStorage({
     callback(null, true);
   },
 });
-
 const upload = multer({ storage, limits: { fileSize: 5000000 } }); //5Mb
 
 uploadRouter.route("/category/:cname").get((req, res) => {

@@ -1,6 +1,7 @@
 const userRouter = require("express").Router();
 let User = require("../models/user.model");
 const { FS_ROLE } = require("./FS_ROLE");
+const { multer_upload } = require("./multer");
 let { getCallerIP, getUserName } = require("./utils");
 
 userRouter.route("/add").post((req, res) => {
@@ -48,8 +49,8 @@ userRouter.route("/students").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-userRouter.route("students/:id").get((req, res) => {
-  // console.log("studentRouter.route->findById:", req.params.id);
+userRouter.route("/students/:id").get((req, res) => {
+  console.log("studentRouter.route->findById:", req.params.id);
 
   User.findById(req.params.id)
     .then((item) => res.json(item))
@@ -57,44 +58,51 @@ userRouter.route("students/:id").get((req, res) => {
 });
 
 userRouter.route("/students/:id").delete((req, res) => {
-  // console.log("studentRouter.route->delete:", req.params.id);
+  console.log("studentRouter.route->delete:", req.params.id);
 
   User.findByIdAndDelete(req.params.id)
     .then(() => res.json({ msg: "deleted.", id: req.params.id }))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-userRouter.route("/update/:id").post((req, res) => {
-  // console.log("studentRouter.route->update:", req.params);
-  User.findById(req.params.id)
-    .then((item) => {
-      if (req.body.local_id) item.local_id = req.body.local_id;
-      if (req.body.fullname) item.fullname = req.body.fullname;
-      if (req.body.avatar) item.avatar = req.body.avatar;
-      if (req.body.date_of_birth) item.date_of_birth = req.body.date_of_birth;
-      if (req.body.phone_number) item.phone_number = req.body.phone_number;
-      if (req.body.address) item.address = req.body.address;
-      if (req.body.email) item.email = req.body.email;
-      if (req.body.facebook) item.facebook = req.body.facebook;
-      if (req.body.zoom_id) item.zoom_id = req.body.zoom_id;
-      if (req.body.skype_id) item.skype_id = req.body.skype_id;
+userRouter.route("/update/:id").post(multer_upload.any(), (req, res, next) => {
+  console.log(
+    "studentRouter.route->update:",
+    req.params,
+    res.req.body,
+    req.files[0]
+  );
+  // User.findById(req.params.id)
+  //   .then((item) => {
+  //     if (req.body.local_id) item.local_id = req.body.local_id;
+  //     if (req.body.fullname) item.fullname = req.body.fullname;
+  //     if (req.body.avatar) item.avatar = req.body.avatar;
+  //     if (req.body.date_of_birth) item.date_of_birth = req.body.date_of_birth;
+  //     if (req.body.phone_number) item.phone_number = req.body.phone_number;
+  //     if (req.body.address) item.address = req.body.address;
+  //     if (req.body.email) item.email = req.body.email;
+  //     if (req.body.facebook) item.facebook = req.body.facebook;
+  //     if (req.body.zoom_id) item.zoom_id = req.body.zoom_id;
+  //     if (req.body.skype_id) item.skype_id = req.body.skype_id;
 
-      if (req.body.parent_name) item.parent_name = req.body.parent_name;
-      if (req.body.parent_phone) item.parent_phone = req.body.parent_phone;
-      if (req.body.parent_email) item.parent_email = req.body.parent_email;
-      if (req.body.date_join) item.date_join = req.body.date_join;
+  //     if (req.body.parent_name) item.parent_name = req.body.parent_name;
+  //     if (req.body.parent_phone) item.parent_phone = req.body.parent_phone;
+  //     if (req.body.parent_email) item.parent_email = req.body.parent_email;
+  //     if (req.body.date_join) item.date_join = req.body.date_join;
 
-      if (req.body.notes) item.notes = req.body.notes;
+  //     if (req.body.notes) item.notes = req.body.notes;
 
-      item.last_modify_ip = getCallerIP(req);
-      item.last_modify_account = req.user;
+  //     item.last_modify_ip = getCallerIP(req);
+  //     item.last_modify_account = req.user;
 
-      item
-        .save()
-        .then((updatedItem) => res.json(updatedItem))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+  //     console.log("update item:", item);
+
+  //     // item
+  //     //   .save()
+  //     //   .then((updatedItem) => res.json(updatedItem))
+  //     //   .catch((err) => res.status(400).json("Error: " + err));
+  //   })
+  //   .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = userRouter;

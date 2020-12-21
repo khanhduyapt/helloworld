@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import CardIcon from "../../components/commons/CardIcon";
+import SymbolTo from "../../components/commons/SymbolTo";
 
 function Students() {
   const [StudentList, setStudentList] = useState([]);
@@ -20,22 +21,6 @@ function Students() {
         console.log(error.message);
       });
   }, []);
-
-  const handleDelete = (_id, _header) => {
-    //console.log("delete:", _id, _header);
-
-    if (window.confirm(`Bạn có muốn xóa bài viết?\n${_header}`) === true) {
-      AxiosCommon.delete(`/upload/${_id}`, AxiosCommon.defaults.headers)
-        .then((res) => {
-          console.log("delete:", res);
-          var elem = document.getElementById("student__form__" + res.data.id);
-          elem.parentNode.removeChild(elem);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-  };
 
   return (
     <div className="students">
@@ -68,7 +53,6 @@ function Students() {
                     AxiosCommon.defaults.baseURL + "/images/" + student.avatar
                   }
                   alt={student.fullname}
-                  onClick={() => refEditItem.current.click()}
                 ></img>
 
                 <div className="student__inputs">
@@ -76,9 +60,7 @@ function Students() {
                     <Link
                       ref={refEditItem}
                       className="card__link"
-                      to={{
-                        pathname: `/user/students/${student._id}`,
-                      }}
+                      to={`/admin/student/${student._id}`}
                     >
                       {student.fullname}
                     </Link>
@@ -88,15 +70,16 @@ function Students() {
                       <p className="student__field__label">
                         <CardIcon icon="online_class.jpg" alt="Lớp" />
                       </p>
-                      <span className="card__link">Lớp abcdef</span>
+                      <span className="card__link__danger">Lớp abcdef</span>
                     </div>
                     <div className="student__contents__field">
                       <p className="student__field__label">
                         <CardIcon icon="calendar_time.jpg" alt="Thời gian" />
                       </p>
                       <p className="student__field__content">
-                        <span className="card__link">start date</span> ~{" "}
-                        <span className="card__link">end date</span>
+                        <span className="card__link__danger">start date</span>
+                        <SymbolTo />
+                        <span className="card__link__danger">end date</span>
                       </p>
                     </div>
 
@@ -157,24 +140,6 @@ function Students() {
                   />
                 </div>
               </div>
-
-              {/* <div className="student__buttons">
-                <Link
-                  className="card__link hor__center"
-                  to={{
-                    pathname: `/user/students/${student._id}`,
-                  }}
-                >
-                  Edit
-                </Link>
-
-                <p
-                  className="card__link card__link__danger hor__center"
-                  onClick={() => handleDelete(student._id, student.header)}
-                >
-                  Delete
-                </p>
-              </div> */}
             </div>
           );
         })}
