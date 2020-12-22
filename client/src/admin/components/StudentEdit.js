@@ -10,6 +10,7 @@ import AxiosCommon from "../../components/commons/AxiosCommon";
 import { Alert } from "bootstrap";
 import CardIcon from "../../components/commons/CardIcon";
 import SymbolTo from "../../components/commons/SymbolTo";
+import NumberFormat from "react-number-format";
 
 function StudentEdit(props) {
   //console.log(props);
@@ -19,6 +20,7 @@ function StudentEdit(props) {
   const [_id, setId] = useState("");
 
   const [account, set_account] = useState("");
+  const [password, set_password] = useState("");
   const [address, set_address] = useState("");
   const [avatar, set_avatar] = useState("");
   const [date_join, set_date_join] = useState("");
@@ -34,9 +36,21 @@ function StudentEdit(props) {
   const [skype_id, set_skype_id] = useState("");
   const [zoom_id, set_zoom_id] = useState("");
 
+  const [pk_course_detail, set_pk_course_detail] = useState("");
+  const [course_id, set_course_id] = useState("");
   const [course_name, set_course_name] = useState("");
   const [course_str_date, set_course_str_date] = useState(new Date());
   const [course_end_date, set_course_end_date] = useState(new Date());
+  const [duration_month, set_duration_month] = useState("");
+  const [number_lessons, set_number_lessons] = useState(0);
+  const [lessons_remain, set_lessons_remain] = useState("");
+  const [tuition_fee, set_tuition_fee] = useState(0);
+  const [tuition_fee_paid, set_tuition_fee_paid] = useState(0);
+  const [tuition_fee_unpaid, set_tuition_fee_unpaid] = useState(0);
+
+  const [cbx_number_lessons, set_cbx_number_lessons] = useState("");
+  const [cbx_tuition_fee, set_cbx_tuition_fee] = useState("");
+  const [cbx_course_notes, set_cbx_course_notes] = useState("");
 
   //#region Time Start~End
   const [mo_time_str, set_mo_time_str] = useState(null);
@@ -55,12 +69,31 @@ function StudentEdit(props) {
   const [su_time_end, set_su_time_end] = useState(null);
   //#endregion
 
+  const [course_options, set_course_options] = useState([{}]);
+
   const refBackLink = useRef(null);
 
   //src={AxiosCommon.defaults.baseURL + "/images/" + student.avatar}
   const [imageUrl, setImageUrl] = useState(
     AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
   );
+
+  useEffect(() => {
+    AxiosCommon.get(`/courses`, AxiosCommon.defaults.headers)
+      .then((res) => {
+        // console.log("optionItems res:", res);
+        // let optionItems = [];
+        // res.data.map((course) => {
+        //   optionItems.push({ value: course._id, label: course.course_name });
+        // });
+        // console.log("optionItems:", optionItems);
+
+        set_course_options(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   useEffect(() => {
     const _id = props.match.params.id;
@@ -77,6 +110,7 @@ function StudentEdit(props) {
             );
 
             set_account(res.data.account);
+            set_password(res.data.password);
             set_address(res.data.address);
             set_avatar(res.data.avatar);
             set_date_join(res.data.date_join);
@@ -91,6 +125,96 @@ function StudentEdit(props) {
             set_phone_number(res.data.phone_number);
             set_skype_id(res.data.skype_id);
             set_zoom_id(res.data.zoom_id);
+
+            if (res.data.course_details && res.data.course_details.length > 0) {
+              const course_detail = res.data.course_details[0];
+
+              set_pk_course_detail(course_detail._id);
+              set_course_id(course_detail.course_id);
+              set_course_name(course_detail.course_name);
+
+              if (
+                course_detail.course_str_date &&
+                course_detail.course_str_date !== "null"
+              )
+                set_course_str_date(new Date(course_detail.course_str_date));
+              if (
+                course_detail.course_end_date &&
+                course_detail.course_end_date !== "null"
+              )
+                set_course_end_date(new Date(course_detail.course_end_date));
+
+              if (
+                course_detail.mo_time_str &&
+                course_detail.mo_time_str !== "null"
+              )
+                set_mo_time_str(new Date(course_detail.mo_time_str));
+              if (
+                course_detail.mo_time_end &&
+                course_detail.mo_time_end !== "null"
+              )
+                set_mo_time_end(new Date(course_detail.mo_time_end));
+              if (
+                course_detail.tu_time_str &&
+                course_detail.tu_time_str !== "null"
+              )
+                set_tu_time_str(new Date(course_detail.tu_time_str));
+              if (
+                course_detail.tu_time_end &&
+                course_detail.tu_time_end !== "null"
+              )
+                set_tu_time_end(new Date(course_detail.tu_time_end));
+              if (
+                course_detail.we_time_str &&
+                course_detail.we_time_str !== "null"
+              )
+                set_we_time_str(new Date(course_detail.we_time_str));
+              if (
+                course_detail.we_time_end &&
+                course_detail.we_time_end !== "null"
+              )
+                set_we_time_end(new Date(course_detail.we_time_end));
+              if (
+                course_detail.th_time_str &&
+                course_detail.th_time_str !== "null"
+              )
+                set_th_time_str(new Date(course_detail.th_time_str));
+              if (
+                course_detail.th_time_end &&
+                course_detail.th_time_end !== "null"
+              )
+                set_th_time_end(new Date(course_detail.th_time_end));
+              if (
+                course_detail.fr_time_str &&
+                course_detail.fr_time_str !== "null"
+              )
+                set_fr_time_str(new Date(course_detail.fr_time_str));
+              if (
+                course_detail.fr_time_end &&
+                course_detail.fr_time_end !== "null"
+              )
+                set_fr_time_end(new Date(course_detail.fr_time_end));
+              if (
+                course_detail.sa_time_str &&
+                course_detail.sa_time_str !== "null"
+              )
+                set_sa_time_str(new Date(course_detail.sa_time_str));
+              if (
+                course_detail.sa_time_end &&
+                course_detail.sa_time_end !== "null"
+              )
+                set_sa_time_end(new Date(course_detail.sa_time_end));
+              if (
+                course_detail.su_time_str &&
+                course_detail.su_time_str !== "null"
+              )
+                set_su_time_str(new Date(course_detail.su_time_str));
+              if (
+                course_detail.su_time_end &&
+                course_detail.su_time_end !== "null"
+              )
+                set_su_time_end(new Date(course_detail.su_time_end));
+            }
           }
         })
         .catch((error) => {
@@ -124,6 +248,19 @@ function StudentEdit(props) {
     } catch (error) {}
   };
 
+  const handleChangeCourse = (e) => {
+    set_course_id(e.target.value);
+    const found = course_options.find(
+      (course) => course._id === e.target.value
+    );
+    if (found) {
+      //set_course_name(found.course_name);
+      set_cbx_number_lessons(found.number_lessons);
+      set_cbx_tuition_fee(found.tuition_fee);
+      set_cbx_course_notes(found.notes);
+    }
+  };
+
   const onSubmitForm = (data, e) => {
     e.preventDefault();
 
@@ -135,6 +272,7 @@ function StudentEdit(props) {
     }
     formData.append("_id", _id);
     formData.append("account", account);
+    formData.append("password", password);
     formData.append("address", address);
     formData.append("avatar", avatar);
     formData.append("date_join", date_join);
@@ -150,6 +288,8 @@ function StudentEdit(props) {
     formData.append("skype_id", skype_id);
     formData.append("zoom_id", zoom_id);
 
+    formData.append("pk_course_detail", pk_course_detail);
+    formData.append("course_id", course_id);
     formData.append("course_name", course_name);
     formData.append("course_str_date", course_str_date);
     formData.append("course_end_date", course_end_date);
@@ -232,6 +372,7 @@ function StudentEdit(props) {
         <div className="student__edit__info">
           <div className="student__edit__infoMain">
             <div className="student__edit__inputs">
+              {/* Họ tên học viên */}
               <div className="student__edit__contents">
                 <div className="student__field__content">
                   <p className="student__edit__label">
@@ -267,45 +408,170 @@ function StudentEdit(props) {
 
               <hr />
 
-              <div className="student__edit__header">
-                <p className="student__edit__label">
-                  <CardIcon icon="online_class.jpg" alt="Lớp" /> Lớp
-                </p>
-                <span className="card__link">
-                  <input
-                    name="course_name"
-                    value={course_name}
-                    onChange={(e) => set_course_name(e.target.value)}
-                    className="student__input__item"
-                    placeholder="Tên khóa học"
-                  />
-                </span>
+              <div className="student__edit__contents">
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                    Khóa học
+                  </p>
+                  <span className="card__link">
+                    <select
+                      name="course_name"
+                      ref={register({
+                        required: "Chọn khóa học",
+                      })}
+                      label="Chọn khóa học"
+                      className="student__input__item"
+                      value={course_id}
+                      onChange={handleChangeCourse}
+                    >
+                      {course_options.map((item) => (
+                        <option key={item._id} value={item._id}>
+                          {item.course_name}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                    Số buổi học
+                  </p>
+                  <span className="student__edit__label">
+                    <p>{cbx_number_lessons}</p>
+                  </span>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                    Học phí tham khảo
+                  </p>
+                  <span className="student__edit__label">
+                    <NumberFormat
+                      value={cbx_tuition_fee}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      suffix={" đ"}
+                    />
+                  </span>
+                </div>
               </div>
               <div className="student__edit__header">
                 <p className="student__edit__label">
+                  <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                  Chú thích khóa học
+                </p>
+                <input
+                  name="course_notes"
+                  value={cbx_course_notes}
+                  className="student__course__notes"
+                  disabled
+                />
+              </div>
+
+              <br />
+
+              <div className="student__edit__header">
+                <p className="student__edit__label">
                   <CardIcon icon="calendar_time.jpg" alt="Thời gian" />
-                  Ngày bắt đầu ~ kết thúc
+                  Ngày học
                 </p>
                 <p className="student__field__content">
                   {/* https://www.npmjs.com/package/react-datepicker */}
 
                   <DatePicker
-                    name="course_str_date"
-                    className="student__input__item student__edit__time"
                     selected={course_str_date}
                     onChange={(date) => set_course_str_date(date)}
+                    peekNextMonth
+                    showYearDropdown
+                    showMonthDropdown
+                    dropdownMode="select"
                     dateFormat="dd/MM/yyyy"
                   />
+
                   <SymbolTo />
+
                   <DatePicker
-                    name="course_end_date"
-                    className="student__input__item student__edit__time"
                     selected={course_end_date}
                     onChange={(date) => set_course_end_date(date)}
+                    peekNextMonth
+                    showYearDropdown
+                    showMonthDropdown
+                    dropdownMode="select"
                     dateFormat="dd/MM/yyyy"
                   />
                 </p>
               </div>
+
+              <div className="student__edit__contents">
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="parent.png" alt="Parent" />
+                    Số buổi học
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="number_lessons"
+                      value={number_lessons}
+                      onChange={(e) => set_number_lessons(e.target.value)}
+                      className="student__input__item"
+                    />
+                  </p>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="parent.png" alt="Parent" />
+                    <CardIcon icon="phone_number.png" alt="Parent" />
+                    Số buổi còn lại
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="lessons_remain"
+                      value={lessons_remain}
+                      onChange={(e) => set_lessons_remain(e.target.value)}
+                      className="student__input__item"
+                    />
+                  </p>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="parent.png" alt="Parent" />
+                    <CardIcon icon="email.png" alt="Parent" />
+                    Học phí đã đóng
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="tuition_fee_paid"
+                      value={tuition_fee_paid}
+                      onChange={(e) => set_tuition_fee_paid(e.target.value)}
+                      className="student__input__item"
+                    />
+                  </p>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="parent.png" alt="Parent" />
+                    <CardIcon icon="email.png" alt="Parent" />
+                    Học phí còn lại
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="tuition_fee_unpaid"
+                      value={tuition_fee_unpaid}
+                      onChange={(e) => set_tuition_fee_unpaid(e.target.value)}
+                      className="student__input__item"
+                    />
+                  </p>
+                </div>
+              </div>
+
+              <br />
 
               <div className="student__edit__header">
                 <p className="student__edit__label">
@@ -571,60 +837,7 @@ function StudentEdit(props) {
               </div>
 
               <hr />
-              <div className="student__edit__contents">
-                <div className="student__field__content">
-                  <p className="student__edit__label">
-                    <CardIcon icon="account.jpg" alt="Tài khoản" />
-                    Tài khoản đăng nhập
-                  </p>
-                  <p className="student__field__content">
-                    <input
-                      name="account"
-                      value={account}
-                      onChange={(e) => set_account(e.target.value)}
-                      className="student__input__item"
-                      placeholder="Tài khoản đăng nhập"
-                    />
-                  </p>
-                </div>
 
-                <div className="student__field__content">
-                  <p className="student__edit__label">
-                    <CardIcon icon="phone_number.png" alt="Phone" />
-                    SĐT
-                  </p>
-                  <p className="student__field__content">
-                    <input
-                      name="phone_number"
-                      value={phone_number}
-                      onChange={(e) => set_phone_number(e.target.value)}
-                      className="student__input__item"
-                      placeholder="Điện thoại liên hệ"
-                    />
-                  </p>
-                </div>
-                <div className="student__field__content">
-                  <p className="student__edit__label">
-                    <CardIcon icon="birthday.png" alt="birthday" />
-                    Ngày sinh
-                  </p>
-                  {/* <CustomDatePicker
-                    selected={date_of_birth}
-                    onChange={(date) => set_date_of_birth(date)}
-                  /> */}
-
-                  <DatePicker
-                    selected={date_of_birth}
-                    onChange={(date) => set_date_of_birth(date)}
-                    peekNextMonth
-                    showYearDropdown
-                    showMonthDropdown
-                    dropdownMode="select"
-                    dateFormat="dd/MM/yyyy"
-                  />
-                </div>
-              </div>
-              <br />
               <div className="student__edit__contents">
                 <div className="student__field__content">
                   <p className="student__edit__label">
@@ -686,6 +899,71 @@ function StudentEdit(props) {
                       placeholder="Zoom"
                     />
                   </p>
+                </div>
+              </div>
+              <br />
+              <div className="student__edit__contents">
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="account.jpg" alt="Tài khoản" />
+                    Tài khoản đăng nhập
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="account"
+                      value={account}
+                      onChange={(e) => set_account(e.target.value)}
+                      className="student__input__item"
+                      placeholder="Tài khoản đăng nhập"
+                      ref={register({ required: true })}
+                    />
+                  </p>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="phone_number.png" alt="Phone" />
+                    SĐT
+                  </p>
+                  <p className="student__field__content">
+                    <input
+                      name="phone_number"
+                      value={phone_number}
+                      onChange={(e) => set_phone_number(e.target.value)}
+                      className="student__input__item"
+                      placeholder="Điện thoại liên hệ"
+                    />
+                  </p>
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="birthday.png" alt="birthday" />
+                    Mật khẩu mặc định
+                  </p>
+                  <input
+                    name="password"
+                    value={password}
+                    onChange={(e) => set_password(e.target.value)}
+                    className="student__input__item"
+                    placeholder="Mật khẩu đăng nhập"
+                  />
+                </div>
+
+                <div className="student__field__content">
+                  <p className="student__edit__label">
+                    <CardIcon icon="birthday.png" alt="birthday" />
+                    Ngày sinh
+                  </p>
+                  <DatePicker
+                    selected={date_of_birth}
+                    onChange={(date) => set_date_of_birth(date)}
+                    peekNextMonth
+                    showYearDropdown
+                    showMonthDropdown
+                    dropdownMode="select"
+                    dateFormat="dd/MM/yyyy"
+                  />
                 </div>
               </div>
             </div>

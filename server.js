@@ -101,11 +101,6 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const exercisesRouter = require("./routes/exercises");
-const usersRouter = require("./routes/users");
-app.use("/exercises", exercisesRouter);
-app.use("/users", usersRouter);
-
 const articleRouter = require("./routes/articles.router");
 app.use("/articles", articleRouter);
 
@@ -114,6 +109,9 @@ app.use("/upload", uploadRouter);
 
 const userRouter = require("./routes/users.router");
 app.use("/user", userRouter);
+
+const courseRouter = require("./routes/courses.router");
+app.use("/courses", courseRouter);
 //#endregion
 
 app.post("/api/login", (req, res) => {

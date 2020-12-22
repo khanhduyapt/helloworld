@@ -30,7 +30,7 @@
 
 .student__image__choosefile {
   background-color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .student__edit__info {
@@ -64,6 +64,7 @@
   min-width: 200px;
   max-width: 200px;
   padding-top: 5px;
+  font-size: 1.1rem;
 }
 
 .student__edit__label > img {
@@ -135,9 +136,17 @@
 .student__input__address {
   border: 1px solid #ebebeb;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 2px 10px;
   background-color: #fffce3;
+  width: 740px;
+}
+
+.student__course__notes {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
   width: 740px;
 }
 

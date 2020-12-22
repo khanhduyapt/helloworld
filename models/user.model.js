@@ -36,6 +36,8 @@ const userSchema = new Schema(
 
     last_modify_ip: { type: String },
     last_modify_account: { type: String },
+
+    course_details: [{ type: Schema.Types.ObjectId, ref: "CourseDetail" }],
   },
   {
     timestamps: true,

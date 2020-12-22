@@ -4,32 +4,7 @@ const { getCallerIP, getUserName } = require("./utils");
 const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
-
-const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "./public/images");
-  },
-  filename: function (req, file, callback) {
-    // console.log(file);
-    let filename = file.originalname;
-    if (filename.length > 10) {
-      filename = filename.substring(filename.length - 10, filename.length);
-    }
-    filename = file.fieldname + "_" + Date.now() + "_" + filename;
-
-    callback(null, filename);
-  },
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg") {
-      return callback(/*res.end('Only images are allowed')*/ null, false);
-    }
-
-    callback(null, true);
-  },
-});
-const upload = multer({ storage, limits: { fileSize: 5000000 } }); //5Mb
+const { multer_upload } = require("./multer");
 
 uploadRouter.route("/category/:cname").get((req, res) => {
   UpImage.find()
@@ -42,7 +17,7 @@ uploadRouter.route("/category/:cname").get((req, res) => {
 
 uploadRouter
   .route("/category/:cname")
-  .post(upload.single("img"), (req, res, next) => {
+  .post(multer_upload.single("img"), (req, res, next) => {
     //console.log("/:cname", res.req.body);
 
     const _id = res.req.body._id;
@@ -135,31 +110,35 @@ uploadRouter.route("/:id").delete((req, res) => {
 // ---------------------------------------------------------
 //https://anonystick.com/blog-developer/nodejs-resize-image-trong-nodejs-su-dung-multer-va-sharp-bxIS8CfD
 /* upload.any() sử dụng func này chúng ta có thể upload được nhiều file */
-uploadRouter.route("/avatar").post(upload.any(), function (req, res, next) {
-  //let query = req.body;
-  if (!req.body && !req.files) {
-    res.json({ success: false });
-  } else {
-    /* res.json({ success: true, files: req.files }); */
-    /* req.files các file upload return về một array, qua đó chúng ta có thể dễ dàng xử lý  */
-    /* chú ý: nhớ rename file lại không nữa sinh ra lỗi. ở đay mình rename theo kích thuước mình resize. */
+uploadRouter
+  .route("/avatar")
+  .post(multer_upload.any(), function (req, res, next) {
+    //let query = req.body;
+    if (!req.body && !req.files) {
+      res.json({ success: false });
+    } else {
+      /* res.json({ success: true, files: req.files }); */
+      /* req.files các file upload return về một array, qua đó chúng ta có thể dễ dàng xử lý  */
+      /* chú ý: nhớ rename file lại không nữa sinh ra lỗi. ở đay mình rename theo kích thuước mình resize. */
 
-    sharp(req.files[0].path)
-      .resize(250, 250)
-      .toFile(
-        "./public/images/" +
-          "avatar_250x250_UserName" +
-          req.files[0].filename.substring(req.files[0].filename.indexOf("."))
-      )
-      .then((output) => {
-        res.json({
-          avatar:
+      sharp(req.files[0].path)
+        .resize(250, 250)
+        .toFile(
+          "./public/images/" +
             "avatar_250x250_UserName" +
-            req.files[0].filename.substring(req.files[0].filename.indexOf(".")),
+            req.files[0].filename.substring(req.files[0].filename.indexOf("."))
+        )
+        .then((output) => {
+          res.json({
+            avatar:
+              "avatar_250x250_UserName" +
+              req.files[0].filename.substring(
+                req.files[0].filename.indexOf(".")
+              ),
+          });
         });
-      });
-  }
-});
+    }
+  });
 
 //---------------------------------------------------------
 function getImagesFolder(filename) {

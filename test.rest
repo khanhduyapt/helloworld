@@ -7,8 +7,6 @@ Content-Type: application/json
 
 ###
 
-GET "http://localhost:8080/api/students/"
-
 ###
 POST http://localhost:3001/api/login
 content-type: application/json
@@ -23,8 +21,6 @@ GET http://localhost:3001/api/posts
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNjc5NjAwMH0.W9SFcFS5I602iBIGkOpwKwm_eXLXg3XxEG99BLhbRFI
 
 ###
-
-GET http://localhost:3001/api/students
 
 ###
 
@@ -111,6 +107,9 @@ DELETE http://localhost:3001/upload/5fd7124b78295d2878339efe
 GET http://localhost:3001/user/students
 
 ###
+GET http://localhost:3001/user/students/5fdb1a64205db83db4a32000
+
+###
 POST http://localhost:3001/user/add
 content-type: application/json
 
@@ -167,3 +166,67 @@ content-type: application/json
 {
   "avatar" : "avatar_250x250_UserName.jpg"
 }
+## ======================================================================================
+###
+post http://localhost:3001/courses/add
+content-type: application/json
+
+{
+    "course_name": "PANKIDS 6",
+    "duration_month": "6 THÁNG",
+    "number_lessons": "30",
+    "tuition_fee": "8120000",
+    "notes": "FUN FOR STARTERS 6"
+}
+
+###
+GET http://localhost:3001/courses
+
+
+//======================================================================================
+  // res.req.body =>
+  // _id: '5fdb1a86205db83db4a32001',
+  // account: 'phuongvu',
+  // address: 'xxxxxxaddress',
+  // avatar: 'stock-photo-smiling-female-entrepreneur-working-from-home-late-at-night-590297186.jpg',
+  // date_join: '2015-10-21T18:27:50.000Z',
+  // date_of_birth: 'Wed Oct 21 2015 17:21:30 GMT+0700 (Indochina Time)',
+  // email: 'phuongvu@gmail.com',
+  // facebook: 'xxxxxxfacebook',
+  // fullname: 'Vũ Đỗ Phương',
+  // local_id: 'TC62',
+  // parent_email: 'xxxxxxparent_email',
+  // parent_name: 'xxxxxxparent_name',
+  // parent_phone: 'xxxxxxparent_phone',
+  // phone_number: '123456789',
+  // skype_id: 'xxxxxxskype_id',
+  // zoom_id: 'xxxxxxzoom_id',
+  // course_name: '',
+  // course_str_date: 'Tue Dec 22 2020 09:19:59 GMT+0700 (Indochina Time)',
+  // course_end_date: 'Tue Dec 22 2020 09:19:59 GMT+0700 (Indochina Time)',
+  // mo_time_str: 'null',
+  // mo_time_end: 'null',
+  // tu_time_str: 'null',
+  // tu_time_end: 'null',
+  // we_time_str: 'null',
+  // we_time_end: 'null',
+  // th_time_str: 'null',
+  // th_time_end: 'null',
+  // fr_time_str: 'null',
+  // fr_time_end: 'null',
+  // sa_time_str: 'null',
+  // sa_time_end: 'null',
+  // su_time_str: 'null',
+  // su_time_end: 'null'
+
+  // req.files[0] =>
+  // {
+  //   fieldname: 'img',
+  //   originalname: 'stock-photo-smiling-female-entrepreneur-working-from-home-late-at-night-590297186.jpg',
+  //   encoding: '7bit',
+  //   mimetype: 'image/jpeg',
+  //   destination: './public/images',
+  //   filename: 'img_1608603940020_297186.jpg',
+  //   path: 'public\\images\\img_1608603940020_297186.jpg',
+  //   size: 521179
+  // }

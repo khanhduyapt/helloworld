@@ -1,11 +1,7 @@
 import React from "react";
-
+import "./SymbolTo.css";
 function SymbolTo() {
-  return (
-    <span span__to__symbol style={{ margin: "auto 3px" }}>
-      ～
-    </span>
-  );
+  return <span className="symbol__to">～</span>;
 }
 
 export default SymbolTo;

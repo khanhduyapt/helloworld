@@ -15,6 +15,7 @@ import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import AxiosCommon from "../../components/commons/AxiosCommon";
 
 function AdminMenu() {
   const handleMenuAtive = (e) => {
@@ -34,7 +35,7 @@ function AdminMenu() {
         <p className="dashboard__menu__email">username@gmail.com</p>
         <Avatar
           className="dashboard__menu__avatar"
-          src="http://react-material.fusetheme.com/assets/images/avatars/Velazquez.jpg"
+          src={AxiosCommon.defaults.baseURL + "/images/noimage.jpg"}
         ></Avatar>
       </header>
 
