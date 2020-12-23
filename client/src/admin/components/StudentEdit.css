@@ -14,8 +14,6 @@
 }
 
 .student__image__chooser {
-  min-width: 10vw;
-  max-width: 10vw;
   margin: 10px 10px 10px 25px;
   display: flex;
 }
@@ -31,6 +29,14 @@
 .student__image__choosefile {
   background-color: #fff;
   font-size: 1.1rem;
+}
+
+.student__error__msg {
+  margin: auto;
+}
+
+.student__error__msg > ul > li {
+  color: red;
 }
 
 .student__edit__info {
@@ -53,11 +59,17 @@
   flex: 1;
 }
 
-.student__field__content {
+.student__field {
   display: flex;
   flex: 1;
   min-width: 400px;
   margin-bottom: 5px;
+}
+
+.student__field__content {
+  display: flex;
+  flex: 1;
+  min-width: 400px;
 }
 
 .student__edit__label {
@@ -133,12 +145,27 @@
   background-color: #fffce3;
 }
 
+.student__input__readonly {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+}
+
 .student__input__address {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
   padding: 2px 10px;
   background-color: #fffce3;
+  width: 740px;
+}
+
+.student__input__courseNotes {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
   width: 740px;
 }
 
@@ -178,4 +205,8 @@
 
 .student__edit__time {
   width: 100px !important;
+}
+
+.student__edit__hidden {
+  display: none;
 }

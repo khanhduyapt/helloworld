@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import CardIcon from "../../components/commons/CardIcon";
 import SymbolTo from "../../components/commons/SymbolTo";
+import Moment from "moment";
 
 function Students() {
   const [StudentList, setStudentList] = useState([]);
@@ -67,67 +68,84 @@ function Students() {
                   </div>
                   <div className="student__contents">
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="online_class.jpg" alt="Lớp" />
+                      </div>
+                      <p>
+                        {student.course_details &&
+                          student.course_details.length > 0 &&
+                          student.course_details[0].course_name}
                       </p>
-                      <span className="card__link__danger">Lớp abcdef</span>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="calendar_time.jpg" alt="Thời gian" />
-                      </p>
-                      <p className="student__field__content">
-                        <span className="card__link__danger">start date</span>
-                        <SymbolTo />
-                        <span className="card__link__danger">end date</span>
-                      </p>
+                      </div>
+                      {student.course_details &&
+                        student.course_details.length > 0 && (
+                          <div className="student__field__content">
+                            <div>
+                              {Moment(
+                                student.course_details[0].course_str_date
+                              ).format("DD/MM/YYYY")}
+                            </div>
+                            <SymbolTo />
+                            <div>
+                              {Moment(
+                                student.course_details[0].course_end_date
+                              ).format("DD/MM/YYYY")}
+                            </div>
+                          </div>
+                        )}
                     </div>
 
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="account.jpg" alt="Tài khoản" />
-                      </p>
-                      <p className="student__field__content">
+                      </div>
+                      <div className="student__field__content">
                         {student.account}
-                      </p>
+                      </div>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="facebook.jpg" alt="Facebook" />
-                      </p>
-                      <p className="student__field__content">
+                      </div>
+                      <div className="student__field__content">
                         {student.facebook}
-                      </p>
+                      </div>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="phone_number.png" alt="Facebook" />
-                      </p>
-                      <p className="student__field__content">
+                      </div>
+                      <div className="student__field__content">
                         {student.phone_number}
-                      </p>
+                      </div>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="skype.png" alt="Skype" />
-                      </p>
-                      <p className="student__field__content">
+                      </div>
+                      <div className="student__field__content">
                         {student.skype_id}
-                      </p>
+                      </div>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="email.png" alt="Email" />
-                      </p>
-                      <p className="student__field__content">{student.email}</p>
+                      </div>
+                      <div className="student__field__content">
+                        {student.email}
+                      </div>
                     </div>
                     <div className="student__contents__field">
-                      <p className="student__field__label">
+                      <div className="student__field__label">
                         <CardIcon icon="zoom.png" alt="Zoom" />
-                      </p>
-                      <p className="student__field__content">
+                      </div>
+                      <div className="student__field__content">
                         {student.zoom_id}
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>

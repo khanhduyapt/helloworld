@@ -14,4 +14,45 @@ function getUserName(request) {
   return String(username);
 }
 
-module.exports = { getCallerIP, getUserName };
+function strToFloat(strValue) {
+  if (
+    strValue === "" ||
+    strValue.toUpperCase() === "null".toUpperCase() ||
+    strValue.toUpperCase() === "undefined".toUpperCase()
+  )
+    return 0;
+
+  return parseFloat(strValue.replace(/,/g, ""));
+}
+
+function stringToDate(strValue) {
+  if (strValue && strValue.toUpperCase() !== "null".toUpperCase()) {
+    return new Date(strValue);
+  } else {
+    return null;
+  }
+}
+
+function strToDate(strValue) {
+  try {
+    if (
+      strValue === "" ||
+      strValue.toUpperCase() === "null".toUpperCase() ||
+      strValue.toUpperCase() === "undefined".toUpperCase()
+    ) {
+      return null;
+    }
+
+    return new Date(strValue);
+  } catch (error) {
+    return null;
+  }
+}
+
+module.exports = {
+  getCallerIP,
+  getUserName,
+  strToFloat,
+  stringToDate,
+  strToDate,
+};

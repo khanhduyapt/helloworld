@@ -10,8 +10,8 @@ const courseDetailSchema = new Schema(
     course_id: { type: Schema.Types.ObjectId, required: true },
 
     course_name: { type: String, required: true },
-    course_str_date: { type: Date, required: true },
-    course_end_date: { type: Date, required: true },
+    course_str_date: { type: String, required: true },
+    course_end_date: { type: String, required: true },
 
     duration_month: { type: String },
     number_lessons: { type: Number },
@@ -36,7 +36,7 @@ const courseDetailSchema = new Schema(
     su_time_str: { type: String },
     su_time_end: { type: String },
 
-    notes: { type: String },
+    course_notes: { type: String },
   },
   {
     timestamps: true,
