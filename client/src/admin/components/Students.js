@@ -153,8 +153,9 @@ function Students() {
                 <div className="student__info__others">
                   <textarea
                     name="student_notes"
+                    value={student.user_notes}
                     rows="5"
-                    placeholder="Tin nhắn chi tiết. &#10;Thời gian chích hợp để liên hệ với bạn."
+                    readOnly
                   />
                 </div>
               </div>

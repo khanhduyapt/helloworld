@@ -10,7 +10,7 @@ import { Alert } from "bootstrap";
 import CardIcon from "../../components/commons/CardIcon";
 import SymbolTo from "../../components/commons/SymbolTo";
 import CurrencyInput from "react-currency-input";
-import { stringCurruncyToFloat, stringToDate } from "../CommonUtil";
+import { strToFloat, strToDate } from "../CommonUtil";
 import RequiredIcon from "../../components/commons/RequiredIcon";
 
 function StudentEdit(props) {
@@ -75,7 +75,6 @@ function StudentEdit(props) {
 
   const refBackLink = useRef(null);
   const [isAddNew, setIsAddNew] = useState(true);
-  const [errors_msg, set_errors_msg] = useState([]);
 
   //src={AxiosCommon.defaults.baseURL + "/images/" + student.avatar}
   const [imageUrl, setImageUrl] = useState(
@@ -142,30 +141,31 @@ function StudentEdit(props) {
               set_course_id(course_detail.course_id);
               set_course_name(course_detail.course_name);
 
-              set_course_str_date(stringToDate(course_detail.course_str_date));
-              set_course_end_date(stringToDate(course_detail.course_end_date));
+              set_course_str_date(strToDate(course_detail.course_str_date));
+              set_course_end_date(strToDate(course_detail.course_end_date));
 
               set_duration_month(course_detail.duration_month);
               set_number_lessons(course_detail.number_lessons);
               set_lessons_remain(course_detail.lessons_remain);
+
               set_tuition_fee(course_detail.tuition_fee);
               set_tuition_fee_paid(course_detail.tuition_fee_paid);
               set_tuition_fee_unpaid(course_detail.tuition_fee_unpaid);
 
-              set_mo_time_str(stringToDate(course_detail.mo_time_str));
-              set_mo_time_end(stringToDate(course_detail.mo_time_end));
-              set_tu_time_str(stringToDate(course_detail.tu_time_str));
-              set_tu_time_end(stringToDate(course_detail.tu_time_end));
-              set_we_time_str(stringToDate(course_detail.we_time_str));
-              set_we_time_end(stringToDate(course_detail.we_time_end));
-              set_th_time_str(stringToDate(course_detail.th_time_str));
-              set_th_time_end(stringToDate(course_detail.th_time_end));
-              set_fr_time_str(stringToDate(course_detail.fr_time_str));
-              set_fr_time_end(stringToDate(course_detail.fr_time_end));
-              set_sa_time_str(stringToDate(course_detail.sa_time_str));
-              set_sa_time_end(stringToDate(course_detail.sa_time_end));
-              set_su_time_str(stringToDate(course_detail.su_time_str));
-              set_su_time_end(stringToDate(course_detail.su_time_end));
+              set_mo_time_str(strToDate(course_detail.mo_time_str));
+              set_mo_time_end(strToDate(course_detail.mo_time_end));
+              set_tu_time_str(strToDate(course_detail.tu_time_str));
+              set_tu_time_end(strToDate(course_detail.tu_time_end));
+              set_we_time_str(strToDate(course_detail.we_time_str));
+              set_we_time_end(strToDate(course_detail.we_time_end));
+              set_th_time_str(strToDate(course_detail.th_time_str));
+              set_th_time_end(strToDate(course_detail.th_time_end));
+              set_fr_time_str(strToDate(course_detail.fr_time_str));
+              set_fr_time_end(strToDate(course_detail.fr_time_end));
+              set_sa_time_str(strToDate(course_detail.sa_time_str));
+              set_sa_time_end(strToDate(course_detail.sa_time_end));
+              set_su_time_str(strToDate(course_detail.su_time_str));
+              set_su_time_end(strToDate(course_detail.su_time_end));
 
               set_course_notes(res.data.course_notes);
             }
@@ -221,37 +221,49 @@ function StudentEdit(props) {
   const onSubmitForm = (data, e) => {
     e.preventDefault();
 
-    let temp_set_errors_msg = [];
+    let temp_set_errors_msg = "";
     if (!fullname) {
-      temp_set_errors_msg.push("Cần nhập「Họ tên học viên」");
+      temp_set_errors_msg += "Cần nhập「Họ tên học viên」\n";
     }
     if (!account) {
-      temp_set_errors_msg.push("Cần nhập「Tài khoản đăng nhập」");
+      temp_set_errors_msg += "Cần nhập「Tài khoản đăng nhập」\n";
     }
     if (!password) {
-      temp_set_errors_msg.push("Cần nhập「Mật khẩu mặc định」");
+      temp_set_errors_msg += "Cần nhập「Mật khẩu mặc định」\n";
     }
     if (!course_name) {
-      temp_set_errors_msg.push("Cần nhập「Tên khóa học」");
+      temp_set_errors_msg += "Cần nhập「Tên khóa học」\n";
     }
     if (!course_str_date) {
-      temp_set_errors_msg.push("Cần nhập「Ngày bắt đầu」của khóa học.");
+      temp_set_errors_msg += "Cần nhập「Ngày bắt đầu」của khóa học.\n";
     }
     if (!course_end_date) {
-      temp_set_errors_msg.push("Cần nhập「Ngày kết thúc」của khóa học.");
+      temp_set_errors_msg += "Cần nhập「Ngày kết thúc」của khóa học.";
     }
     if (temp_set_errors_msg.length > 0) {
-      set_errors_msg(temp_set_errors_msg);
-      console.log("errors_msg", errors_msg);
+      alert(temp_set_errors_msg);
       return;
     }
 
-    // console.log("upload: ", data);
+    AxiosCommon.get(
+      `/user/check/${account}/${_id}`,
+      AxiosCommon.defaults.headers
+    ).then((res) => {
+      if (res.status !== 200) {
+        alert(res.data.msg);
+      } else {
+        handleUpdate(data);
+      }
+    });
+  };
+
+  const handleUpdate = (data) => {
     let formData = new FormData();
     if (data && data.user_image && data.user_image.length > 0) {
       //console.log("upload: ", data.user_image[0]);
       formData.append("img", data.user_image[0]);
     }
+
     formData.append("_id", _id);
     formData.append("account", account);
     formData.append("password", password);
@@ -300,6 +312,8 @@ function StudentEdit(props) {
     formData.append("su_time_end", su_time_end);
     formData.append("course_notes", course_notes);
 
+    console.log("handleUpdate: ", formData);
+
     const config = {
       headers: {
         Accept: "application/json",
@@ -324,6 +338,8 @@ function StudentEdit(props) {
       .catch((error) => {
         console.log(error.message);
       });
+
+    //----------------------
   };
 
   return (
@@ -446,7 +462,7 @@ function StudentEdit(props) {
                 <div className="student__field">
                   <div className="student__edit__label">
                     <CardIcon icon="birthday.png" alt="birthday" />
-                    Mật khẩu mặc định
+                    Mật khẩu đăng nhập
                   </div>
                   <input
                     name="password"
@@ -568,6 +584,7 @@ function StudentEdit(props) {
 
                   <div className="student__field__content">
                     <CurrencyInput
+                      id={`${_id}_tuition_fee`}
                       name="tuition_fee"
                       value={tuition_fee}
                       onChange={(data) => set_tuition_fee(data)}
@@ -605,10 +622,16 @@ function StudentEdit(props) {
                       value={tuition_fee_paid}
                       onChange={(data) => {
                         set_tuition_fee_paid(data);
-                        set_tuition_fee_unpaid(
-                          stringCurruncyToFloat(tuition_fee) -
-                            stringCurruncyToFloat(data)
+
+                        const fee = strToFloat(
+                          document
+                            .getElementById(`${_id}_tuition_fee`)
+                            .getAttribute("value")
                         );
+                        const paid = strToFloat(data);
+                        //console.log(fee, paid);
+
+                        set_tuition_fee_unpaid(fee - paid);
                       }}
                       precision="0"
                       className="student__input__item"

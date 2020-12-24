@@ -230,3 +230,10 @@ GET http://localhost:3001/courses
   //   path: 'public\\images\\img_1608603940020_297186.jpg',
   //   size: 521179
   // }
+
+
+###
+GET http://localhost:3001/user/check/thaopham/add
+
+###
+GET http://localhost:3001/user/check/thaopham/5fe31149371b0f32d0e8db17

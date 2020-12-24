@@ -1,9 +1,12 @@
+const { ObjectId } = require("mongodb");
 const userRouter = require("express").Router();
 let User = require("../models/user.model");
 let CourseDetail = require("../models/course_detail.model");
 const { FS_ROLE } = require("./FS_ROLE");
 const { multer_upload } = require("./multer");
 let { getCallerIP, getUserName, strToFloat } = require("./utils");
+
+//#region STUDENTS
 
 userRouter
   .route("/students/add")
@@ -112,6 +115,8 @@ userRouter
 
           User.findById(req.params.id)
             .then((item) => {
+              if (req.body.account) item.account = req.body.account;
+
               if (req.body.local_id) item.local_id = req.body.local_id;
               if (req.body.fullname) item.fullname = req.body.fullname;
               if (req.files[0] && req.files[0].filename)
@@ -141,7 +146,7 @@ userRouter
               if (!item.course_details.includes(course_detail._id))
                 item.course_details.push(course_detail._id);
 
-              console.log("User updating:", item);
+              //console.log("User updating:", item);
               try {
                 item
                   .save()
@@ -265,6 +270,50 @@ async function createCourseDetail(req, user_id) {
     console.log("createCourseDetail error:", error);
   }
 }
+//#endregion STUDENTS
+
+//#region TEACHERS
+
+//#endregion TEACHERS
+
+//#region ADMIN
+
+//#endregion ADMIN
+
+userRouter.route("/check/:acc/:id").get((req, res) => {
+  console.log("userRouter /check/:acc", req.params);
+  let id = req.params.id;
+  if (!ObjectId.isValid(id)) {
+    //console.log("userRouter err", id);
+    id = new ObjectId();
+  }
+  //console.log("userRouter", id);
+
+  User.find()
+    .where("account")
+    .equals(req.params.acc)
+    .where("_id")
+    .ne(id)
+    .then((item) => {
+      console.log(item);
+      if (item && item.length > 0) {
+        res.status(201).json({
+          msg:
+            "Đã có người sử dụng tài khoản đăng nhập là [" +
+            req.params.acc +
+            "].\nBạn cần lựa chọn tài khoản khác.",
+        });
+      } else {
+        res.status(200).json({
+          msg: "Có thể sử dụng tài khoản [" + req.params.acc + "] để đăng ký.",
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json("Error: " + err);
+    });
+});
 
 module.exports = userRouter;
 
