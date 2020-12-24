@@ -15,4 +15,14 @@ function strToDate(strValue) {
   }
 }
 
-export { strToFloat, strToDate };
+function objToStr(value) {
+  if (
+    value &&
+    value.toUpperCase() !== "null".toUpperCase() &&
+    value.toUpperCase() !== "undefined".toUpperCase()
+  ) {
+    return value;
+  }
+  return "";
+}
+export { strToFloat, strToDate, objToStr };

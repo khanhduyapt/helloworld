@@ -1,0 +1,212 @@
+.teacher__edit {
+  margin: 10px 20px;
+}
+
+.teacher__edit__form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px 20px 0px 25px;
+  min-width: 1060px;
+  max-width: 1060px;
+  margin: auto;
+}
+
+.teacher__image__chooser {
+  margin: 10px 10px 10px 25px;
+  display: flex;
+}
+
+.teacher__image__chooser > img {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+}
+
+.teacher__image__choosefile {
+  background-color: #fff;
+  font-size: 1.1rem;
+}
+
+.teacher__error__msg {
+  margin: auto;
+}
+
+.teacher__error__msg > ul > li {
+  color: red;
+}
+
+.teacher__edit__info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.teacher__edit__image {
+  object-fit: cover;
+  min-width: 7vw;
+  max-width: 7vw;
+  height: 10vh;
+  margin: 10px;
+}
+
+.teacher__edit__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.teacher__field {
+  display: flex;
+  flex: 1;
+  min-width: 400px;
+  margin-bottom: 5px;
+}
+
+.teacher__field__content {
+  display: flex;
+  flex: 1;
+  min-width: 400px;
+}
+
+.teacher__edit__label {
+  min-width: 200px;
+  max-width: 200px;
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.teacher__edit__label > img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.teacher__edit__inputs {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.teacher__edit__inputs > input {
+  margin-bottom: 5px;
+}
+
+.teacher__edit__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.teacher__edit__buttons > p {
+  min-width: 100px;
+}
+
+.teacher__edit__header {
+  display: flex;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.teacher__edit__contents {
+  font-size: 1.1rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 100%);
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.teacher__edit__infoOther {
+  flex: 1;
+  padding-right: 7px;
+}
+
+.teacher__edit__infoOther > textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ebebeb;
+}
+
+.teacher__input__item {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.teacher__input__readonly {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+}
+
+.teacher__input__address {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+  width: 740px;
+}
+
+.teacher__input__courseNotes {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  width: 740px;
+}
+
+.teacher__course__notes {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  width: 740px;
+}
+
+.react-datepicker__input-container > input {
+  width: 140px;
+  outline: none;
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.teacher__edit__courseCalendar {
+  display: grid;
+  grid-template-columns: repeat(2, 435px);
+  grid-row-gap: 5px;
+}
+
+.teacher__edit__dayofweek {
+  display: flex;
+  flex-direction: row;
+}
+
+.teacher__edit__day {
+  padding-top: 5px;
+  min-width: 80px;
+}
+
+.teacher__edit__time {
+  width: 100px !important;
+}
+
+.teacher__edit__hidden {
+  display: none;
+}

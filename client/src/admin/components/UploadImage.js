@@ -73,20 +73,6 @@ function UploadImage(props) {
             reader.readAsDataURL(file);
             setImageUrl(reader.result);
           }
-          // let formData = new FormData();
-          // formData.append("img", file);
-          // AxiosCommon.post(`/upload/avatar`, formData, config)
-          //   .then((res) => {
-          //     console.log("upload avatar: ", res);
-          //     if (res.status === 200) {
-          //       setFilename(res.data.avatar);
-          //     } else {
-          //       alert(res.data.msg);
-          //     }
-          //   })
-          //   .catch((error) => {
-          //     console.log(error.message);
-          //   });
         }
       }
     } catch (error) {}

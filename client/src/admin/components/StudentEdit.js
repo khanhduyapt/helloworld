@@ -312,8 +312,6 @@ function StudentEdit(props) {
     formData.append("su_time_end", su_time_end);
     formData.append("course_notes", course_notes);
 
-    console.log("handleUpdate: ", formData);
-
     const config = {
       headers: {
         Accept: "application/json",
@@ -641,7 +639,7 @@ function StudentEdit(props) {
 
                 <div className="student__field">
                   <div className="student__edit__label">
-                    <CardIcon icon="remain.jpg" alt="Parent" />
+                    <CardIcon icon="remain.jpg" alt="remain" />
                     Số tiết học còn lại
                   </div>
                   <div className="student__field__content">
@@ -676,7 +674,7 @@ function StudentEdit(props) {
               <br />
               <div className="student__edit__header">
                 <div className="student__edit__label">
-                  <CardIcon icon="calendar_time.jpg" alt="Thời gian" />
+                  <CardIcon icon="calendar_time.jpg" alt="Ngày học" />
                   Ngày học
                 </div>
                 <div className="student__field__content">
@@ -1103,7 +1101,7 @@ function StudentEdit(props) {
                 ref={refBackLink}
                 to="/admin/students"
               >
-                Back
+                List
               </Link>
 
               <input

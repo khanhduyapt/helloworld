@@ -18,6 +18,8 @@ import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
 import UploadImage from "./components/UploadImage";
 import StudentEdit from "./components/StudentEdit";
+import TeacherEdit from "./components/TeacherEdit";
+import TeacherSchedule from "./components/TeacherSchedule";
 
 function AdDashboard() {
   return (
@@ -39,9 +41,12 @@ function AdDashboard() {
             <Route path="/admin/contacts">
               <Contacts />
             </Route>
-            <Route path="/admin/teachers">
-              <Teachers />
-            </Route>
+            <Route
+              path="/admin/teacher_schedule/:id"
+              component={TeacherSchedule}
+            />
+            <Route path="/admin/teacher/:id" component={TeacherEdit} />
+            <Route path="/admin/teachers" component={Teachers} />
 
             <Route path="/admin/student/:id" component={StudentEdit}></Route>
             <Route path="/admin/students" component={Students}></Route>

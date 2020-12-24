@@ -11,9 +11,9 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
-      minlength: 6,
+      minlength: 3,
     },
-    password: { type: String, required: true, trim: true, minlength: 6 },
+    password: { type: String, required: true, trim: true, minlength: 3 },
     role: { type: String, required: true },
 
     local_id: { type: String },
@@ -38,6 +38,8 @@ const userSchema = new Schema(
     last_modify_account: { type: String },
 
     course_details: [{ type: Schema.Types.ObjectId, ref: "CourseDetail" }],
+
+    teaching_students: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     timestamps: true,

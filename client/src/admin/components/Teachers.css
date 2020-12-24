@@ -1,0 +1,107 @@
+.teacher__deck {
+  height: fit-content;
+  overflow-y: visible;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-column-gap: 3vw;
+  justify-content: center;
+}
+
+.teacher__form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+}
+
+.teacher__info {
+  display: flex;
+  flex-direction: row;
+}
+
+.teacher__image {
+  object-fit: cover;
+  min-width: 7vw;
+  max-width: 7vw;
+  height: 10vh;
+  margin: 10px;
+}
+
+.teacher__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.teacher__field {
+  display: flex;
+}
+
+.teacher__field__label {
+  min-width: 40px;
+}
+
+.teacher__field__label > img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.teacher__field__content {
+  flex: 1;
+  min-width: 400px;
+}
+
+.teacher__inputs {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 5px;
+}
+
+.teacher__inputs > input {
+  margin-bottom: 5px;
+}
+
+.teacher__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: auto;
+  padding-right: 10px;
+}
+
+.teacher__buttons > p {
+  min-width: 100px;
+}
+
+.teacher__header {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+  color: #0977bc;
+}
+
+.teacher__contents {
+  font-size: 1.1rem;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+
+.teacher__info__others {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.teacher__info__others > textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 5px;
+  border: none;
+  /* border-left: 1px solid #f58200; */
+}

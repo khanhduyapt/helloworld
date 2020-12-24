@@ -1,0 +1,127 @@
+.teacher__schedule {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px;
+  margin: 20px;
+}
+
+.teacher__schedule__avatar {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+  margin-right: 20px;
+}
+
+.teacher__schedule__get__students {
+  display: flex;
+  flex-direction: row;
+}
+
+.teacher__schedule__search {
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px;
+  margin: 20px;
+  width: 900px;
+}
+
+.teacher__schedule__responsible {
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px;
+  margin: 20px 20px 20px 0;
+  flex: 1;
+}
+
+.teacher__responsible__header {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.teacher__schedule__searchinfo {
+  border: 1px solid #ebebeb;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  padding: 20px;
+  background-color: #fffce3;
+  width: 80%;
+}
+
+.teacher__schedule__form {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.teacher__schedule__avatar__small {
+  object-fit: cover;
+  min-width: 7vh;
+  max-width: 7vh;
+  min-height: 7vh;
+  max-height: 7vh;
+  margin-right: 20px;
+}
+
+.search__result {
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.search__result__studentinfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+}
+
+.tsched__studentinfo__field {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.tsched__studentinfo__field > img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.search__result__studentsched {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  margin-bottom: 3px;
+  margin-left: 20px;
+}
+
+.search__result__studentsched img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.search__result__time {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+}
+
+.search__result__studenttime {
+  display: block;
+  min-width: 100px;
+}
+
+.search__result__studentcontrols {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3px;
+  margin-left: 20px;
+}
