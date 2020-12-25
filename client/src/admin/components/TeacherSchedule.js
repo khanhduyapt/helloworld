@@ -12,28 +12,23 @@ import SearchIcon from "../../components/commons/SearchIcon";
 import RequiredIcon from "../../components/commons/RequiredIcon";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { objToStr, strToDate } from "../CommonUtil";
-import Moment from "moment";
-import SymbolTo from "../../components/commons/SymbolTo";
+
+import StudentCard from "./StudentCard";
+import { arrayRemove } from "../CommonUtil";
+import TeacherCard from "./TeacherCard";
 
 function TeacherSchedule(props) {
-  const [student_list, set_student_list] = useState([]);
-
   const [_id, setId] = useState("");
-
-  const [imageUrl, setImageUrl] = useState(
-    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
-  );
-
-  const [fullname, set_fullname] = useState("");
-  const [account, set_account] = useState("");
-  const [email, set_email] = useState("");
-  const [phone_number, set_phone_number] = useState("");
-  const [skype_id, set_skype_id] = useState("");
-  const [zoom_id, set_zoom_id] = useState("");
+  const { register, handleSubmit } = useForm();
 
   const [search_info, set_search_info] = useState("");
-  const { register, handleSubmit } = useForm();
+  const [search_student_result, set_search_student_result] = useState([]);
+
+  const [teaching_students, set_teaching_students] = useState([]);
+  const [teaching_student_ids, set_teaching_student_ids] = useState([]);
+
+  const [fullname, set_fullname] = useState("");
+  const [teacher, set_teacher] = useState({});
 
   useEffect(() => {
     const _id = props.match.params.id;
@@ -44,23 +39,17 @@ function TeacherSchedule(props) {
         .then((res) => {
           console.log("getbyid successfully: ", res);
           if (res.status === 200) {
-            setImageUrl(
-              AxiosCommon.defaults.baseURL + "/images/" + res.data.avatar
-            );
-
-            set_account(res.data.account);
-            set_email(res.data.email);
             set_fullname(res.data.fullname);
-            set_phone_number(res.data.phone_number);
-            set_skype_id(res.data.skype_id);
-            set_zoom_id(res.data.zoom_id);
+            set_teacher(res.data);
+
+            set_teaching_students(res.data.teaching_students);
           }
         })
         .catch((error) => {
           console.log(error.message);
         });
     }
-  }, [props.match.params.id]);
+  }, [props.match.params.id, teaching_student_ids]);
 
   const onSubmitSearchForm = (data, e) => {
     e.preventDefault();
@@ -75,7 +64,7 @@ function TeacherSchedule(props) {
       if (res.status !== 200) {
         alert(res.data.msg);
       } else {
-        set_student_list(res.data);
+        set_search_student_result(res.data);
       }
     });
   };
@@ -83,51 +72,14 @@ function TeacherSchedule(props) {
   return (
     <div>
       <div className="teacher__schedule">
-        <img className="teacher__schedule__avatar" src={imageUrl} alt=""></img>
-        <div className="teacher__inputs">
-          <div className="teacher__header">
-            <Link className="card__link" to={`/admin/teacher/${_id}`}>
-              {fullname}
-            </Link>
-          </div>
+        <TeacherCard teacher={teacher} />
 
-          <div className="teacher__contents">
-            <div className="teacher__field">
-              <div className="teacher__field__label">
-                <CardIcon icon="account.jpg" alt="Tài khoản" />
-              </div>
-              <div className="teacher__field__content">{account}</div>
-            </div>
-
-            <div className="teacher__field">
-              <div className="teacher__field__label">
-                <CardIcon icon="phone_number.png" alt="Facebook" />
-              </div>
-              <div className="teacher__field__content">{phone_number}</div>
-            </div>
-
-            <div className="teacher__field">
-              <div className="teacher__field__label">
-                <CardIcon icon="skype.png" alt="Skype" />
-              </div>
-              <div className="teacher__field__content">{skype_id}</div>
-            </div>
-
-            <div className="teacher__field">
-              <div className="teacher__field__label">
-                <CardIcon icon="email.png" alt="Email" />
-              </div>
-              <div className="teacher__field__content">{email}</div>
-            </div>
-
-            <div className="teacher__field">
-              <div className="teacher__field__label">
-                <CardIcon icon="zoom.png" alt="Zoom" />
-              </div>
-              <div className="teacher__field__content">{zoom_id}</div>
-            </div>
-          </div>
-        </div>
+        <Link
+          className="card__link card__link__danger teacher__schedule__back"
+          to="/admin/teachers"
+        >
+          List
+        </Link>
       </div>
 
       <div className="teacher__schedule__get__students">
@@ -151,199 +103,66 @@ function TeacherSchedule(props) {
             </button>
           </form>
 
+          {/*  search_student_result */}
           <div className="teacher__schedule__students">
-            {student_list.map((student) => {
+            {search_student_result.map((student) => {
               return (
                 <div
                   className="search__result"
                   key={student._id}
                   id={`candidate_${student._id}`}
                 >
-                  <img
-                    className="teacher__schedule__avatar"
-                    src={
-                      AxiosCommon.defaults.baseURL + "/images/" + student.avatar
-                    }
-                    alt=""
-                  ></img>
+                  <StudentCard student={student} />
 
-                  <div className="search__result__studentinfo">
-                    <div className="tsched__studentinfo__field">
-                      <CardIcon icon="id.png" alt="Mã học viên" />
-                      {student.local_id}
-                    </div>
-
-                    <div className="tsched__studentinfo__field">
-                      <CardIcon icon="account.jpg" alt="Tài khoản" />
-                      {student.account}
-                    </div>
-
-                    <div className="tsched__studentinfo__field">
-                      <CardIcon icon="student.png" alt="full name" />
-                      {student.fullname}
-                    </div>
-
-                    <div className="tsched__studentinfo__field">
-                      <CardIcon icon="phone_number.png" alt="Phone" />
-                      {student.phone_number}
-                    </div>
-
-                    <div className="tsched__studentinfo__field">
-                      <CardIcon icon="email.png" alt="Email" />
-                      {student.email}
-                    </div>
-                  </div>
-
-                  <div className="search__result__studentsched">
-                    {student.course_details &&
-                      student.course_details.length > 0 && (
-                        <div>
-                          <div className="search__result__time">
-                            <CardIcon icon="online_class.jpg" alt="Khóa học" />
-                            {student.course_details[0].course_name}
-                            <CardIcon icon="remain.jpg" alt="remain" />
-                            {student.course_details[0].lessons_remain}
-                          </div>
-
-                          <div className="search__result__time">
-                            <CardIcon icon="calendar_time.jpg" alt="Ngày học" />
-                            {Moment(
-                              student.course_details[0].course_str_date
-                            ).format("DD/MM/YYYY")}
-                            <SymbolTo />
-                            {Moment(
-                              student.course_details[0].course_end_date
-                            ).format("DD/MM/YYYY")}
-                          </div>
-
-                          {strToDate(student.course_details[0].mo_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 2
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].mo_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].mo_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].tu_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 3
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].tu_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].tu_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].we_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 4
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].we_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].we_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].th_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 5
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].th_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].th_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].fr_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 6
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].fr_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].fr_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].sa_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Thứ 7
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].sa_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].sa_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-
-                          {strToDate(student.course_details[0].su_time_str) && (
-                            <div className="search__result__time">
-                              <div className="search__result__studenttime">
-                                <CardIcon icon="time.png" alt="Thời gian" />
-                                Chủ nhật
-                              </div>
-
-                              {Moment(
-                                student.course_details[0].su_time_str
-                              ).format("h:mm a")}
-                              <SymbolTo />
-                              {Moment(
-                                student.course_details[0].su_time_end
-                              ).format("h:mm a")}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                  </div>
-
-                  <div className="search__result__studentcontrols">
+                  <div className="search__result__controls">
                     <button
                       type="button"
                       className="card__link"
                       onClick={() => {
-                        console.log("Thêm học sinh", student._id);
+                        if (student.course_details[0] === undefined) {
+                          alert(
+                            `Học viên ${student.fullname} chưa theo học khóa học nào.`
+                          );
+                          return;
+                        }
+                        console.log("Student:", student.course_details[0]);
+                        const course_details_id = student.course_details[0]._id;
+
+                        console.log(
+                          "Thêm học sinh",
+                          student._id,
+                          "khóa học:",
+                          course_details_id,
+                          " Cho giao vien: ",
+                          _id
+                        );
+
+                        AxiosCommon.post(
+                          `/user/teacher/schedule/add`,
+                          {
+                            teacher_id: _id,
+                            student_id: student._id,
+                            course_details_id: course_details_id,
+                          },
+                          AxiosCommon.defaults.headers
+                        ).then((res) => {
+                          console.log(`/user/teacher/schedule/add`, res.data);
+
+                          if (res.status !== 200) {
+                            alert(res.data.msg);
+                          } else {
+                            //teaching_student_ids.push(student._id);
+
+                            set_teaching_student_ids((prevVals) => {
+                              return [...prevVals, ...student._id];
+                            });
+
+                            console.log(
+                              "teaching_student_ids",
+                              teaching_student_ids
+                            );
+                          }
+                        });
                       }}
                     >
                       Add
@@ -352,8 +171,8 @@ function TeacherSchedule(props) {
                 </div>
               );
             })}
-            {/* end student_list.map */}
           </div>
+          {/* end search_student_result */}
         </div>
 
         <div className="teacher__schedule__responsible">
@@ -367,6 +186,79 @@ function TeacherSchedule(props) {
             </Link>
             phụ trách
           </div>
+
+          {/* teaching_students */}
+          <div className="teacher__schedule__students">
+            {teaching_students.map((teacher) => {
+              return (
+                <div
+                  className="search__result"
+                  key={teacher._id}
+                  id={`candidate_${teacher._id}`}
+                >
+                  <StudentCard student={teacher} />
+
+                  <div className="search__result__controls">
+                    <button
+                      type="button"
+                      className="card__link card__link__danger"
+                      onClick={() => {
+                        console.log("teacher:", teacher);
+
+                        const course_details_id = teacher.course_details[0];
+                        if (!course_details_id) {
+                          alert(
+                            `Học viên ${teacher.fullname} chưa theo học khóa học nào.`
+                          );
+                          return;
+                        }
+
+                        console.log(
+                          "Xóa học sinh",
+                          teacher._id,
+                          "khóa học:",
+                          course_details_id,
+                          " Cho giao vien: ",
+                          _id
+                        );
+
+                        AxiosCommon.post(
+                          `/user/teacher/schedule/remove`,
+                          {
+                            teacher_id: _id,
+                            student_id: teacher._id,
+                            course_details_id: course_details_id,
+                          },
+                          AxiosCommon.defaults.headers
+                        ).then((res) => {
+                          console.log(
+                            `/user/teacher/schedule/remove`,
+                            res.data
+                          );
+
+                          if (res.status !== 200) {
+                            alert(res.data.msg);
+                          } else {
+                            set_teaching_student_ids((prevVals) => {
+                              return arrayRemove([...prevVals], teacher._id);
+                            });
+
+                            console.log(
+                              "teaching_student_ids",
+                              teaching_student_ids
+                            );
+                          }
+                        });
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {/* end teaching_students */}
         </div>
       </div>
     </div>

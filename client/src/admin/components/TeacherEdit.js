@@ -238,16 +238,24 @@ function TeacherEdit(props) {
               )}
             </ul>
           </div>
+          {!isAddNew && (
+            <Link
+              className="card__link card__link__danger"
+              to={`/admin/teacher_schedule/${_id}`}
+            >
+              Schedule
+            </Link>
+          )}
         </div>
         <div className="teacher__edit__info">
           <div className="teacher__edit__infoMain">
             <div className="teacher__edit__inputs">
-              {/* Họ tên học viên */}
+              {/* Họ tên giảng viên */}
               <div className="teacher__edit__contents">
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="student.png" alt="full name" />
-                    Họ tên học viên
+                    Họ tên giảng viên
                   </div>
                   <input
                     name="fullname"
@@ -262,7 +270,7 @@ function TeacherEdit(props) {
                   <RequiredIcon />
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="account.jpg" alt="Tài khoản" />
                     Tài khoản đăng nhập
@@ -287,10 +295,10 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
-                    <CardIcon icon="id.png" alt="Mã học viên" />
-                    Mã học viên
+                    <CardIcon icon="id.png" alt="Mã giảng viên" />
+                    Mã giảng viên
                   </div>
                   <div className="teacher__field__content">
                     <input
@@ -298,12 +306,12 @@ function TeacherEdit(props) {
                       value={local_id}
                       onChange={(e) => set_local_id(e.target.value)}
                       className="teacher__input__item"
-                      placeholder="Mã học viên"
+                      placeholder="Mã giảng viên"
                     />
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="birthday.png" alt="birthday" />
                     Mật khẩu đăng nhập
@@ -329,7 +337,7 @@ function TeacherEdit(props) {
               <br />
 
               <div className="teacher__edit__contents">
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="facebook.jpg" alt="Facebook" />
                     Facebook
@@ -345,7 +353,7 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="skype.png" alt="Skype" />
                     Skype
@@ -361,7 +369,7 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="email.png" alt="Email" />
                     Email
@@ -377,7 +385,7 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="zoom.png" alt="Zoom" />
                     Zoom
@@ -393,7 +401,7 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="phone_number.png" alt="Phone" />
                     SĐT
@@ -409,7 +417,7 @@ function TeacherEdit(props) {
                   </div>
                 </div>
 
-                <div className="teacher__field">
+                <div className="teacheredit__field">
                   <div className="teacher__edit__label">
                     <CardIcon icon="birthday.png" alt="birthday" />
                     Ngày sinh
@@ -426,20 +434,20 @@ function TeacherEdit(props) {
                   />
                 </div>
               </div>
+            </div>
 
-              <div className="teacher__field">
-                <div className="teacher__edit__label">
-                  <CardIcon icon="address.png" alt="full name" />
-                  Chỗ ở hiện tại
-                </div>
-                <input
-                  name="address"
-                  value={address}
-                  className="teacher__input__address"
-                  onChange={(e) => set_address(e.target.value)}
-                  placeholder="Nhập chỗ ở hiện tại"
-                />
+            <div className="teacher__field__address">
+              <div className="teacher__edit__label">
+                <CardIcon icon="address.png" alt="full name" />
+                Chỗ ở hiện tại
               </div>
+              <input
+                name="address"
+                value={address}
+                className="teacher__input__address"
+                onChange={(e) => set_address(e.target.value)}
+                placeholder="Nhập chỗ ở hiện tại"
+              />
             </div>
           </div>
           <div className="teacher__edit__infoOther">

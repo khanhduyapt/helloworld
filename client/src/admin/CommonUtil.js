@@ -25,4 +25,11 @@ function objToStr(value) {
   }
   return "";
 }
-export { strToFloat, strToDate, objToStr };
+
+function arrayRemove(arr, value) {
+  return arr.filter(function (ele) {
+    return ele !== value;
+  });
+}
+
+export { strToFloat, strToDate, objToStr, arrayRemove };

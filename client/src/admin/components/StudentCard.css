@@ -1,0 +1,45 @@
+.student__card {
+  display: flex;
+}
+.student__card__avatar {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+  margin-right: 20px;
+}
+
+.student__cardinfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+}
+
+.student__card__field {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.student__cardsched {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  margin-bottom: 3px;
+  margin-left: 20px;
+}
+
+.student__cardsched img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.student__card__time {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+}
+
+.student__card__day {
+  width: 100px;
+}

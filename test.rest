@@ -242,7 +242,7 @@ GET http://localhost:3001/user/check/thaopham/5fe31149371b0f32d0e8db17
 GET http://localhost:3001/user/teachers
 
 ###
-GET http://localhost:3001/user/teacher/5fe41452312a863438b06b15
+GET http://localhost:3001/user/teacher/5fe43bd08c078111986a6c02
 
 ###
 POST http://localhost:3001/user/teachers/add
@@ -273,5 +273,5 @@ POST http://localhost:3001/user/students/search
 content-type: application/json
 
 {
-"search_info": "Phạm"
+"search_info": ""
 }

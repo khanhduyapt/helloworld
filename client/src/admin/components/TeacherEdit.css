@@ -16,6 +16,7 @@
 .teacher__image__chooser {
   margin: 10px 10px 10px 25px;
   display: flex;
+  padding-right: 20px;
 }
 
 .teacher__image__chooser > img {
@@ -59,7 +60,7 @@
   flex: 1;
 }
 
-.teacher__field {
+.teacheredit__field {
   display: flex;
   flex: 1;
   min-width: 400px;
@@ -150,6 +151,10 @@
   border-radius: 5px;
   font-size: 1.1rem;
   padding: 2px 10px;
+}
+
+.teacher__field__address {
+  display: flex;
 }
 
 .teacher__input__address {

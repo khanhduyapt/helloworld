@@ -49,10 +49,17 @@ function strToDate(strValue) {
   }
 }
 
+function arrayRemove(arr, value) {
+  return arr.filter(function (ele) {
+    return ele != value;
+  });
+}
+
 module.exports = {
   getCallerIP,
   getUserName,
   strToFloat,
   stringToDate,
   strToDate,
+  arrayRemove,
 };

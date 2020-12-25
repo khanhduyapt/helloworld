@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+// const Genders = Object.freeze({
+//   Male: "male",
+//   Female: "female",
+//   Other: "other",
+// });
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
@@ -18,6 +24,7 @@ const userSchema = new Schema(
 
     local_id: { type: String },
     fullname: { type: String, required: true },
+    gender: { type: String },
     avatar: { type: String },
     date_of_birth: { type: String, default: undefined },
     phone_number: { type: String },
@@ -37,6 +44,7 @@ const userSchema = new Schema(
     last_modify_ip: { type: String },
     last_modify_account: { type: String },
 
+    following_teachers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     course_details: [{ type: Schema.Types.ObjectId, ref: "CourseDetail" }],
 
     teaching_students: [{ type: Schema.Types.ObjectId, ref: "User" }],

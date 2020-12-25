@@ -1,7 +1,8 @@
 .required__icon {
-  height: 10px;
+  height: 10px !important;
   padding: 0;
   margin: auto;
   margin-left: 5px;
   margin-right: 5px;
+  text-align: center;
 }

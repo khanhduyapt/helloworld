@@ -4,13 +4,15 @@ let User = require("../models/user.model");
 let CourseDetail = require("../models/course_detail.model");
 const { FS_ROLE } = require("./FS_ROLE");
 const { multer_upload } = require("./multer");
-let { getCallerIP, getUserName, strToFloat } = require("./utils");
+let { getCallerIP, getUserName, strToFloat, arrayRemove } = require("./utils");
+const exclude_fields = "-password -role";
 
 //#region STUDENTS
 userRouter.route("/students/search").post((req, res) => {
-  console.log("/students/search", req.body);
+  //console.log("/students/search", req.body);
 
   const search_info = req.body.search_info;
+
   if (search_info) {
     const condition = new RegExp(search_info, "i");
     //console.log("condition:", condition);
@@ -32,11 +34,11 @@ userRouter.route("/students/search").post((req, res) => {
       .where("role")
       .equals(FS_ROLE.STUDENT)
       .sort({ fullname: 1 })
-      .select("-password")
+      .select(exclude_fields)
       .then((items) => res.json(items))
       .catch((err) => {
         console.log(err);
-        res.status(400).json("Error: " + err);
+        res.status(400).json(err);
       });
   } else {
     User.find()
@@ -44,11 +46,11 @@ userRouter.route("/students/search").post((req, res) => {
       .where("role")
       .equals(FS_ROLE.STUDENT)
       .sort({ fullname: 1 })
-      .select("-password")
+      .select(exclude_fields)
       .then((items) => res.json(items))
       .catch((err) => {
         console.log(err);
-        res.status(400).json("Error: " + err);
+        res.status(400).json(err);
       });
   }
 });
@@ -106,7 +108,7 @@ userRouter
           })
           .catch((err) => {
             console.log(err);
-            res.status(400).json("Error: " + err);
+            res.status(400).json(err);
           });
       });
     } catch (error) {
@@ -127,7 +129,7 @@ userRouter.route("/students").get((req, res) => {
     .then((items) => res.json(items))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 
@@ -141,7 +143,7 @@ userRouter.route("/students/:id").get((req, res) => {
     .then((item) => res.json(item))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 
@@ -152,7 +154,7 @@ userRouter.route("/students/:id").delete((req, res) => {
     .then(() => res.json({ msg: "deleted.", id: req.params.id }))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 
@@ -216,7 +218,7 @@ userRouter
                   })
                   .catch((err) => {
                     console.log(err);
-                    res.status(400).json("Error: " + err);
+                    res.status(400).json(err);
                   });
               } catch (error) {
                 console.log("updatedItem", error);
@@ -224,12 +226,12 @@ userRouter
             })
             .catch((err) => {
               console.log(err);
-              res.status(400).json("Error: " + err);
+              res.status(400).json(err);
             });
         })
         .catch((err) => {
           console.log(err);
-          res.status(400).json("Error: " + err);
+          res.status(400).json(err);
         });
     } catch (error) {
       console.log("/update/:id", error);
@@ -338,7 +340,8 @@ async function createCourseDetail(req, user_id) {
 //#region TEACHERS
 userRouter.route("/teachers").get((req, res) => {
   User.find()
-    .populate({ path: "teaching_students", select: "fullname account avatar" })
+    .populate({ path: "teaching_students", select: exclude_fields })
+    .populate("course_details")
     // .populate({ path: "teaching_students", select: "account" })
     // .populate({ path: "teaching_students", select: "avatar" })
     .where("role")
@@ -348,7 +351,7 @@ userRouter.route("/teachers").get((req, res) => {
     .then((items) => res.json(items))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 
@@ -356,13 +359,14 @@ userRouter.route("/teacher/:id").get((req, res) => {
   //console.log("studentRouter.route->findById:", req.params.id);
 
   User.findById(req.params.id)
-    .populate("teaching_students")
+    .populate({ path: "teaching_students", select: exclude_fields })
+    .populate("course_details")
     .where("role")
     .equals(FS_ROLE.TEACHER)
     .then((item) => res.json(item))
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 
@@ -406,7 +410,7 @@ userRouter.route("/teacher/add").post(multer_upload.any(), (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(400).json("Error: " + err);
+        res.status(400).json(err);
       });
   } catch (error) {
     console.log("/teachers/add", error);
@@ -417,7 +421,7 @@ userRouter
   .route("/teacher/update/:id")
   .post(multer_upload.any(), (req, res, next) => {
     try {
-      console.log("/teacher/update/:id:", res.req.body, req.files[0]);
+      //console.log("/teacher/update/:id:", res.req.body, req.files[0]);
 
       const _file = req.files[0];
 
@@ -444,9 +448,6 @@ userRouter
           item.last_modify_ip = getCallerIP(req);
           item.last_modify_account = req.user;
 
-          // if (!item.teaching_students.includes(req.body.student_id))
-          //   item.teaching_students.push(req.body.student_id);
-
           //console.log("User updating:", item);
           try {
             item
@@ -458,7 +459,7 @@ userRouter
               })
               .catch((err) => {
                 console.log(err);
-                res.status(400).json("Error: " + err);
+                res.status(400).json(err);
               });
           } catch (error) {
             console.log("updatedItem", error);
@@ -466,7 +467,7 @@ userRouter
         })
         .catch((err) => {
           console.log(err);
-          res.status(400).json("Error: " + err);
+          res.status(400).json(err);
         });
 
       //
@@ -475,6 +476,135 @@ userRouter
     }
   });
 
+userRouter.route("/teacher/schedule/add").post((req, res) => {
+  const teacher_id = req.body.teacher_id;
+  const student_id = req.body.student_id;
+  const course_details_id = req.body.course_details_id;
+  console.log("/teacher/schedule/add", req.body);
+
+  if (
+    ObjectId.isValid(teacher_id) &&
+    ObjectId.isValid(student_id) &&
+    ObjectId.isValid(course_details_id)
+  ) {
+    User.findById(teacher_id)
+      .then((teacher) => {
+        teacher.teaching_students = arrayRemove(
+          teacher.teaching_students,
+          student_id
+        );
+        teacher.teaching_students.push(student_id);
+
+        teacher.course_details = arrayRemove(
+          teacher.course_details,
+          course_details_id
+        );
+        teacher.course_details.push(course_details_id);
+
+        teacher
+          .save()
+          .then((user) => {
+            //console.log("teacher.teaching_students.push:", student_id);
+
+            User.findById(student_id).then((student) => {
+              student.following_teachers = arrayRemove(
+                student.following_teachers,
+                teacher_id
+              );
+              student.following_teachers.push(teacher_id);
+
+              student
+                .save()
+                .then((user) => {
+                  //console.log("student.following_teachers.push:", teacher_id);
+
+                  res.json(
+                    student_id + " đã được thêm cho giáo viên " + teacher_id
+                  );
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(400).json(err);
+                });
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(400).json(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  } else {
+    console.log("ObjectId không hợp lệ");
+    res.status(400).json("Id không hợp lệ.");
+  }
+});
+
+userRouter.route("/teacher/schedule/remove").post((req, res) => {
+  const teacher_id = req.body.teacher_id;
+  const student_id = req.body.student_id;
+  const course_details_id = req.body.course_details_id;
+  console.log("/teacher/schedule/remove", req.body);
+
+  if (
+    ObjectId.isValid(teacher_id) &&
+    ObjectId.isValid(student_id) &&
+    ObjectId.isValid(course_details_id)
+  ) {
+    User.findById(teacher_id)
+      .then((teacher) => {
+        teacher.teaching_students = arrayRemove(
+          teacher.teaching_students,
+          student_id
+        );
+        teacher.course_details = arrayRemove(
+          teacher.course_details,
+          course_details_id
+        );
+
+        teacher
+          .save()
+          .then((user) => {
+            //console.log("teacher.teaching_students.remove:", student_id);
+
+            User.findById(student_id).then((student) => {
+              student.following_teachers = arrayRemove(
+                student.following_teachers,
+                teacher_id
+              );
+
+              student
+                .save()
+                .then((user) => {
+                  //console.log("student.following_teachers.remove:", teacher_id);
+
+                  res.json(
+                    student_id + " đã được xóa khỏi giáo viên " + teacher_id
+                  );
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(400).json(err);
+                });
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(400).json(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  } else {
+    console.log("ObjectId không hợp lệ");
+    res.status(400).json("Id không hợp lệ.");
+  }
+});
 //#endregion TEACHERS
 
 //------------------------------------------------------------------
@@ -516,7 +646,7 @@ userRouter.route("/check/:acc/:id").get((req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json(err);
     });
 });
 

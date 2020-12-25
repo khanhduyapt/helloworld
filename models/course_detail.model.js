@@ -7,8 +7,8 @@ const courseDetailSchema = new Schema(
     _id: { type: Schema.Types.ObjectId, auto: true },
 
     user_id: { type: Schema.Types.ObjectId, required: true },
-    course_id: { type: Schema.Types.ObjectId, required: true },
 
+    course_id: { type: Schema.Types.ObjectId },
     course_name: { type: String, required: true },
     course_str_date: { type: String, required: true },
     course_end_date: { type: String, required: true },
