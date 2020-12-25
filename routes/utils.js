@@ -14,15 +14,28 @@ function getUserName(request) {
   return String(username);
 }
 
-function strToFloat(strValue) {
+function objToStr(value) {
   if (
-    strValue === "" ||
-    strValue.toUpperCase() === "null".toUpperCase() ||
-    strValue.toUpperCase() === "undefined".toUpperCase()
+    value &&
+    value.toUpperCase() !== "null".toUpperCase() &&
+    value.toUpperCase() !== "undefined".toUpperCase()
+  ) {
+    return value;
+  }
+  return "";
+}
+
+function strToFloat(strValue) {
+  const value = objToStr(strValue);
+
+  if (
+    value === "" ||
+    value.toUpperCase() === "null".toUpperCase() ||
+    value.toUpperCase() === "undefined".toUpperCase()
   )
     return 0;
 
-  return parseFloat(strValue.replace(/,/g, ""));
+  return parseFloat(value.replace(/,/g, ""));
 }
 
 function stringToDate(strValue) {
@@ -62,4 +75,5 @@ module.exports = {
   stringToDate,
   strToDate,
   arrayRemove,
+  objToStr,
 };

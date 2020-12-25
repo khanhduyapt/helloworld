@@ -2,9 +2,6 @@ import "./Teachers.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
-import CardIcon from "../../components/commons/CardIcon";
-import SymbolTo from "../../components/commons/SymbolTo";
-import Moment from "moment";
 import TeacherCard from "./TeacherCard";
 
 function Teachers() {

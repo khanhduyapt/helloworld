@@ -20,6 +20,7 @@ import UploadImage from "./components/UploadImage";
 import StudentEdit from "./components/StudentEdit";
 import TeacherEdit from "./components/TeacherEdit";
 import TeacherSchedule from "./components/TeacherSchedule";
+import StudentCourse from "./components/StudentCourse";
 
 function AdDashboard() {
   return (
@@ -48,11 +49,11 @@ function AdDashboard() {
             <Route path="/admin/teacher/:id" component={TeacherEdit} />
             <Route path="/admin/teachers" component={Teachers} />
 
-            <Route path="/admin/student/:id" component={StudentEdit}></Route>
-            <Route path="/admin/students" component={Students}></Route>
-            <Route path="/admin/admins">
-              <Admins />
-            </Route>
+            <Route path="/admin/student_course/:id" component={StudentCourse} />
+            <Route path="/admin/student/:id" component={StudentEdit} />
+            <Route path="/admin/students" component={Students} />
+
+            <Route path="/admin/admins" component={Admins} />
             <Route path="/admin/sliderbar/:id" component={UploadImage}></Route>
             <Route path="/admin/sliderbar" component={Sliderbar}></Route>
             <Route path="/admin/myspecial/:id" component={UploadImage}></Route>

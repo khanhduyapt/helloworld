@@ -1,0 +1,41 @@
+.student__course__schedule {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px 20px 15px 20px;
+  min-width: 1060px;
+  max-width: 1060px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.student__course__info {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px 50px 20px 50px;
+  min-width: 1060px;
+  max-width: 1060px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.student__course__notes {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ebebeb;
+}
+
+.student__course__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}

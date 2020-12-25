@@ -5,7 +5,12 @@ let CourseDetail = require("../models/course_detail.model");
 const { FS_ROLE } = require("./FS_ROLE");
 const { multer_upload } = require("./multer");
 let { getCallerIP, getUserName, strToFloat, arrayRemove } = require("./utils");
-const exclude_fields = "-password -role";
+const course_details_exclude_fields =
+  "-password -role -following_teachers -course_details";
+const student_exclude_fields = "-password -role -teaching_students";
+const teacher_exclude_fields = "-password -role -following_teachers";
+
+const msg_id_invalid = "Id không hợp lệ.";
 
 //#region STUDENTS
 userRouter.route("/students/search").post((req, res) => {
@@ -34,7 +39,7 @@ userRouter.route("/students/search").post((req, res) => {
       .where("role")
       .equals(FS_ROLE.STUDENT)
       .sort({ fullname: 1 })
-      .select(exclude_fields)
+      .select(student_exclude_fields)
       .then((items) => res.json(items))
       .catch((err) => {
         console.log(err);
@@ -46,13 +51,62 @@ userRouter.route("/students/search").post((req, res) => {
       .where("role")
       .equals(FS_ROLE.STUDENT)
       .sort({ fullname: 1 })
-      .select(exclude_fields)
+      .select(student_exclude_fields)
       .then((items) => res.json(items))
       .catch((err) => {
         console.log(err);
         res.status(400).json(err);
       });
   }
+});
+
+userRouter.route("/students").get((req, res) => {
+  User.find()
+    .populate("course_details")
+    .populate({
+      path: "following_teachers",
+      select: course_details_exclude_fields,
+    })
+    .where("role")
+    .equals(FS_ROLE.STUDENT)
+    .sort({ FullName: 1 })
+    .select(student_exclude_fields)
+    .then((items) => res.json(items))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+userRouter.route("/students/:id").get((req, res) => {
+  //console.log("studentRouter.route->findById:", req.params.id);
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json(msg_id_invalid);
+    return;
+  }
+
+  User.findById(req.params.id)
+    .populate("course_details")
+    .populate({ path: "following_teachers", select: student_exclude_fields })
+    .where("role")
+    .equals(FS_ROLE.STUDENT)
+    .select(student_exclude_fields)
+    .then((item) => res.json(item))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+userRouter.route("/students/:id").delete((req, res) => {
+  //console.log("studentRouter.route->delete:", req.params.id);
+
+  User.findByIdAndDelete(req.params.id)
+    .then(() => res.json({ msg: "deleted.", id: req.params.id }))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 userRouter
@@ -93,141 +147,72 @@ userRouter
         newUser.avatar = _file.filename;
       }
 
-      const courseDtlItem = createCourseDetail(req, newUser._id);
-      courseDtlItem.then((newCourseDetail) => {
-        console.log("newCourseDetail created:", newCourseDetail._id);
-
-        newUser.course_details.push(newCourseDetail._id);
-
-        console.log("newUser:", newUser);
-        newUser
-          .save()
-          .then((user) => {
-            console.log("user created:", user._id);
-            res.json(user._id);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(400).json(err);
-          });
-      });
+      newUser
+        .save()
+        .then((user) => {
+          console.log("user created:", user._id);
+          res.json(user._id);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400).json(err);
+        });
     } catch (error) {
       console.log("userRouter /add", error);
     }
   });
 
-userRouter.route("/students").get((req, res) => {
-  User.find()
-    .populate("course_details")
-    // .populate({
-    //   path: "course_details",
-    //   select: "-course_name -course_str_date -course_end_date",
-    // }) // exclude c and d, include other fields: query.select('-c -d');
-    .where("role")
-    .equals(FS_ROLE.STUDENT)
-    .sort({ FullName: 1 })
-    .then((items) => res.json(items))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
-userRouter.route("/students/:id").get((req, res) => {
-  //console.log("studentRouter.route->findById:", req.params.id);
-
-  User.findById(req.params.id)
-    .populate("course_details")
-    .where("role")
-    .equals(FS_ROLE.STUDENT)
-    .then((item) => res.json(item))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
-userRouter.route("/students/:id").delete((req, res) => {
-  //console.log("studentRouter.route->delete:", req.params.id);
-
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.json({ msg: "deleted.", id: req.params.id }))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
 userRouter
   .route("/students/update/:id")
   .post(multer_upload.any(), (req, res, next) => {
     try {
-      console.log("student->update:", res.req.body, req.files[0]);
+      //console.log("student->update:", res.req.body, req.files[0]);
 
       const _file = req.files[0];
 
-      const courseDtlItem = createCourseDetail(req, req.params.id);
-      //console.log("courseDtlItem:", courseDtlItem);
+      User.findById(req.params.id)
+        .then((item) => {
+          if (req.body.account) item.account = req.body.account;
 
-      courseDtlItem
-        .then((course_detail) => {
-          console.log("course_detail updated:", course_detail);
+          if (req.body.local_id) item.local_id = req.body.local_id;
+          if (req.body.fullname) item.fullname = req.body.fullname;
 
-          User.findById(req.params.id)
-            .then((item) => {
-              if (req.body.account) item.account = req.body.account;
+          if (_file) item.avatar = _file.filename;
 
-              if (req.body.local_id) item.local_id = req.body.local_id;
-              if (req.body.fullname) item.fullname = req.body.fullname;
+          if (req.body.date_of_birth)
+            item.date_of_birth = req.body.date_of_birth;
+          if (req.body.phone_number) item.phone_number = req.body.phone_number;
+          if (req.body.address) item.address = req.body.address;
+          if (req.body.email) item.email = req.body.email;
+          if (req.body.facebook) item.facebook = req.body.facebook;
+          if (req.body.zoom_id) item.zoom_id = req.body.zoom_id;
+          if (req.body.skype_id) item.skype_id = req.body.skype_id;
 
-              if (_file) item.avatar = _file.filename;
+          if (req.body.parent_name) item.parent_name = req.body.parent_name;
+          if (req.body.parent_phone) item.parent_phone = req.body.parent_phone;
+          if (req.body.parent_email) item.parent_email = req.body.parent_email;
+          if (req.body.date_join) item.date_join = req.body.date_join;
 
-              if (req.body.date_of_birth)
-                item.date_of_birth = req.body.date_of_birth;
-              if (req.body.phone_number)
-                item.phone_number = req.body.phone_number;
-              if (req.body.address) item.address = req.body.address;
-              if (req.body.email) item.email = req.body.email;
-              if (req.body.facebook) item.facebook = req.body.facebook;
-              if (req.body.zoom_id) item.zoom_id = req.body.zoom_id;
-              if (req.body.skype_id) item.skype_id = req.body.skype_id;
+          if (req.body.user_notes) item.user_notes = req.body.user_notes;
 
-              if (req.body.parent_name) item.parent_name = req.body.parent_name;
-              if (req.body.parent_phone)
-                item.parent_phone = req.body.parent_phone;
-              if (req.body.parent_email)
-                item.parent_email = req.body.parent_email;
-              if (req.body.date_join) item.date_join = req.body.date_join;
+          item.last_modify_ip = getCallerIP(req);
+          item.last_modify_account = req.user;
 
-              if (req.body.user_notes) item.user_notes = req.body.user_notes;
+          try {
+            item
+              .save()
+              .then((updatedItem) => {
+                console.log("User updated", updatedItem._id);
 
-              item.last_modify_ip = getCallerIP(req);
-              item.last_modify_account = req.user;
-
-              if (!item.course_details.includes(course_detail._id))
-                item.course_details.push(course_detail._id);
-
-              //console.log("User updating:", item);
-              try {
-                item
-                  .save()
-                  .then((updatedItem) => {
-                    console.log("User updated", updatedItem._id);
-
-                    res.json(updatedItem);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    res.status(400).json(err);
-                  });
-              } catch (error) {
-                console.log("updatedItem", error);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(400).json(err);
-            });
+                res.json(updatedItem);
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(400).json(err);
+              });
+          } catch (error) {
+            console.log("updatedItem", error);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -238,99 +223,121 @@ userRouter
     }
   });
 
-async function createCourseDetail(req, user_id) {
-  try {
-    let detailItem = null;
-    if (req.body.pk_course_detail) {
-      detailItem = await CourseDetail.findById(req.body.pk_course_detail);
-    }
+userRouter.route("/students/course_detail/:id").post((req, res) => {
+  console.log("/students/course_detail/:id", req.body, req.params);
 
-    if (detailItem) {
-      //console.log("update CourseDetail");
-
-      detailItem.course_name = req.body.course_name;
-      detailItem.course_str_date = req.body.course_str_date;
-      detailItem.course_end_date = req.body.course_end_date;
-
-      if (req.body.duration_month)
-        detailItem.duration_month = req.body.duration_month;
-      if (req.body.number_lessons)
-        detailItem.number_lessons = strToFloat(req.body.number_lessons);
-      if (req.body.lessons_remain)
-        detailItem.lessons_remain = strToFloat(req.body.lessons_remain);
-
-      if (req.body.tuition_fee)
-        detailItem.tuition_fee = strToFloat(req.body.tuition_fee);
-      if (req.body.tuition_fee_paid)
-        detailItem.tuition_fee_paid = strToFloat(req.body.tuition_fee_paid);
-      if (req.body.tuition_fee_unpaid)
-        detailItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
-
-      if (req.body.mo_time_str) detailItem.mo_time_str = req.body.mo_time_str;
-      if (req.body.mo_time_end) detailItem.mo_time_end = req.body.mo_time_end;
-      if (req.body.tu_time_str) detailItem.tu_time_str = req.body.tu_time_str;
-      if (req.body.tu_time_end) detailItem.tu_time_end = req.body.tu_time_end;
-      if (req.body.we_time_str) detailItem.we_time_str = req.body.we_time_str;
-      if (req.body.we_time_end) detailItem.we_time_end = req.body.we_time_end;
-      if (req.body.th_time_str) detailItem.th_time_str = req.body.th_time_str;
-      if (req.body.th_time_end) detailItem.th_time_end = req.body.th_time_end;
-      if (req.body.fr_time_str) detailItem.fr_time_str = req.body.fr_time_str;
-      if (req.body.fr_time_end) detailItem.fr_time_end = req.body.fr_time_end;
-      if (req.body.sa_time_str) detailItem.sa_time_str = req.body.sa_time_str;
-      if (req.body.sa_time_end) detailItem.sa_time_end = req.body.sa_time_end;
-      if (req.body.su_time_str) detailItem.su_time_str = req.body.su_time_str;
-      if (req.body.su_time_end) detailItem.su_time_end = req.body.su_time_end;
-      if (req.body.course_notes)
-        detailItem.course_notes = req.body.course_notes;
-
-      return await detailItem.save();
-    } else {
-      //console.log("addnew CourseDetail");
-
-      const newItem = new CourseDetail();
-
-      newItem.user_id = user_id;
-      newItem.course_id = req.body.course_id;
-      newItem.course_name = req.body.course_name;
-      newItem.course_str_date = req.body.course_str_date;
-      newItem.course_end_date = req.body.course_end_date;
-
-      if (req.body.duration_month)
-        newItem.duration_month = req.body.duration_month;
-      if (req.body.number_lessons)
-        newItem.number_lessons = req.body.number_lessons;
-      if (req.body.lessons_remain)
-        newItem.lessons_remain = req.body.lessons_remain;
-
-      if (req.body.tuition_fee)
-        newItem.tuition_fee = strToFloat(req.body.tuition_fee);
-      if (req.body.tuition_fee_paid)
-        newItem.tuition_fee_paid = strToFloat(req.body.tuition_fee_paid);
-      if (req.body.tuition_fee_unpaid)
-        newItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
-
-      if (req.body.mo_time_str) newItem.mo_time_str = req.body.mo_time_str;
-      if (req.body.mo_time_end) newItem.mo_time_end = req.body.mo_time_end;
-      if (req.body.tu_time_str) newItem.tu_time_str = req.body.tu_time_str;
-      if (req.body.tu_time_end) newItem.tu_time_end = req.body.tu_time_end;
-      if (req.body.we_time_str) newItem.we_time_str = req.body.we_time_str;
-      if (req.body.we_time_end) newItem.we_time_end = req.body.we_time_end;
-      if (req.body.th_time_str) newItem.th_time_str = req.body.th_time_str;
-      if (req.body.th_time_end) newItem.th_time_end = req.body.th_time_end;
-      if (req.body.fr_time_str) newItem.fr_time_str = req.body.fr_time_str;
-      if (req.body.fr_time_end) newItem.fr_time_end = req.body.fr_time_end;
-      if (req.body.sa_time_str) newItem.sa_time_str = req.body.sa_time_str;
-      if (req.body.sa_time_end) newItem.sa_time_end = req.body.sa_time_end;
-      if (req.body.su_time_str) newItem.su_time_str = req.body.su_time_str;
-      if (req.body.su_time_end) newItem.su_time_end = req.body.su_time_end;
-      if (req.body.course_notes) newItem.course_notes = req.body.course_notes;
-
-      return await newItem.save();
-    }
-  } catch (error) {
-    console.log("createCourseDetail error:", error);
+  const id = req.params.id;
+  if (!ObjectId.isValid(id)) {
+    res.status(400).json(msg_id_invalid);
+    return;
   }
-}
+
+  //add new
+  if (!ObjectId.isValid(req.body.pk_course_detail)) {
+    const newItem = new CourseDetail();
+
+    newItem.user_id = user_id;
+    newItem.course_id = req.body.course_id;
+    newItem.course_name = req.body.course_name;
+    newItem.course_str_date = req.body.course_str_date;
+    newItem.course_end_date = req.body.course_end_date;
+
+    if (req.body.duration_month)
+      newItem.duration_month = req.body.duration_month;
+    if (req.body.number_lessons)
+      newItem.number_lessons = req.body.number_lessons;
+    if (req.body.lessons_remain)
+      newItem.lessons_remain = req.body.lessons_remain;
+
+    if (req.body.tuition_fee)
+      newItem.tuition_fee = strToFloat(req.body.tuition_fee);
+    if (req.body.tuition_fee_paid)
+      newItem.tuition_fee_paid = strToFloat(req.body.tuition_fee_paid);
+    if (req.body.tuition_fee_unpaid)
+      newItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
+
+    if (req.body.mo_time_str) newItem.mo_time_str = req.body.mo_time_str;
+    if (req.body.mo_time_end) newItem.mo_time_end = req.body.mo_time_end;
+    if (req.body.tu_time_str) newItem.tu_time_str = req.body.tu_time_str;
+    if (req.body.tu_time_end) newItem.tu_time_end = req.body.tu_time_end;
+    if (req.body.we_time_str) newItem.we_time_str = req.body.we_time_str;
+    if (req.body.we_time_end) newItem.we_time_end = req.body.we_time_end;
+    if (req.body.th_time_str) newItem.th_time_str = req.body.th_time_str;
+    if (req.body.th_time_end) newItem.th_time_end = req.body.th_time_end;
+    if (req.body.fr_time_str) newItem.fr_time_str = req.body.fr_time_str;
+    if (req.body.fr_time_end) newItem.fr_time_end = req.body.fr_time_end;
+    if (req.body.sa_time_str) newItem.sa_time_str = req.body.sa_time_str;
+    if (req.body.sa_time_end) newItem.sa_time_end = req.body.sa_time_end;
+    if (req.body.su_time_str) newItem.su_time_str = req.body.su_time_str;
+    if (req.body.su_time_end) newItem.su_time_end = req.body.su_time_end;
+    if (req.body.course_notes) newItem.course_notes = req.body.course_notes;
+
+    newItem
+      .save()
+      .then((createdItem) => {
+        console.log("/students/course_detail/:id createdItem", createdItem._id);
+
+        res.json(createdItem._id);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  } else {
+    //update
+    CourseDetail.findById(req.body.pk_course_detail).then((updateItem) => {
+      updateItem.course_name = req.body.course_name;
+      updateItem.course_str_date = req.body.course_str_date;
+      updateItem.course_end_date = req.body.course_end_date;
+
+      if (req.body.duration_month)
+        updateItem.duration_month = req.body.duration_month;
+      if (req.body.number_lessons)
+        updateItem.number_lessons = strToFloat(req.body.number_lessons);
+      if (req.body.lessons_remain)
+        updateItem.lessons_remain = strToFloat(req.body.lessons_remain);
+
+      if (req.body.tuition_fee)
+        updateItem.tuition_fee = strToFloat(req.body.tuition_fee);
+      if (req.body.tuition_fee_paid)
+        updateItem.tuition_fee_paid = strToFloat(req.body.tuition_fee_paid);
+      if (req.body.tuition_fee_unpaid)
+        updateItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
+
+      if (req.body.mo_time_str) updateItem.mo_time_str = req.body.mo_time_str;
+      if (req.body.mo_time_end) updateItem.mo_time_end = req.body.mo_time_end;
+      if (req.body.tu_time_str) updateItem.tu_time_str = req.body.tu_time_str;
+      if (req.body.tu_time_end) updateItem.tu_time_end = req.body.tu_time_end;
+      if (req.body.we_time_str) updateItem.we_time_str = req.body.we_time_str;
+      if (req.body.we_time_end) updateItem.we_time_end = req.body.we_time_end;
+      if (req.body.th_time_str) updateItem.th_time_str = req.body.th_time_str;
+      if (req.body.th_time_end) updateItem.th_time_end = req.body.th_time_end;
+      if (req.body.fr_time_str) updateItem.fr_time_str = req.body.fr_time_str;
+      if (req.body.fr_time_end) updateItem.fr_time_end = req.body.fr_time_end;
+      if (req.body.sa_time_str) updateItem.sa_time_str = req.body.sa_time_str;
+      if (req.body.sa_time_end) updateItem.sa_time_end = req.body.sa_time_end;
+      if (req.body.su_time_str) updateItem.su_time_str = req.body.su_time_str;
+      if (req.body.su_time_end) updateItem.su_time_end = req.body.su_time_end;
+      if (req.body.course_notes)
+        updateItem.course_notes = req.body.course_notes;
+
+      updateItem
+        .save()
+        .then((updatedItem) => {
+          console.log(
+            "/students/course_detail/:id updatedItem",
+            updatedItem._id
+          );
+          res.json(updatedItem._id);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+    });
+  }
+});
+
 //#endregion STUDENTS
 
 //------------------------------------------------------------------
@@ -340,7 +347,7 @@ async function createCourseDetail(req, user_id) {
 //#region TEACHERS
 userRouter.route("/teachers").get((req, res) => {
   User.find()
-    .populate({ path: "teaching_students", select: exclude_fields })
+    .populate({ path: "teaching_students", select: teacher_exclude_fields })
     .populate("course_details")
     // .populate({ path: "teaching_students", select: "account" })
     // .populate({ path: "teaching_students", select: "avatar" })
@@ -359,7 +366,7 @@ userRouter.route("/teacher/:id").get((req, res) => {
   //console.log("studentRouter.route->findById:", req.params.id);
 
   User.findById(req.params.id)
-    .populate({ path: "teaching_students", select: exclude_fields })
+    .populate({ path: "teaching_students", select: teacher_exclude_fields })
     .populate("course_details")
     .where("role")
     .equals(FS_ROLE.TEACHER)
@@ -539,7 +546,7 @@ userRouter.route("/teacher/schedule/add").post((req, res) => {
       });
   } else {
     console.log("ObjectId không hợp lệ");
-    res.status(400).json("Id không hợp lệ.");
+    res.status(400).json(msg_id_invalid);
   }
 });
 
@@ -602,7 +609,7 @@ userRouter.route("/teacher/schedule/remove").post((req, res) => {
       });
   } else {
     console.log("ObjectId không hợp lệ");
-    res.status(400).json("Id không hợp lệ.");
+    res.status(400).json(msg_id_invalid);
   }
 });
 //#endregion TEACHERS

@@ -188,7 +188,11 @@ function TeacherEdit(props) {
 
   return (
     <div className="teacher__edit">
-      <h1 className="dashboard__header">Thông tin giảng viên</h1>
+      {isAddNew && <h1 className="dashboard__header">Thêm mới giảng viên</h1>}
+      {!isAddNew && (
+        <h1 className="dashboard__header">Chỉnh sửa thông tin giảng viên</h1>
+      )}
+
       <form
         onSubmit={handleSubmit(onSubmitForm)}
         autoComplete="off"

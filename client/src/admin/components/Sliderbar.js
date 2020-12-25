@@ -12,6 +12,7 @@ function Sliderbar() {
       </div>
 
       <div className="sliderbar__preview">
+        <h5>Preview:</h5>
         <HpSliderBar />
       </div>
     </div>
