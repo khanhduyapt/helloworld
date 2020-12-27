@@ -98,7 +98,7 @@ function UploadImage(props) {
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
-          alert(res.data.msg);
+          Alert(res.data.msg);
         }
       })
       .catch((error) => {
@@ -130,25 +130,27 @@ function UploadImage(props) {
           />
         </div>
 
-        <div className="upload__image__contents">
-          <div className="upload__contents__img">
-            <img key={_id} src={imageUrl} alt={header}></img>
+        <div className="upload__image__chooser">
+          <img key={_id} src={imageUrl} alt={header}></img>
 
-            <button
-              type="button"
-              className="card__link upload__image__clear"
-              onClick={() => {
-                //console.log("Xóa");
-                setImagePath("");
-                setImageUrl(
-                  AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
-                );
-              }}
-            >
-              Xóa
-            </button>
+          <button
+            type="button"
+            className="card__link upload__image__clear"
+            onClick={() => {
+              //console.log("Xóa");
+              setImagePath("");
+              setImageUrl(AxiosCommon.defaults.baseURL + "/images/noimage.jpg");
+            }}
+          >
+            Xóa
+          </button>
+
+          <div className="card__link__right upload__image__error__msg">
+            <ul></ul>
           </div>
+        </div>
 
+        <div className="upload__image__contents">
           <div className="upload__contents__inputs">
             <label className="upload__contents__label">Tiêu đề:</label>
             <CKEditor
@@ -173,19 +175,18 @@ function UploadImage(props) {
                 onChange={(e, editor) => setContent(editor.getData())}
               />
             </div>
-
-            <div className="upload__image__buttons">
-              <Link to={callback_link} ref={refBackLink} className="card__link">
-                Back
-              </Link>
-
-              <input
-                className="upload__image__submit card__link card__link__danger"
-                type="submit"
-                value="Upload"
-              ></input>
-            </div>
           </div>
+        </div>
+        <div className="upload__image__buttons">
+          <Link to={callback_link} ref={refBackLink} className="card__link">
+            Back
+          </Link>
+
+          <input
+            className="upload__image__submit card__link card__link__danger"
+            type="submit"
+            value="Upload"
+          ></input>
         </div>
       </form>
     </div>

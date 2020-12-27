@@ -15,10 +15,11 @@ function getUserName(request) {
 }
 
 function objToStr(value) {
+  const newval = value.toString();
   if (
-    value &&
-    value.toUpperCase() !== "null".toUpperCase() &&
-    value.toUpperCase() !== "undefined".toUpperCase()
+    newval &&
+    newval.toUpperCase() !== "null".toUpperCase() &&
+    newval.toUpperCase() !== "undefined".toUpperCase()
   ) {
     return value;
   }
@@ -26,7 +27,7 @@ function objToStr(value) {
 }
 
 function strToFloat(strValue) {
-  const value = objToStr(strValue);
+  const value = strValue.toString();
 
   if (
     value === "" ||
@@ -39,8 +40,10 @@ function strToFloat(strValue) {
 }
 
 function stringToDate(strValue) {
-  if (strValue && strValue.toUpperCase() !== "null".toUpperCase()) {
-    return new Date(strValue);
+  const value = strValue.toString();
+
+  if (value && value.toUpperCase() !== "null".toUpperCase()) {
+    return new Date(value);
   } else {
     return null;
   }
@@ -48,15 +51,16 @@ function stringToDate(strValue) {
 
 function strToDate(strValue) {
   try {
+    const value = strValue.toString();
     if (
-      strValue === "" ||
-      strValue.toUpperCase() === "null".toUpperCase() ||
-      strValue.toUpperCase() === "undefined".toUpperCase()
+      value === "" ||
+      value.toUpperCase() === "null".toUpperCase() ||
+      value.toUpperCase() === "undefined".toUpperCase()
     ) {
       return null;
     }
 
-    return new Date(strValue);
+    return new Date(value);
   } catch (error) {
     return null;
   }

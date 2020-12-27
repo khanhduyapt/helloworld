@@ -5,11 +5,12 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema(
   {
     _id: { type: Schema.Types.ObjectId, auto: true },
+    avatar: { type: String },
     course_name: { type: String, required: true },
 
-    duration: { type: String },
+    duration_month: { type: String },
     number_lessons: { type: Number },
-
+    lesson_minutes: { type: Number },
     tuition_fee: { type: Number },
 
     notes: { type: String },

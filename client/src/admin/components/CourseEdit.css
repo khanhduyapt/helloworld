@@ -1,9 +1,10 @@
-.upload__image {
+.course__edit {
   width: 60vw;
   margin: auto;
+  max-width: 1060px;
 }
 
-.upload__image__title {
+.course__edit__title {
   width: fit-content;
   margin: auto;
   padding-top: 20px;
@@ -11,7 +12,7 @@
   margin-bottom: 20px;
 }
 
-.upload__image__form {
+.course__edit__form {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -20,13 +21,12 @@
   margin: auto;
 }
 
-.upload__image__chooser {
+.course__edit__chooser {
   display: flex;
-  margin-bottom: 10px;
-  justify-content: space-between;
+  margin-bottom: 5px;
 }
 
-.upload__image__chooser > img {
+.course__edit__chooser > img {
   object-fit: cover;
   min-width: 10vh;
   max-width: 10vh;
@@ -34,49 +34,46 @@
   max-height: 10vh;
 }
 
-.upload__image__choosefile {
+.course__edit__choosefile {
   background-color: #fff;
   font-size: 1.2rem;
   border-radius: 10px;
 }
 
-.upload__image__clear {
+.course__edit__clear {
   margin-left: 20px;
   margin-top: auto;
 }
 
-.upload__image__header {
+.course__edit__header {
   margin-bottom: 10px;
 }
 
-.upload__image__content {
+.course__edit__content {
   margin-bottom: 10px;
 }
 
-.upload__image__buttons {
+.course__edit__buttons {
   display: flex;
-  padding-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.upload__image__submit {
+.course__edit__submit {
   width: fit-content;
   margin-left: auto;
   margin-bottom: 20px;
   margin-left: auto;
 }
 
-.upload__image__contents {
+.course__edit__contents {
   display: flex;
   flex-direction: column;
 }
 
-.upload__contents__inputs {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.upload__contents__img {
+.course__edit__img {
   min-width: 10vw;
   max-width: 10vw;
   margin: 10px;
@@ -85,7 +82,7 @@
   min-height: 10vh;
 }
 
-.upload__contents__img > img {
+.course__edit__img > img {
   object-fit: cover;
   min-width: 10vw;
   max-height: 10vh;
@@ -102,19 +99,50 @@
   border: none;
 }
 
-.upload__contents__label {
-  margin: 20px 0 0 0;
+.course__edit__field {
+  display: flex;
+  flex: 1 1;
+  min-width: 400px;
+  height: 32px;
+  margin-bottom: 5px;
+}
+
+.course__edit__label {
+  min-width: 200px;
+  max-width: 200px;
+  padding-top: 5px;
   font-size: 1.1rem;
 }
 
-.upload__contents__ckeditor {
+.course__edit__input {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.course__edit__ckeditor {
   height: 100%;
 }
 
-.upload__contents__ckeditor .ck-editor__editable {
+.course__edit__ckeditor .ck-editor__editable {
   min-height: 40vh !important;
 }
 
-.upload__image__error__msg > ul > li {
+.course__edit__error__msg {
+  display: flex;
+}
+
+.course__edit__error__msg > ul > li {
   color: red;
+}
+
+.course__edit__fullwidth {
+  flex: 1;
+}
+
+.course__edit__span {
+  padding-top: 5px;
+  margin-left: 5px;
 }

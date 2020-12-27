@@ -236,7 +236,7 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
   if (!ObjectId.isValid(req.body.pk_course_detail)) {
     const newItem = new CourseDetail();
 
-    newItem.user_id = user_id;
+    newItem.user_id = id;
     newItem.course_id = req.body.course_id;
     newItem.course_name = req.body.course_name;
     newItem.course_str_date = req.body.course_str_date;

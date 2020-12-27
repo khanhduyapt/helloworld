@@ -32,4 +32,30 @@ function arrayRemove(arr, value) {
   });
 }
 
-export { strToFloat, strToDate, objToStr, arrayRemove };
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function addMonths(date, months) {
+  var result = new Date(date);
+  result.setMonth(result.getMonth() + strToFloat(months));
+  return result;
+}
+
+function addMinutes(date, minutes) {
+  var result = new Date(date);
+  result.setMinutes(result.getMinutes() + parseInt(minutes));
+  return result;
+}
+
+export {
+  strToFloat,
+  strToDate,
+  objToStr,
+  arrayRemove,
+  addDays,
+  addMonths,
+  addMinutes,
+};

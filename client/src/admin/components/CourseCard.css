@@ -1,0 +1,66 @@
+.course__card {
+  display: flex;
+  width: 100%;
+}
+.course__card__avatar {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+  margin-right: 20px;
+}
+
+.course__cardinfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+}
+
+.course__card__field {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.course__card__notes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 280px;
+  margin-bottom: 3px;
+  margin-left: 20px;
+  max-height: 10vh;
+  overflow-y: auto;
+}
+
+.course__card__time {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+}
+
+.course__card__money {
+  border: none;
+  font-size: 1.1rem;
+  padding-top: 5px;
+}
+
+.course__card__day {
+  width: 100px;
+}
+
+.course__card__label {
+  min-width: 200px;
+  max-width: 200px;
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.course_card_textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 5px;
+  border: none;
+}

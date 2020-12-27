@@ -3,6 +3,7 @@ import "./AdminMenu.css";
 import { Link } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
@@ -77,7 +78,7 @@ function AdminMenu() {
           </li>
         </ul>
 
-        <li className="dashboard__menu__main">Contacts</li>
+        <li className="dashboard__menu__main">Liên hệ</li>
         <li>
           <Link
             to="/admin/contacts"
@@ -89,6 +90,17 @@ function AdminMenu() {
             <div id="admin_contacts_badge" className="item__badge">
               25
             </div>
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/admin/courses"
+            className="dashboard__menu__item"
+            onClick={handleMenuAtive}
+          >
+            <MenuBookIcon />
+            Khóa học & học phí
           </Link>
         </li>
       </ul>

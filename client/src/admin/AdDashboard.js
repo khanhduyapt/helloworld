@@ -21,6 +21,8 @@ import StudentEdit from "./components/StudentEdit";
 import TeacherEdit from "./components/TeacherEdit";
 import TeacherSchedule from "./components/TeacherSchedule";
 import StudentCourse from "./components/StudentCourse";
+import CourseEdit from "./components/CourseEdit";
+import Courses from "./components/Courses";
 
 function AdDashboard() {
   return (
@@ -39,9 +41,12 @@ function AdDashboard() {
             <Route path="/admin/monthcalendar">
               <MonthCalendar />
             </Route>
-            <Route path="/admin/contacts">
-              <Contacts />
-            </Route>
+
+            <Route path="/admin/contacts" component={Contacts} />
+
+            <Route path="/admin/course/:id" component={CourseEdit} />
+            <Route path="/admin/courses" component={Courses} />
+
             <Route
               path="/admin/teacher_schedule/:id"
               component={TeacherSchedule}

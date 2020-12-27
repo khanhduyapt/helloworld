@@ -56,10 +56,10 @@ function Students() {
                 </div>
 
                 <Link
-                  className="card__link card__link__danger"
+                  className="card__link"
                   to={`/admin/student_course/${student._id}`}
                 >
-                  Add course
+                  Thông tin khóa học
                 </Link>
               </div>
             </div>

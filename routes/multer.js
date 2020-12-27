@@ -21,16 +21,44 @@ const filename_auto = (req, file, callback) => {
   callback(null, filename);
 };
 
-const storage = multer.diskStorage({
+const storage_auto = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/images");
   },
   filename: filename_auto,
   fileFilter: filter,
 });
+// ---------------------------------------------------
 
-const multer_upload = multer({ storage, limits: { fileSize: 5000000 } }); //5Mb
+const filename_avatar = (req, file, callback) => {
+  let filename = file.originalname;
+  if (filename.length > 10) {
+    filename = filename.substring(filename.length - 10, filename.length);
+  }
+  filename = Date.now() + "_" + filename;
+
+  callback(null, filename);
+};
+
+const storage_avatar = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./public/images");
+  },
+  filename: filename_avatar,
+  fileFilter: filter,
+});
+
+const multer_upload = multer({
+  storage: storage_auto,
+  limits: { fileSize: 5000000 },
+}); //5Mb
+
+const multer_avatar = multer({
+  storage: storage_avatar,
+  limits: { fileSize: 5000000 },
+}); //5Mb
 
 module.exports = {
   multer_upload,
+  multer_avatar,
 };

@@ -202,10 +202,6 @@ function StudentEdit(props) {
         className="student__edit__form"
       >
         <div className="student__image__chooser">
-          {errors.user_image && (
-            <h1 style={{ color: "red" }}>{errors.user_image.message}</h1>
-          )}
-
           <input
             name="user_image"
             value={imagePath}
@@ -216,6 +212,7 @@ function StudentEdit(props) {
             className="student__image__choosefile"
           />
         </div>
+
         <div className="student__image__chooser">
           <img key={_id} src={imageUrl} alt="Chọn ảnh"></img>
 
@@ -233,6 +230,7 @@ function StudentEdit(props) {
 
           <div className="student__error__msg">
             <ul>
+              {errors.user_image && <li>・{errors.user_image.message}</li>}
               {errors.fullname && <li>・{errors.fullname.message}</li>}
               {errors.account && <li>・{errors.account.message}</li>}
               {errors.password && <li>・{errors.password.message}</li>}
@@ -244,6 +242,20 @@ function StudentEdit(props) {
                 <li>・{errors.course_end_date.message}</li>
               )}
             </ul>
+          </div>
+
+          <div className="student__edit__otherControls card__link__right">
+            <Link
+              className="card__link card__link__danger card__link__right"
+              to="/admin/teachers"
+              target="_blank"
+            >
+              Chọn giảng viên
+            </Link>
+
+            <Link className="card__link" to={`/admin/student_course/${_id}`}>
+              Thông tin khóa học
+            </Link>
           </div>
         </div>
         <div className="student__edit__info">

@@ -39,6 +39,11 @@
   color: red;
 }
 
+.student__edit__otherControls {
+  display: flex;
+  flex-direction: column;
+}
+
 .student__edit__info {
   display: flex;
   flex-direction: column;

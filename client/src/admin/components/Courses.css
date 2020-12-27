@@ -1,0 +1,39 @@
+.courses__deck {
+  height: fit-content;
+  overflow-y: visible;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-column-gap: 3vw;
+  justify-content: center;
+}
+
+.courses__row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+}
+
+.courses__info {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 10px 10px 10px;
+}
+
+.courses__info__others {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.courses__info__others > textarea {
+  resize: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 5px;
+  border: none;
+  /* border-left: 1px solid #f58200; */
+}

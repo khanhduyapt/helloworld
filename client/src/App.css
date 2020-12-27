@@ -76,6 +76,11 @@
   color: #ff4742 !important;
 }
 
+.card__link__right {
+  margin-left: auto;
+  margin-right: 28px;
+}
+
 .overlay {
   position: relative;
 }
