@@ -1,0 +1,32 @@
+.user__admin__deck {
+  height: fit-content;
+  overflow-y: visible;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-column-gap: 3vw;
+  justify-content: center;
+}
+
+.user__admin__form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+}
+
+.user__admin__info {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 10px 10px 10px;
+}
+
+.user__admin__info__others {
+  margin-left: auto;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+}

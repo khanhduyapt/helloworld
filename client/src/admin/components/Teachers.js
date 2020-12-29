@@ -39,20 +39,44 @@ function Teachers() {
         {TeacherList.map((teacher) => {
           return (
             <div
-              key={teacher._id}
+              key={`teacher_deck_row_${teacher._id}`}
               className="teacher__form"
-              id={`teacher__form__${teacher._id}`}
             >
               <div className="teacher__info">
                 <TeacherCard teacher={teacher} />
 
                 <div className="teacher__info__others">
                   <Link
-                    className="card__link card__link__danger"
+                    className="card__link"
                     to={`/admin/teacher_schedule/${teacher._id}`}
                   >
                     Schedule
                   </Link>
+
+                  <span
+                    className="card__link card__link__danger card__link__bottom"
+                    onClick={() => {
+                      AxiosCommon.post(
+                        `/user/admins/authorize`,
+                        { id: teacher._id },
+                        AxiosCommon.defaults.headers
+                      )
+                        .then((res) => {
+                          //console.log("update user successfully: ", res);
+                          if (res.status === 200) {
+                            console.log("authorize", res.data.msg);
+                          } else {
+                            console.log(res.data.msg);
+                          }
+                        })
+                        .catch((error) => {
+                          console.log(error.message);
+                        });
+                      //----------------------
+                    }}
+                  >
+                    Cấp quyền admin
+                  </span>
                 </div>
               </div>
             </div>

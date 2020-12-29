@@ -81,6 +81,10 @@
   margin-right: 28px;
 }
 
+.card__link__bottom {
+  margin-top: auto;
+}
+
 .overlay {
   position: relative;
 }

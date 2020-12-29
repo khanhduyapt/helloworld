@@ -8,7 +8,7 @@ import CardIcon from "../../components/commons/CardIcon";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 
 function TeacherCard({ teacher }) {
-  console.log("TeacherCard:", teacher);
+  //console.log("TeacherCard:", teacher);
 
   return (
     <div className="teacher__card" key={`teacher__card_${teacher._id}`}>

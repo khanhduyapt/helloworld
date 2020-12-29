@@ -21,6 +21,7 @@ const userSchema = new Schema(
     },
     password: { type: String, required: true, trim: true, minlength: 3 },
     role: { type: String, required: true },
+    super_role: { type: String },
 
     local_id: { type: String },
     fullname: { type: String, required: true },

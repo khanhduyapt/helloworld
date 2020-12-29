@@ -129,7 +129,7 @@ function StudentEdit(props) {
       AxiosCommon.defaults.headers
     ).then((res) => {
       if (res.status !== 200) {
-        alert(res.data.msg);
+        console.log(res.data.msg);
       } else {
         handleUpdate(data);
       }
@@ -180,7 +180,7 @@ function StudentEdit(props) {
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
-          alert(res.data.msg);
+          console.log(res.data.msg);
         }
       })
       .catch((error) => {

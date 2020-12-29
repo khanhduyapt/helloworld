@@ -114,7 +114,7 @@ function CourseEdit(props) {
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
-          alert(res.data.msg);
+          console.log(res.data.msg);
         }
       })
       .catch((error) => {
@@ -199,19 +199,6 @@ function CourseEdit(props) {
             <span className="course__edit__span">(vnđ)</span>
             <RequiredIcon />
           </div>
-          <div className="course__edit__field">
-            <label className="course__edit__label">
-              <CardIcon icon="number_lessons.png" alt="Parent" />
-              Số tiết học
-            </label>
-            <CurrencyInput
-              name="number_lessons"
-              value={number_lessons}
-              onChange={(data) => set_number_lessons(data)}
-              className="course__edit__input"
-              precision="0"
-            />
-          </div>
 
           <div className="course__edit__field">
             <label className="course__edit__label">
@@ -225,6 +212,20 @@ function CourseEdit(props) {
               className="course__edit__input"
               precision="0"
               suffix=" (tháng)"
+            />
+          </div>
+
+          <div className="course__edit__field">
+            <label className="course__edit__label">
+              <CardIcon icon="number_lessons.png" alt="Parent" />
+              Số tiết học
+            </label>
+            <CurrencyInput
+              name="number_lessons"
+              value={number_lessons}
+              onChange={(data) => set_number_lessons(data)}
+              className="course__edit__input"
+              precision="0"
             />
           </div>
 

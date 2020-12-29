@@ -16,11 +16,7 @@ function strToDate(strValue) {
 }
 
 function objToStr(value) {
-  if (
-    value &&
-    value.toUpperCase() !== "null".toUpperCase() &&
-    value.toUpperCase() !== "undefined".toUpperCase()
-  ) {
+  if (value && value !== "null" && value !== "undefined") {
     return value;
   }
   return "";
@@ -39,14 +35,23 @@ function addDays(date, days) {
 }
 
 function addMonths(date, months) {
+  console.log("addMonths", date, months);
   var result = new Date(date);
-  result.setMonth(result.getMonth() + strToFloat(months));
+  result.setMonth(result.getMonth() + tryParseInt(months));
   return result;
+}
+
+function tryParseInt(value) {
+  const parsed = parseInt(value);
+  if (isNaN(parsed)) {
+    return 0;
+  }
+  return parsed;
 }
 
 function addMinutes(date, minutes) {
   var result = new Date(date);
-  result.setMinutes(result.getMinutes() + parseInt(minutes));
+  result.setMinutes(result.getMinutes() + tryParseInt(minutes));
   return result;
 }
 
@@ -58,4 +63,5 @@ export {
   addDays,
   addMonths,
   addMinutes,
+  tryParseInt,
 };

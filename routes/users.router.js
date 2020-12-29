@@ -244,6 +244,8 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
 
     if (req.body.duration_month)
       newItem.duration_month = req.body.duration_month;
+    if (req.body.lesson_minutes)
+      newItem.lesson_minutes = req.body.lesson_minutes;
     if (req.body.number_lessons)
       newItem.number_lessons = req.body.number_lessons;
     if (req.body.lessons_remain)
@@ -256,20 +258,21 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
     if (req.body.tuition_fee_unpaid)
       newItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
 
-    if (req.body.mo_time_str) newItem.mo_time_str = req.body.mo_time_str;
-    if (req.body.mo_time_end) newItem.mo_time_end = req.body.mo_time_end;
-    if (req.body.tu_time_str) newItem.tu_time_str = req.body.tu_time_str;
-    if (req.body.tu_time_end) newItem.tu_time_end = req.body.tu_time_end;
-    if (req.body.we_time_str) newItem.we_time_str = req.body.we_time_str;
-    if (req.body.we_time_end) newItem.we_time_end = req.body.we_time_end;
-    if (req.body.th_time_str) newItem.th_time_str = req.body.th_time_str;
-    if (req.body.th_time_end) newItem.th_time_end = req.body.th_time_end;
-    if (req.body.fr_time_str) newItem.fr_time_str = req.body.fr_time_str;
-    if (req.body.fr_time_end) newItem.fr_time_end = req.body.fr_time_end;
-    if (req.body.sa_time_str) newItem.sa_time_str = req.body.sa_time_str;
-    if (req.body.sa_time_end) newItem.sa_time_end = req.body.sa_time_end;
-    if (req.body.su_time_str) newItem.su_time_str = req.body.su_time_str;
-    if (req.body.su_time_end) newItem.su_time_end = req.body.su_time_end;
+    newItem.mo_time_str = req.body.mo_time_str;
+    newItem.mo_time_end = req.body.mo_time_end;
+    newItem.tu_time_str = req.body.tu_time_str;
+    newItem.tu_time_end = req.body.tu_time_end;
+    newItem.we_time_str = req.body.we_time_str;
+    newItem.we_time_end = req.body.we_time_end;
+    newItem.th_time_str = req.body.th_time_str;
+    newItem.th_time_end = req.body.th_time_end;
+    newItem.fr_time_str = req.body.fr_time_str;
+    newItem.fr_time_end = req.body.fr_time_end;
+    newItem.sa_time_str = req.body.sa_time_str;
+    newItem.sa_time_end = req.body.sa_time_end;
+    newItem.su_time_str = req.body.su_time_str;
+    newItem.su_time_end = req.body.su_time_end;
+
     if (req.body.course_notes) newItem.course_notes = req.body.course_notes;
 
     newItem
@@ -292,6 +295,9 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
 
       if (req.body.duration_month)
         updateItem.duration_month = req.body.duration_month;
+      if (req.body.lesson_minutes)
+        updateItem.lesson_minutes = req.body.lesson_minutes;
+
       if (req.body.number_lessons)
         updateItem.number_lessons = strToFloat(req.body.number_lessons);
       if (req.body.lessons_remain)
@@ -304,20 +310,21 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
       if (req.body.tuition_fee_unpaid)
         updateItem.tuition_fee_unpaid = strToFloat(req.body.tuition_fee_unpaid);
 
-      if (req.body.mo_time_str) updateItem.mo_time_str = req.body.mo_time_str;
-      if (req.body.mo_time_end) updateItem.mo_time_end = req.body.mo_time_end;
-      if (req.body.tu_time_str) updateItem.tu_time_str = req.body.tu_time_str;
-      if (req.body.tu_time_end) updateItem.tu_time_end = req.body.tu_time_end;
-      if (req.body.we_time_str) updateItem.we_time_str = req.body.we_time_str;
-      if (req.body.we_time_end) updateItem.we_time_end = req.body.we_time_end;
-      if (req.body.th_time_str) updateItem.th_time_str = req.body.th_time_str;
-      if (req.body.th_time_end) updateItem.th_time_end = req.body.th_time_end;
-      if (req.body.fr_time_str) updateItem.fr_time_str = req.body.fr_time_str;
-      if (req.body.fr_time_end) updateItem.fr_time_end = req.body.fr_time_end;
-      if (req.body.sa_time_str) updateItem.sa_time_str = req.body.sa_time_str;
-      if (req.body.sa_time_end) updateItem.sa_time_end = req.body.sa_time_end;
-      if (req.body.su_time_str) updateItem.su_time_str = req.body.su_time_str;
-      if (req.body.su_time_end) updateItem.su_time_end = req.body.su_time_end;
+      updateItem.mo_time_str = req.body.mo_time_str;
+      updateItem.mo_time_end = req.body.mo_time_end;
+      updateItem.tu_time_str = req.body.tu_time_str;
+      updateItem.tu_time_end = req.body.tu_time_end;
+      updateItem.we_time_str = req.body.we_time_str;
+      updateItem.we_time_end = req.body.we_time_end;
+      updateItem.th_time_str = req.body.th_time_str;
+      updateItem.th_time_end = req.body.th_time_end;
+      updateItem.fr_time_str = req.body.fr_time_str;
+      updateItem.fr_time_end = req.body.fr_time_end;
+      updateItem.sa_time_str = req.body.sa_time_str;
+      updateItem.sa_time_end = req.body.sa_time_end;
+      updateItem.su_time_str = req.body.su_time_str;
+      updateItem.su_time_end = req.body.su_time_end;
+
       if (req.body.course_notes)
         updateItem.course_notes = req.body.course_notes;
 
@@ -618,7 +625,70 @@ userRouter.route("/teacher/schedule/remove").post((req, res) => {
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-//#region ADMIN
+//#region ADMIN <=> super_role=admin
+userRouter.route("/admins").get((req, res) => {
+  User.find()
+    .populate({ path: "teaching_students", select: teacher_exclude_fields })
+    .populate("course_details")
+    .where("super_role")
+    .equals(FS_ROLE.ADMIN)
+    .sort({ fullname: 1 })
+    //.select("account fullname avatar phone_number")
+    .then((items) => res.json(items))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+userRouter.route("/admins/authorize").post((req, res) => {
+  console.log("authorize", req.body);
+  const id = req.body.id;
+  if (ObjectId.isValid(id)) {
+    User.findById(id)
+      .then((useradmin) => {
+        if (useradmin) {
+          console.log("useradmin", useradmin);
+
+          useradmin.super_role = FS_ROLE.ADMIN;
+
+          useradmin
+            .save()
+            .then((updatedUser) => {
+              res.json(updatedUser._id);
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(400).json(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  }
+});
+
+userRouter.route("/admins/withdraw").post((req, res) => {
+  const id = req.body.id;
+  if (ObjectId.isValid(id)) {
+    User.findById(id)
+      .then((useradmin) => {
+        if (useradmin) {
+          useradmin.super_role = "";
+
+          useradmin.save().then((updatedUser) => {
+            res.json(updatedUser._id);
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  }
+});
 
 //#endregion ADMIN
 

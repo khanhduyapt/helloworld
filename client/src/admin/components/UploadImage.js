@@ -98,7 +98,7 @@ function UploadImage(props) {
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
-          Alert(res.data.msg);
+          console.log(res.data.msg);
         }
       })
       .catch((error) => {

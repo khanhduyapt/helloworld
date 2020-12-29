@@ -14,6 +14,7 @@ const courseDetailSchema = new Schema(
     course_end_date: { type: String, required: true },
 
     duration_month: { type: String },
+    lesson_minutes: { type: Number },
     number_lessons: { type: Number },
     lessons_remain: { type: Number },
 

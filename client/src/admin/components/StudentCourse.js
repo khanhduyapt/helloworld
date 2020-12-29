@@ -1,5 +1,5 @@
 import "./StudentCourse.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,14 +10,20 @@ import CardIcon from "../../components/commons/CardIcon";
 import DatePicker from "react-datepicker"; //https://reactdatepicker.com/#example-date-range-with-disabled-navigation-shown
 import SymbolTo from "../../components/commons/SymbolTo";
 import CurrencyInput from "react-currency-input";
-import { strToFloat, strToDate, addMinutes, addMonths } from "../CommonUtil";
+import {
+  strToFloat,
+  strToDate,
+  addMinutes,
+  addMonths,
+  tryParseInt,
+} from "../CommonUtil";
 import RequiredIcon from "../../components/commons/RequiredIcon";
 import ReactHtmlParser from "react-html-parser";
 
 function StudentCourse(props) {
   const [_user_id, setUserId] = useState("");
   const { register, handleSubmit } = useForm();
-
+  const refBackLink = useRef(null);
   const [student, set_student] = useState({});
 
   const [isAddNew, setIsAddNew] = useState(true);
@@ -25,11 +31,14 @@ function StudentCourse(props) {
   const [pk_course_detail, set_pk_course_detail] = useState("");
   const [course_id, set_course_id] = useState("");
   const [course_name, set_course_name] = useState("");
+
   const [course_str_date, set_course_str_date] = useState(null);
   const [course_end_date, set_course_end_date] = useState(null);
-  const [duration_month, set_duration_month] = useState("");
+
+  const [duration_month, set_duration_month] = useState(0);
+  const [lesson_minutes, set_lesson_minutes] = useState(0);
   const [number_lessons, set_number_lessons] = useState(0);
-  const [lessons_remain, set_lessons_remain] = useState("");
+
   const [tuition_fee, set_tuition_fee] = useState("");
   const [tuition_fee_paid, set_tuition_fee_paid] = useState(0);
   const [tuition_fee_unpaid, set_tuition_fee_unpaid] = useState(0);
@@ -55,7 +64,6 @@ function StudentCourse(props) {
   const [course_options, set_course_options] = useState([{}]);
   const [cbx_number_lessons, set_cbx_number_lessons] = useState(0);
   const [cbx_tuition_fee, set_cbx_tuition_fee] = useState(0);
-  const [cbx_course_notes, set_cbx_course_notes] = useState("");
   const [cbx_duration_month, set_cbx_duration_month] = useState(0);
   const [cbx_lesson_minutes, set_cbx_lesson_minutes] = useState(0);
 
@@ -74,8 +82,11 @@ function StudentCourse(props) {
       }
 
       set_tuition_fee(found.tuition_fee);
-      set_lessons_remain(found.number_lessons);
+      set_number_lessons(found.number_lessons);
       set_duration_month(found.duration_month);
+      set_lesson_minutes(found.lesson_minutes);
+      set_course_notes(found.notes);
+
       if (course_str_date)
         set_course_end_date(addMonths(course_str_date, found.duration_month));
 
@@ -83,7 +94,6 @@ function StudentCourse(props) {
       set_cbx_tuition_fee(found.tuition_fee);
       set_cbx_duration_month(found.duration_month);
       set_cbx_lesson_minutes(found.lesson_minutes);
-      set_cbx_course_notes(found.notes);
     }
   };
 
@@ -123,6 +133,8 @@ function StudentCourse(props) {
             set_student(res.data);
 
             if (res.data.course_details && res.data.course_details.length > 0) {
+              setIsAddNew(false);
+
               const course_detail = res.data.course_details[0];
 
               set_pk_course_detail(course_detail._id);
@@ -133,8 +145,8 @@ function StudentCourse(props) {
               set_course_end_date(strToDate(course_detail.course_end_date));
 
               set_duration_month(course_detail.duration_month);
+              set_lesson_minutes(course_detail.lesson_minutes);
               set_number_lessons(course_detail.number_lessons);
-              set_lessons_remain(course_detail.lessons_remain);
 
               set_tuition_fee(course_detail.tuition_fee);
               set_tuition_fee_paid(course_detail.tuition_fee_paid);
@@ -189,8 +201,9 @@ function StudentCourse(props) {
       course_end_date,
 
       duration_month,
+      lesson_minutes,
       number_lessons,
-      lessons_remain,
+
       tuition_fee,
       tuition_fee_paid,
       tuition_fee_unpaid,
@@ -220,9 +233,9 @@ function StudentCourse(props) {
       .then((res) => {
         //console.log("update user successfully: ", res);
         if (res.status === 200) {
-          alert(res.data.msg);
+          refBackLink.current.click();
         } else {
-          alert(res.data.msg);
+          console.log(res.data.msg);
         }
       })
       .catch((error) => {
@@ -254,7 +267,7 @@ function StudentCourse(props) {
               <div className="student__field">
                 <div className="student__edit__label">
                   <CardIcon icon="online_class.jpg" alt="Khóa học" />
-                  Khóa học
+                  Khóa học tham khảo
                 </div>
 
                 <select
@@ -341,7 +354,7 @@ function StudentCourse(props) {
               </div>
             </div>
 
-            <br />
+            <hr />
           </div>
         )}
 
@@ -365,7 +378,21 @@ function StudentCourse(props) {
               </span>
             </div>
 
-            <div className="student__field"></div>
+            <div className="student__field">
+              <div className="student__edit__label">
+                <CardIcon icon="number_lessons.png" alt="Parent" />
+                Số tiết học
+              </div>
+              <div className="student__field__content">
+                <CurrencyInput
+                  name="number_lessons"
+                  value={number_lessons}
+                  onChange={(mask, data) => set_number_lessons(data)}
+                  className="student__input__readonly"
+                  precision="0"
+                />
+              </div>
+            </div>
 
             <div className="student__field">
               <div className="student__edit__label">
@@ -387,19 +414,17 @@ function StudentCourse(props) {
 
             <div className="student__field">
               <div className="student__edit__label">
-                <CardIcon icon="number_lessons.png" alt="Parent" />
-                Số tiết học
+                <CardIcon icon="calendar_time.jpg" alt="" />
+                Thời lượng
               </div>
-              <div className="student__field__content">
-                <CurrencyInput
-                  name="number_lessons"
-                  value={number_lessons}
-                  onChange={(e) => set_number_lessons(e.target.value)}
-                  className="student__input__readonly"
-                  precision="0"
-                  disabled
-                />
-              </div>
+              <CurrencyInput
+                name="duration_month"
+                value={duration_month}
+                onChange={(mask, data) => set_duration_month(data)}
+                precision="0"
+                className="student__input__readonly"
+                suffix=" (tháng)"
+              />
             </div>
 
             <div className="student__field">
@@ -432,20 +457,19 @@ function StudentCourse(props) {
 
             <div className="student__field">
               <div className="student__edit__label">
-                <CardIcon icon="remain.jpg" alt="remain" />
-                Số tiết học còn lại
+                <CardIcon icon="time.png" alt="" />
+                Thời gian 1 buổi học
               </div>
-              <div className="student__field__content">
-                <CurrencyInput
-                  name="lessons_remain"
-                  value={lessons_remain}
-                  onChange={(e) => set_lessons_remain(e.target.value)}
-                  className="student__input__readonly"
-                  precision="0"
-                  disabled
-                />
-              </div>
+              <CurrencyInput
+                name="lesson_minutes"
+                value={lesson_minutes}
+                onChange={(mask, data) => set_lesson_minutes(data)}
+                precision="0"
+                className="student__input__readonly"
+                suffix=" (phút)"
+              />
             </div>
+
             <div className="student__field">
               <div className="student__edit__label">
                 <CardIcon icon="fee_unpaid.png" alt="tuition_fee_unpaid" />
@@ -461,6 +485,19 @@ function StudentCourse(props) {
                   disabled
                 />
               </div>
+            </div>
+
+            <div className="student__field">
+              <div className="student__edit__label">
+                <CardIcon icon="calc.jpg" alt="" />
+                Số buổi học 1 tuần
+              </div>
+
+              <span className="student__edit__day">
+                {number_lessons} / ({duration_month} x 4) ={" "}
+                {tryParseInt(number_lessons) /
+                  (tryParseInt(duration_month) * 4)}
+              </span>
             </div>
           </div>
 
@@ -531,7 +568,7 @@ function StudentCourse(props) {
                   selected={mo_time_str}
                   onChange={(date) => {
                     set_mo_time_str(date);
-                    set_mo_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_mo_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -561,7 +598,7 @@ function StudentCourse(props) {
                   selected={tu_time_str}
                   onChange={(date) => {
                     set_tu_time_str(date);
-                    set_tu_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_tu_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -591,7 +628,7 @@ function StudentCourse(props) {
                   selected={we_time_str}
                   onChange={(date) => {
                     set_we_time_str(date);
-                    set_we_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_we_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -621,7 +658,7 @@ function StudentCourse(props) {
                   selected={th_time_str}
                   onChange={(date) => {
                     set_th_time_str(date);
-                    set_th_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_th_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -651,7 +688,7 @@ function StudentCourse(props) {
                   selected={fr_time_str}
                   onChange={(date) => {
                     set_fr_time_str(date);
-                    set_fr_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_fr_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -680,7 +717,7 @@ function StudentCourse(props) {
                   selected={sa_time_str}
                   onChange={(date) => {
                     set_sa_time_str(date);
-                    set_sa_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_sa_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -710,7 +747,7 @@ function StudentCourse(props) {
                   selected={su_time_str}
                   onChange={(date) => {
                     set_su_time_str(date);
-                    set_su_time_end(addMinutes(date, cbx_lesson_minutes));
+                    set_su_time_end(addMinutes(date, lesson_minutes));
                   }}
                   className="student__edit__time"
                   showTimeSelect
@@ -743,12 +780,16 @@ function StudentCourse(props) {
           </div>
 
           <div className="student__course__notes">
-            {ReactHtmlParser(cbx_course_notes)}
+            {ReactHtmlParser(course_notes)}
           </div>
 
           {/* controls     */}
           <div className="student__course__buttons">
-            <Link className="card__link hor__center" to="/admin/students">
+            <Link
+              className="card__link hor__center"
+              to="/admin/students"
+              ref={refBackLink}
+            >
               List
             </Link>
 

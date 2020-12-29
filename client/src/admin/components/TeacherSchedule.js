@@ -55,7 +55,7 @@ function TeacherSchedule(props) {
       console.log(`/user/students/search`, res);
 
       if (res.status !== 200) {
-        alert(res.data.msg);
+        console.log(res.data.msg);
       } else {
         set_search_student_result(res.data);
       }
@@ -142,7 +142,7 @@ function TeacherSchedule(props) {
                           console.log(`/user/teacher/schedule/add`, res.data);
 
                           if (res.status !== 200) {
-                            alert(res.data.msg);
+                            console.log(res.data.msg);
                           } else {
                             //teaching_student_ids.push(student._id);
 
@@ -230,7 +230,7 @@ function TeacherSchedule(props) {
                           );
 
                           if (res.status !== 200) {
-                            alert(res.data.msg);
+                            console.log(res.data.msg);
                           } else {
                             set_teaching_student_ids((prevVals) => {
                               return arrayRemove([...prevVals], teacher._id);
