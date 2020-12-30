@@ -2,7 +2,7 @@ import "./App.css";
 import HpMenu from "./components/HpMenu";
 import HpSliderBar from "./components/HpSliderBar";
 import HpMySpecial from "./components/HpMySpecial";
-import HpSatisfact from "./components/HpSatisfact";
+import HpTraining from "./components/HpTraining";
 import HpCourses from "./components/HpCourses";
 import HpHowToFree from "./components/HpHowToFree";
 import HpChoosePlan from "./components/HpChoosePlan";
@@ -24,7 +24,7 @@ function App() {
             <HpMenu />
             <HpSliderBar />
             <HpMySpecial />
-            <HpSatisfact />
+            <HpTraining />
             <HpCourses />
             <HpChoosePlan />
             <HpHowToFree />

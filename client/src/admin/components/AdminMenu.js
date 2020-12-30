@@ -92,7 +92,20 @@ function AdminMenu() {
             </div>
           </Link>
         </li>
+      </ul>
 
+      <ul>
+        <li className="dashboard__menu__main">Đào tạo</li>
+        <li>
+          <Link
+            to="/admin/training"
+            className="dashboard__menu__item"
+            onClick={handleMenuAtive}
+          >
+            <LocalLibraryIcon />
+            Chương trình đào tạo
+          </Link>
+        </li>
         <li>
           <Link
             to="/admin/courses"
@@ -170,17 +183,6 @@ function AdminMenu() {
           >
             <FlareIcon />
             Điểm đặc biệt
-          </Link>
-        </li>
-
-        <li>
-          <Link
-            to="/admin/satisfact"
-            className="dashboard__menu__item"
-            onClick={handleMenuAtive}
-          >
-            <LocalLibraryIcon />
-            Chương trình đào tạo
           </Link>
         </li>
 

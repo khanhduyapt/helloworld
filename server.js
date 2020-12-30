@@ -112,6 +112,9 @@ app.use("/user", userRouter);
 
 const courseRouter = require("./routes/courses.router");
 app.use("/courses", courseRouter);
+
+const categoryRouter = require("./routes/categories.router");
+app.use("/categories", categoryRouter);
 //#endregion
 
 app.post("/api/login", (req, res) => {

@@ -281,4 +281,10 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3001/user/admins
+GET http://localhost:3001/user/admins/5febf2757ead59371026952f
+
+
+###
+GET http://localhost:3001/categories
+
+

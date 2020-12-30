@@ -12,7 +12,7 @@ import Students from "./components/Students";
 import Admins from "./components/Admins";
 import Sliderbar from "./components/Sliderbar";
 import MySpecial from "./components/MySpecial";
-import Satisfact from "./components/Satisfact";
+import Training from "./components/Training";
 import ChoosePlan from "./components/ChoosePlan";
 import Samples from "./components/Samples";
 import Vocabularies from "./components/Vocabularies";
@@ -24,6 +24,7 @@ import StudentCourse from "./components/StudentCourse";
 import CourseEdit from "./components/CourseEdit";
 import Courses from "./components/Courses";
 import AdminEdit from "./components/AdminEdit";
+import CategoryEdit from "./components/CategoryEdit";
 
 function AdDashboard() {
   return (
@@ -46,7 +47,6 @@ function AdDashboard() {
             <Route path="/admin/contacts" component={Contacts} />
 
             <Route path="/admin/course/:id" component={CourseEdit} />
-            <Route path="/admin/courses" component={Courses} />
 
             <Route
               path="/admin/teacher_schedule/:id"
@@ -68,9 +68,10 @@ function AdDashboard() {
             <Route path="/admin/myspecial/:id" component={UploadImage}></Route>
             <Route path="/admin/myspecial" component={MySpecial}></Route>
 
-            <Route path="/admin/satisfact">
-              <Satisfact />
-            </Route>
+            <Route path="/admin/category/:id" component={CategoryEdit} />
+            <Route path="/admin/training" component={Training} />
+            <Route path="/admin/courses" component={Courses} />
+
             <Route path="/admin/chooseplan">
               <ChoosePlan />
             </Route>

@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema(
   {
     _id: { type: Schema.Types.ObjectId, auto: true },
+    category_id: { type: Schema.Types.ObjectId },
+
     avatar: { type: String },
     course_name: { type: String, required: true },
 

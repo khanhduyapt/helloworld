@@ -9,9 +9,6 @@
 .carousel-control-next,
 .carousel-control-prev {
   top: 40vh !important;
-  color: black !important;
-  font-size: 2rem !important;
-  font-weight: 700 !important;
 }
 
 .carousel-control-prev-icon,

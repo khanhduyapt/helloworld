@@ -1,10 +1,10 @@
+import "./HpTraining.css";
 import React, { useEffect } from "react";
-import "./HpSatisfact.css";
 import Tabs, { Tab } from "./commons/Tabs";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-function HpSatisfact() {
+function HpTraining() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -123,4 +123,4 @@ function HpSatisfact() {
   );
 }
 
-export default HpSatisfact;
+export default HpTraining;
