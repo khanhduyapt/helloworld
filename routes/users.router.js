@@ -9,6 +9,8 @@ const course_details_exclude_fields =
   "-password -role -following_teachers -course_details";
 const student_exclude_fields = "-password -role -teaching_students";
 const teacher_exclude_fields = "-password -role -following_teachers";
+const admin_exclude_fields =
+  "-password -role -following_teachers -teaching_students";
 
 const msg_id_invalid = "Id không hợp lệ.";
 
@@ -92,17 +94,6 @@ userRouter.route("/students/:id").get((req, res) => {
     .equals(FS_ROLE.STUDENT)
     .select(student_exclude_fields)
     .then((item) => res.json(item))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
-userRouter.route("/students/:id").delete((req, res) => {
-  //console.log("studentRouter.route->delete:", req.params.id);
-
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.json({ msg: "deleted.", id: req.params.id }))
     .catch((err) => {
       console.log(err);
       res.status(400).json(err);
@@ -561,7 +552,7 @@ userRouter.route("/teacher/schedule/remove").post((req, res) => {
   const teacher_id = req.body.teacher_id;
   const student_id = req.body.student_id;
   const course_details_id = req.body.course_details_id;
-  console.log("/teacher/schedule/remove", req.body);
+  //console.log("/teacher/schedule/remove", req.body);
 
   if (
     ObjectId.isValid(teacher_id) &&
@@ -628,12 +619,10 @@ userRouter.route("/teacher/schedule/remove").post((req, res) => {
 //#region ADMIN <=> super_role=admin
 userRouter.route("/admins").get((req, res) => {
   User.find()
-    .populate({ path: "teaching_students", select: teacher_exclude_fields })
-    .populate("course_details")
     .where("super_role")
     .equals(FS_ROLE.ADMIN)
     .sort({ fullname: 1 })
-    //.select("account fullname avatar phone_number")
+    .select(admin_exclude_fields)
     .then((items) => res.json(items))
     .catch((err) => {
       console.log(err);
@@ -641,54 +630,121 @@ userRouter.route("/admins").get((req, res) => {
     });
 });
 
-userRouter.route("/admins/authorize").post((req, res) => {
-  console.log("authorize", req.body);
-  const id = req.body.id;
-  if (ObjectId.isValid(id)) {
-    User.findById(id)
-      .then((useradmin) => {
-        if (useradmin) {
-          console.log("useradmin", useradmin);
+userRouter.route("/admins/:id").get((req, res) => {
+  //console.log("studentRouter.route->findById:", req.params.id);
 
-          useradmin.super_role = FS_ROLE.ADMIN;
+  User.findById(req.params.id)
+    .where("super_role")
+    .equals(FS_ROLE.ADMIN)
+    .select(admin_exclude_fields)
+    .then((item) => res.json(item))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
 
-          useradmin
-            .save()
-            .then((updatedUser) => {
-              res.json(updatedUser._id);
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(400).json(err);
-            });
-        }
+userRouter.route("/admins/add").post(multer_upload.any(), (req, res, next) => {
+  console.log("/admins/add", req.body);
+  try {
+    const newUser = new User({
+      account: req.body.account,
+      password: req.body.password,
+      super_role: FS_ROLE.ADMIN,
+
+      local_id: req.body.local_id,
+      fullname: req.body.fullname,
+
+      date_of_birth: req.body.date_of_birth,
+      phone_number: req.body.phone_number,
+      address: req.body.address,
+      email: req.body.email,
+      facebook: req.body.facebook,
+      zoom_id: req.body.zoom_id,
+      skype_id: req.body.skype_id,
+
+      user_notes: req.body.user_notes,
+
+      last_modify_ip: getCallerIP(req),
+      last_modify_account: getUserName(req),
+    });
+
+    const _file = req.files[0];
+    if (_file) newUser.avatar = _file.filename;
+
+    newUser
+      .save()
+      .then((user) => {
+        console.log("/admins/add created:", user._id);
+        res.json(user._id);
       })
       .catch((err) => {
         console.log(err);
         res.status(400).json(err);
       });
+  } catch (error) {
+    console.log("/admins/add", error);
   }
 });
 
-userRouter.route("/admins/withdraw").post((req, res) => {
-  const id = req.body.id;
-  if (ObjectId.isValid(id)) {
-    User.findById(id)
-      .then((useradmin) => {
-        if (useradmin) {
-          useradmin.super_role = "";
+userRouter
+  .route("/admins/update/:id")
+  .post(multer_upload.any(), (req, res, next) => {
+    try {
+      //console.log("/admins/update/:id:", res.req.body, req.files[0]);
 
-          useradmin.save().then((updatedUser) => {
-            res.json(updatedUser._id);
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
-  }
-});
+      const _file = req.files[0];
+
+      User.findById(req.params.id)
+        .then((item) => {
+          if (req.body.account) item.account = req.body.account;
+
+          if (req.body.local_id) item.local_id = req.body.local_id;
+          if (req.body.fullname) item.fullname = req.body.fullname;
+
+          if (_file) item.avatar = _file.filename;
+
+          if (req.body.date_of_birth)
+            item.date_of_birth = req.body.date_of_birth;
+          if (req.body.phone_number) item.phone_number = req.body.phone_number;
+          if (req.body.address) item.address = req.body.address;
+          if (req.body.email) item.email = req.body.email;
+          if (req.body.facebook) item.facebook = req.body.facebook;
+          if (req.body.zoom_id) item.zoom_id = req.body.zoom_id;
+          if (req.body.skype_id) item.skype_id = req.body.skype_id;
+
+          if (req.body.user_notes) item.user_notes = req.body.user_notes;
+
+          item.last_modify_ip = getCallerIP(req);
+          item.last_modify_account = req.user;
+
+          //console.log("User updating:", item);
+          try {
+            item
+              .save()
+              .then((updatedItem) => {
+                console.log("admins updated", updatedItem._id);
+
+                res.json(updatedItem);
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(400).json(err);
+              });
+          } catch (error) {
+            console.log("updatedItem", error);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+
+      //
+    } catch (error) {
+      console.log("/update/:id", error);
+    }
+  });
 
 //#endregion ADMIN
 
@@ -719,6 +775,87 @@ userRouter.route("/check/:acc/:id").get((req, res) => {
         res.status(200).json({
           msg: "Có thể sử dụng tài khoản [" + req.params.acc + "] để đăng ký.",
         });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+userRouter.route("/delete/:id").delete((req, res) => {
+  //console.log("studentRouter.route->delete:", req.params.id);
+  const param_user_id = req.params.id;
+
+  if (!ObjectId.isValid(param_user_id)) {
+    res.status(400).json(msg_id_invalid);
+    return;
+  }
+
+  // CourseDetail.find()
+  //   .then((items) => {
+  //     if (items) {
+  //       items.every(function (element, index) {
+  //         if (element.user_id == param_user_id) {
+  //           console.log("CourseDetail found ", param_user_id);
+  //           return false;
+  //         }
+
+  //         //console.log("CourseDetail not element has user_id=", param_user_id);
+  //         return true;
+  //       });
+  //     } else {
+  //       console.log("CourseDetail not found ", param_user_id);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(400).json(err);
+  //   });
+
+  User.find()
+    .where("delete_flag")
+    .ne(true)
+    .then((items) => {
+      if (items) {
+        const deleteable = items.every(function (element) {
+          if (element.following_teachers.includes(param_user_id)) {
+            console.log("User found following_teachers", param_user_id);
+            return false;
+          }
+
+          if (element.teaching_students.includes(param_user_id)) {
+            console.log("User found teaching_students", param_user_id);
+            return false;
+          }
+
+          if (
+            element._id == param_user_id &&
+            element.course_details &&
+            element.course_details.length > 0
+          ) {
+            console.log("User found course_details", param_user_id);
+            return false;
+          }
+
+          return true;
+        });
+
+        if (deleteable) {
+          console.log("Deleteable user_id=", param_user_id);
+
+          User.findByIdAndDelete(param_user_id)
+            .then(() => res.json({ msg: "deleted.", id: req.params.id }))
+            .catch((err) => res.status(400).json("Error: " + err));
+        } else {
+          res
+            .status(201)
+            .json(
+              "User đã sử dụng dịch vụ nên không thể xóa. Chỉ có thể khóa dịch vụ."
+            );
+        }
+      } else {
+        console.log("CourseDetail not found ", param_user_id);
       }
     })
     .catch((err) => {

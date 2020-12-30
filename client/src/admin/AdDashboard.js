@@ -23,6 +23,7 @@ import TeacherSchedule from "./components/TeacherSchedule";
 import StudentCourse from "./components/StudentCourse";
 import CourseEdit from "./components/CourseEdit";
 import Courses from "./components/Courses";
+import AdminEdit from "./components/AdminEdit";
 
 function AdDashboard() {
   return (
@@ -58,11 +59,15 @@ function AdDashboard() {
             <Route path="/admin/student/:id" component={StudentEdit} />
             <Route path="/admin/students" component={Students} />
 
-            <Route path="/admin/admins" component={Admins} />
+            <Route path="/admin/administrator/:id" component={AdminEdit} />
+            <Route path="/admin/administrators" component={Admins} />
+
             <Route path="/admin/sliderbar/:id" component={UploadImage}></Route>
             <Route path="/admin/sliderbar" component={Sliderbar}></Route>
+
             <Route path="/admin/myspecial/:id" component={UploadImage}></Route>
             <Route path="/admin/myspecial" component={MySpecial}></Route>
+
             <Route path="/admin/satisfact">
               <Satisfact />
             </Route>

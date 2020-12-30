@@ -163,6 +163,7 @@ function CourseEdit(props) {
             <ul>
               {errors.course_name && <li>・{errors.course_name.message}</li>}
               {errors.tuition_fee && <li>・{errors.tuition_fee.message}</li>}
+              <li> </li>
             </ul>
           </div>
         </div>

@@ -55,12 +55,45 @@ function Students() {
                   />
                 </div>
 
-                <Link
-                  className="card__link"
-                  to={`/admin/student_course/${student._id}`}
-                >
-                  Thông tin khóa học
-                </Link>
+                <div className="student__info__others">
+                  <Link
+                    className="card__link"
+                    to={`/admin/student_course/${student._id}`}
+                  >
+                    Thông tin khóa học
+                  </Link>
+
+                  {student.course_details && student.course_details.length < 1 && (
+                    <span
+                      className="card__link card__link__danger card__link__bottom"
+                      onClick={() => {
+                        AxiosCommon.delete(
+                          `/user/delete/${student._id}`,
+                          AxiosCommon.defaults.headers
+                        )
+                          .then((res) => {
+                            //console.log("update user successfully: ", res);
+                            if (res.status === 200) {
+                              var elem = document.getElementById(
+                                `student__form__${student._id}`
+                              );
+                              if (elem) {
+                                elem.remove();
+                              }
+                            } else {
+                              console.log(res.data.msg);
+                            }
+                          })
+                          .catch((error) => {
+                            console.log(error.message);
+                          });
+                        //----------------------
+                      }}
+                    >
+                      Xóa học viên
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           );

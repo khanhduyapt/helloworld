@@ -137,7 +137,7 @@ function AdminMenu() {
         <li className="dashboard__menu__main">Quản trị hệ thống</li>
         <li>
           <Link
-            to="/admin/admins"
+            to="/admin/administrators"
             className="dashboard__menu__item"
             onClick={handleMenuAtive}
           >

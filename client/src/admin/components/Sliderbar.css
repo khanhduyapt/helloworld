@@ -2,7 +2,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.sliderbar__preview {
-  padding: 20px;
-}

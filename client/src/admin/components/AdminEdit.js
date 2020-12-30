@@ -1,4 +1,4 @@
-import "./TeacherEdit.css";
+import "./AdminEdit.css";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { objToStr } from "../CommonUtil";
 
-function TeacherEdit(props) {
+function AdminEdit(props) {
   //console.log(props);
 
   const { register, handleSubmit, errors } = useForm();
@@ -38,6 +38,8 @@ function TeacherEdit(props) {
   const refBackLink = useRef(null);
   const [isAddNew, setIsAddNew] = useState(true);
 
+  const [server_message, set_server_message] = useState("");
+
   //src={AxiosCommon.defaults.baseURL + "/images/" + student.avatar}
   const [imageUrl, setImageUrl] = useState(
     AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
@@ -50,7 +52,7 @@ function TeacherEdit(props) {
     if (_id && _id !== "add") {
       setIsAddNew(false);
 
-      AxiosCommon.get(`/user/teacher/${_id}`, AxiosCommon.defaults.headers)
+      AxiosCommon.get(`/user/admins/${_id}`, AxiosCommon.defaults.headers)
         .then((res) => {
           console.log("getbyid successfully: ", res);
           if (res.status === 200) {
@@ -108,27 +110,12 @@ function TeacherEdit(props) {
   const onSubmitForm = (data, e) => {
     e.preventDefault();
 
-    let temp_set_errors_msg = "";
-    if (!fullname) {
-      temp_set_errors_msg += "Cần nhập「Họ tên học viên」\n";
-    }
-    if (!account) {
-      temp_set_errors_msg += "Cần nhập「Tài khoản đăng nhập」\n";
-    }
-    if (!password) {
-      temp_set_errors_msg += "Cần nhập「Mật khẩu mặc định」\n";
-    }
-    if (temp_set_errors_msg.length > 0) {
-      alert(temp_set_errors_msg);
-      return;
-    }
-
     AxiosCommon.get(
       `/user/check/${account}/${_id}`,
       AxiosCommon.defaults.headers
     ).then((res) => {
       if (res.status !== 200) {
-        console.log(res.data.msg);
+        set_server_message("・" + res.data.msg);
       } else {
         handleUpdate(data);
       }
@@ -166,9 +153,9 @@ function TeacherEdit(props) {
       },
     };
 
-    let url = `/user/teacher/add`;
+    let url = `/user/admins/add`;
     if (_id && _id !== "add") {
-      url = `/user/teacher/update/${_id}`;
+      url = `/user/admins/update/${_id}`;
     }
 
     AxiosCommon.post(url, formData, config)
@@ -188,18 +175,20 @@ function TeacherEdit(props) {
   };
 
   return (
-    <div className="teacher__edit">
-      {isAddNew && <h1 className="dashboard__header">Thêm mới giảng viên</h1>}
+    <div className="admin__edit">
+      {isAddNew && (
+        <h1 className="dashboard__header">Thêm mới quản trị viên</h1>
+      )}
       {!isAddNew && (
-        <h1 className="dashboard__header">Chỉnh sửa thông tin giảng viên</h1>
+        <h1 className="dashboard__header">Chỉnh sửa thông tin quản trị viên</h1>
       )}
 
       <form
         onSubmit={handleSubmit(onSubmitForm)}
         autoComplete="off"
-        className="teacher__edit__form"
+        className="admin__edit__form"
       >
-        <div className="teacher__image__chooser">
+        <div className="admin__image__chooser">
           {errors.user_image && (
             <h1 style={{ color: "red" }}>{errors.user_image.message}</h1>
           )}
@@ -211,10 +200,10 @@ function TeacherEdit(props) {
             ref={register}
             type="file"
             accept="image/*"
-            className="teacher__image__choosefile"
+            className="admin__image__choosefile"
           />
         </div>
-        <div className="teacher__image__chooser">
+        <div className="admin__image__chooser">
           <img key={_id} src={imageUrl} alt="Chọn ảnh"></img>
 
           <button
@@ -229,39 +218,26 @@ function TeacherEdit(props) {
             Xóa
           </button>
 
-          <div className="teacher__error__msg">
+          <div className="admin__error__msg">
             <ul>
               {errors.fullname && <li>・{errors.fullname.message}</li>}
               {errors.account && <li>・{errors.account.message}</li>}
               {errors.password && <li>・{errors.password.message}</li>}
-              {errors.course_name && <li>・{errors.course_name.message}</li>}
-              {errors.course_str_date && (
-                <li>・{errors.course_str_date.message}</li>
-              )}
-              {errors.course_end_date && (
-                <li>・{errors.course_end_date.message}</li>
-              )}
+              {errors.phone_number && <li>・{errors.phone_number.message}</li>}
+              <li>{server_message}</li>
               <li> </li>
             </ul>
           </div>
-          {!isAddNew && (
-            <Link
-              className="card__link card__link__danger"
-              to={`/admin/teacher_schedule/${_id}`}
-            >
-              Schedule
-            </Link>
-          )}
         </div>
-        <div className="teacher__edit__info">
-          <div className="teacher__edit__infoMain">
-            <div className="teacher__edit__inputs">
-              {/* Họ tên giảng viên */}
-              <div className="teacher__edit__contents">
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+        <div className="admin__edit__info">
+          <div className="admin__edit__infoMain">
+            <div className="admin__edit__inputs">
+              {/* Họ tên */}
+              <div className="admin__edit__contents">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="student.png" alt="full name" />
-                    Họ tên giảng viên
+                    Họ tên
                   </div>
                   <input
                     name="fullname"
@@ -270,161 +246,193 @@ function TeacherEdit(props) {
                       required: "Cần nhập「Họ tên học viên」",
                     })}
                     onChange={(e) => set_fullname(e.target.value)}
-                    className="teacher__input__item"
+                    className="admin__input__item"
                     placeholder="Họ và tên"
                   />
                   <RequiredIcon />
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="account.jpg" alt="Tài khoản" />
                     Tài khoản đăng nhập
                   </div>
-                  <div className="teacher__field__content">
-                    <input
-                      name="account"
-                      value={account}
-                      ref={register({
-                        required: "Cần nhập「Tài khoản đăng nhập」",
-                        minLength: {
-                          value: 6,
-                          message:
-                            "「Tài khoản đăng nhập」cần có ít nhất 6 ký tự.",
-                        },
-                      })}
-                      onChange={(e) => set_account(e.target.value)}
-                      className="teacher__input__item"
-                      placeholder="Tài khoản đăng nhập"
-                    />
-                    <RequiredIcon />
+                  <div className="admin__field__content">
+                    {isAddNew && (
+                      <div>
+                        <input
+                          name="account"
+                          value={account}
+                          ref={register({
+                            required: "Cần nhập「Tài khoản đăng nhập」",
+                            minLength: {
+                              value: 5,
+                              message:
+                                "「Tài khoản đăng nhập」cần có ít nhất 5 ký tự.",
+                            },
+                          })}
+                          onChange={(e) => set_account(e.target.value)}
+                          className="admin__input__item"
+                          placeholder="Tài khoản đăng nhập"
+                        />
+                        <RequiredIcon />
+                      </div>
+                    )}
+                    {!isAddNew && (
+                      <input
+                        name="account"
+                        value={account}
+                        ref={register({})}
+                        onChange={(e) => set_account(e.target.value)}
+                        className="admin__input__item"
+                        placeholder="Tài khoản đăng nhập"
+                      />
+                    )}
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="id.png" alt="Mã giảng viên" />
                     Mã giảng viên
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="local_id"
                       value={local_id}
                       onChange={(e) => set_local_id(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Mã giảng viên"
                     />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="birthday.png" alt="birthday" />
                     Mật khẩu đăng nhập
                   </div>
-                  <input
-                    name="password"
-                    value={password}
-                    ref={register({
-                      required: "Cần nhập「Mật khẩu mặc định」",
-                      minLength: {
-                        value: 6,
-                        message: "Password cần có ít nhất 6 ký tự.",
-                      },
-                    })}
-                    onChange={(e) => set_password(e.target.value)}
-                    className="teacher__input__item"
-                    placeholder="Mật khẩu đăng nhập"
-                  />
-                  <RequiredIcon />
+                  {isAddNew && (
+                    <div>
+                      <input
+                        name="password"
+                        value={password}
+                        ref={register({
+                          required: "Cần nhập「Mật khẩu mặc định」",
+                          minLength: {
+                            value: 6,
+                            message: "Password cần có ít nhất 6 ký tự.",
+                          },
+                        })}
+                        onChange={(e) => set_password(e.target.value)}
+                        className="admin__input__item"
+                        placeholder="Mật khẩu đăng nhập"
+                      />
+                      <RequiredIcon />
+                    </div>
+                  )}
+                  {!isAddNew && (
+                    <input
+                      name="password"
+                      value={password}
+                      ref={register({})}
+                      onChange={(e) => set_password(e.target.value)}
+                      className="admin__input__item"
+                      placeholder="Mật khẩu đăng nhập"
+                    />
+                  )}
                 </div>
               </div>
 
               <br />
 
-              <div className="teacher__edit__contents">
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+              <div className="admin__edit__contents">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="facebook.jpg" alt="Facebook" />
                     Facebook
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="facebook"
                       value={facebook}
                       onChange={(e) => set_facebook(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Facebook"
                     />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="skype.png" alt="Skype" />
                     Skype
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="skype_id"
                       value={skype_id}
                       onChange={(e) => set_skype_id(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Skype"
                     />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="email.png" alt="Email" />
                     Email
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="email"
                       value={email}
                       onChange={(e) => set_email(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Email"
                     />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="zoom.png" alt="Zoom" />
                     Zoom
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="zoom_id"
                       value={zoom_id}
                       onChange={(e) => set_zoom_id(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Zoom"
                     />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="phone_number.png" alt="Phone" />
-                    SĐT
+                    Điện thoại liên hệ
                   </div>
-                  <div className="teacher__field__content">
+                  <div className="admin__field__content">
                     <input
                       name="phone_number"
                       value={phone_number}
+                      ref={register({
+                        required: "Cần nhập「Điện thoại liên hệ」",
+                      })}
                       onChange={(e) => set_phone_number(e.target.value)}
-                      className="teacher__input__item"
+                      className="admin__input__item"
                       placeholder="Điện thoại liên hệ"
                     />
+                    <RequiredIcon />
                   </div>
                 </div>
 
-                <div className="teacheredit__field">
-                  <div className="teacher__edit__label">
+                <div className="adminedit__field">
+                  <div className="admin__edit__label">
                     <CardIcon icon="birthday.png" alt="birthday" />
                     Ngày sinh
                   </div>
@@ -442,23 +450,23 @@ function TeacherEdit(props) {
               </div>
             </div>
 
-            <div className="teacher__field__address">
-              <div className="teacher__edit__label">
+            <div className="admin__field__address">
+              <div className="admin__edit__label">
                 <CardIcon icon="address.png" alt="full name" />
                 Chỗ ở hiện tại
               </div>
               <input
                 name="address"
                 value={address}
-                className="teacher__input__address"
+                className="admin__input__address"
                 onChange={(e) => set_address(e.target.value)}
                 placeholder="Nhập chỗ ở hiện tại"
               />
             </div>
           </div>
-          <div className="teacher__edit__infoOther">
+          <div className="admin__edit__infoOther">
             <br />
-            <label className="teacher__edit__label">Giới thiệu bản thân</label>
+            <label className="admin__edit__label">Giới thiệu bản thân</label>
             <div className="upload__contents__ckeditor">
               <CKEditor
                 editor={ClassicEditor}
@@ -471,11 +479,11 @@ function TeacherEdit(props) {
               />
             </div>
 
-            <div className="teacher__edit__buttons">
+            <div className="admin__edit__buttons">
               <Link
                 className="card__link hor__center"
                 ref={refBackLink}
-                to="/admin/teachers"
+                to="/admin/administrators"
               >
                 List
               </Link>
@@ -494,4 +502,4 @@ function TeacherEdit(props) {
   );
 }
 
-export default TeacherEdit;
+export default AdminEdit;

@@ -1,0 +1,51 @@
+.admin__card {
+  display: flex;
+}
+
+.admin__card__avatar {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+  margin-right: 20px;
+}
+
+.admin__cardinfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+}
+
+.teacher__sched {
+  display: flex;
+}
+
+.admin__card__field {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.admin__cardsched {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  margin-bottom: 3px;
+  margin-left: 20px;
+}
+
+.admin__cardsched img {
+  height: 20px !important;
+  text-align: center;
+}
+
+.admin__card__time {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+  margin-right: 20px;
+}
+
+.admin__card__day {
+  width: 100px;
+}

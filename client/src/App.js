@@ -22,13 +22,13 @@ function App() {
 
           <Route path="/">
             <HpMenu />
-            {/* <HpSliderBar />
+            <HpSliderBar />
             <HpMySpecial />
             <HpSatisfact />
             <HpCourses />
             <HpChoosePlan />
             <HpHowToFree />
-            <HpInfiniteContents /> */}
+            <HpInfiniteContents />
             <HpFooter />
           </Route>
         </Switch>

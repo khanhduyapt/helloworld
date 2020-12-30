@@ -11,8 +11,9 @@ function Sliderbar() {
         <UseImages CNAME="sliderbar" />
       </div>
 
-      <div className="sliderbar__preview">
+      <div className="preview">
         <h5>Preview:</h5>
+        <hr />
         <HpSliderBar />
       </div>
     </div>

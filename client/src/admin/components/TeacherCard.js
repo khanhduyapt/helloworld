@@ -48,10 +48,9 @@ function TeacherCard({ teacher }) {
         </div>
       </div>
 
-      <div className="teacher__sched">
-        {teacher.course_details &&
-          teacher.course_details.length > 0 &&
-          teacher.course_details.map((course) => {
+      {teacher.course_details && teacher.course_details.length > 0 && (
+        <div className="teacher__sched">
+          {teacher.course_details.map((course) => {
             return (
               <div className="teacher__cardsched">
                 <div className="teacher__card__time">
@@ -159,7 +158,8 @@ function TeacherCard({ teacher }) {
               </div>
             );
           })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

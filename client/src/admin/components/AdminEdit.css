@@ -1,8 +1,8 @@
-.teacher__edit {
+.admin__edit {
   margin: 10px 20px;
 }
 
-.teacher__edit__form {
+.admin__edit__form {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -13,13 +13,13 @@
   margin: auto;
 }
 
-.teacher__image__chooser {
+.admin__image__chooser {
   margin: 10px 10px 10px 25px;
   display: flex;
   padding-right: 20px;
 }
 
-.teacher__image__chooser > img {
+.admin__image__chooser > img {
   object-fit: cover;
   min-width: 10vh;
   max-width: 10vh;
@@ -27,26 +27,26 @@
   max-height: 10vh;
 }
 
-.teacher__image__choosefile {
+.admin__image__choosefile {
   background-color: #fff;
   font-size: 1.1rem;
 }
 
-.teacher__error__msg {
+.admin__error__msg {
   margin: auto;
 }
 
-.teacher__error__msg > ul > li {
+.admin__error__msg > ul > li {
   color: red;
 }
 
-.teacher__edit__info {
+.admin__edit__info {
   display: flex;
   flex-direction: column;
   padding: 20px;
 }
 
-.teacher__edit__image {
+.admin__edit__image {
   object-fit: cover;
   min-width: 7vw;
   max-width: 7vw;
@@ -54,48 +54,48 @@
   margin: 10px;
 }
 
-.teacher__edit__content {
+.admin__edit__content {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.teacheredit__field {
+.adminedit__field {
   display: flex;
   flex: 1;
   min-width: 400px;
   margin-bottom: 5px;
 }
 
-.teacher__field__content {
+.admin__field__content {
   display: flex;
   flex: 1;
   min-width: 400px;
 }
 
-.teacher__edit__label {
+.admin__edit__label {
   min-width: 200px;
   max-width: 200px;
   padding-top: 5px;
   font-size: 1.1rem;
 }
 
-.teacher__edit__label > img {
+.admin__edit__label > img {
   height: 20px !important;
   text-align: center;
 }
 
-.teacher__edit__inputs {
+.admin__edit__inputs {
   display: flex;
   flex-direction: column;
   padding-left: 5px;
 }
 
-.teacher__edit__inputs > input {
+.admin__edit__inputs > input {
   margin-bottom: 5px;
 }
 
-.teacher__edit__buttons {
+.admin__edit__buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -103,17 +103,17 @@
   margin-top: 20px;
 }
 
-.teacher__edit__buttons > p {
+.admin__edit__buttons > p {
   min-width: 100px;
 }
 
-.teacher__edit__header {
+.admin__edit__header {
   display: flex;
   margin: 0;
   margin-bottom: 5px;
 }
 
-.teacher__edit__contents {
+.admin__edit__contents {
   font-size: 1.1rem;
   margin: 0;
   display: grid;
@@ -122,12 +122,12 @@
   max-width: 500px;
 }
 
-.teacher__edit__infoOther {
+.admin__edit__infoOther {
   flex: 1;
   padding-right: 7px;
 }
 
-.teacher__edit__infoOther > textarea {
+.admin__edit__infoOther > textarea {
   resize: none;
   flex-shrink: 0;
   min-width: 100%;
@@ -138,7 +138,7 @@
   border: 1px solid #ebebeb;
 }
 
-.teacher__input__item {
+.admin__input__item {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
@@ -146,19 +146,19 @@
   background-color: #fffce3;
 }
 
-.teacher__input__readonly {
+.admin__input__readonly {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
   padding: 2px 10px;
 }
 
-.teacher__field__address {
+.admin__field__address {
   display: flex;
   padding-left: 5px;
 }
 
-.teacher__input__address {
+.admin__input__address {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
@@ -167,7 +167,7 @@
   width: 740px;
 }
 
-.teacher__input__courseNotes {
+.admin__input__courseNotes {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
@@ -175,7 +175,7 @@
   width: 740px;
 }
 
-.teacher__course__notes {
+.admin__course__notes {
   border: 1px solid #ebebeb;
   border-radius: 5px;
   font-size: 1.1rem;
@@ -193,26 +193,26 @@
   background-color: #fffce3;
 }
 
-.teacher__edit__courseCalendar {
+.admin__edit__courseCalendar {
   display: grid;
   grid-template-columns: repeat(2, 435px);
   grid-row-gap: 5px;
 }
 
-.teacher__edit__dayofweek {
+.admin__edit__dayofweek {
   display: flex;
   flex-direction: row;
 }
 
-.teacher__edit__day {
+.admin__edit__day {
   padding-top: 5px;
   min-width: 80px;
 }
 
-.teacher__edit__time {
+.admin__edit__time {
   width: 100px !important;
 }
 
-.teacher__edit__hidden {
+.admin__edit__hidden {
   display: none;
 }

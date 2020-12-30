@@ -40,6 +40,7 @@ function Teachers() {
           return (
             <div
               key={`teacher_deck_row_${teacher._id}`}
+              id={`teacher_deck_row_${teacher._id}`}
               className="teacher__form"
             >
               <div className="teacher__info">
@@ -53,30 +54,36 @@ function Teachers() {
                     Schedule
                   </Link>
 
-                  <span
-                    className="card__link card__link__danger card__link__bottom"
-                    onClick={() => {
-                      AxiosCommon.post(
-                        `/user/admins/authorize`,
-                        { id: teacher._id },
-                        AxiosCommon.defaults.headers
-                      )
-                        .then((res) => {
-                          //console.log("update user successfully: ", res);
-                          if (res.status === 200) {
-                            console.log("authorize", res.data.msg);
-                          } else {
-                            console.log(res.data.msg);
-                          }
-                        })
-                        .catch((error) => {
-                          console.log(error.message);
-                        });
-                      //----------------------
-                    }}
-                  >
-                    Cấp quyền admin
-                  </span>
+                  {teacher.course_details && teacher.course_details.length < 1 && (
+                    <span
+                      className="card__link card__link__danger card__link__bottom"
+                      onClick={() => {
+                        AxiosCommon.delete(
+                          `/user/delete/${teacher._id}`,
+                          AxiosCommon.defaults.headers
+                        )
+                          .then((res) => {
+                            //console.log("update user successfully: ", res);
+                            if (res.status === 200) {
+                              var elem = document.getElementById(
+                                `teacher_deck_row_${teacher._id}`
+                              );
+                              if (elem) {
+                                elem.remove();
+                              }
+                            } else {
+                              console.log(res.data.msg);
+                            }
+                          })
+                          .catch((error) => {
+                            console.log(error.message);
+                          });
+                        //----------------------
+                      }}
+                    >
+                      Xóa giáo viên
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

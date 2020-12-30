@@ -107,7 +107,7 @@ DELETE http://localhost:3001/upload/5fd7124b78295d2878339efe
 GET http://localhost:3001/user/students
 
 ###
-GET http://localhost:3001/user/students/5fdb1aa7205db83db4a32002
+GET http://localhost:3001/user/students/5fdb1a86205db83db4a32001
 //
 ###
 POST http://localhost:3001/user/add
@@ -278,3 +278,7 @@ content-type: application/json
 {
 "search_info": ""
 }
+
+###
+
+GET http://localhost:3001/user/admins

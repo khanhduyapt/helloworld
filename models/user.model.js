@@ -20,7 +20,7 @@ const userSchema = new Schema(
       minlength: 3,
     },
     password: { type: String, required: true, trim: true, minlength: 3 },
-    role: { type: String, required: true },
+    role: { type: String },
     super_role: { type: String },
 
     local_id: { type: String },
@@ -49,6 +49,8 @@ const userSchema = new Schema(
     course_details: [{ type: Schema.Types.ObjectId, ref: "CourseDetail" }],
 
     teaching_students: [{ type: Schema.Types.ObjectId, ref: "User" }],
+
+    delete_flag: [{ type: Boolean, default: false }],
   },
   {
     timestamps: true,

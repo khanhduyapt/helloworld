@@ -2,16 +2,16 @@ import "./Admins.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
-import TeacherCard from "./TeacherCard";
+import AdminCard from "./AdminCard";
 
 function Admins() {
-  const [TeacherList, setStudentList] = useState([]);
+  const [Administrators, setAdministrators] = useState([]);
 
   useEffect(() => {
     AxiosCommon.get(`/user/admins`, AxiosCommon.defaults.headers)
       .then((res) => {
         //console.log("upload success file: ", res);
-        setStudentList(() => {
+        setAdministrators(() => {
           return [...res.data];
         });
       })
@@ -28,7 +28,7 @@ function Admins() {
         <Link
           className="card__link btn__outline__normal"
           to={{
-            pathname: `/admin/teacher/add`,
+            pathname: `/admin/administrator/add`,
           }}
         >
           Add new
@@ -36,53 +36,47 @@ function Admins() {
       </div>
 
       <div className="user__admin__deck" id="user__admin__deck">
-        {TeacherList.map((teacher) => {
+        {Administrators.map((admin) => {
           return (
             <div
-              key={teacher._id}
+              key={`user_admin_row_${admin._id}`}
+              id={`user_admin_row_${admin._id}`}
               className="user__admin__form"
-              id={`user__admin__${teacher._id}}`}
             >
               <div className="user__admin__info">
-                <TeacherCard teacher={teacher} />
+                <AdminCard admin={admin} />
 
                 <div className="user__admin__info__others">
-                  <Link
-                    className="card__link"
-                    to={`/admin/teacher_schedule/${teacher._id}`}
-                  >
-                    Schedule
-                  </Link>
-
-                  <span
-                    className="card__link card__link__danger card__link__bottom"
-                    onClick={() => {
-                      AxiosCommon.post(
-                        `/user/admins/withdraw`,
-                        { id: teacher._id },
-                        AxiosCommon.defaults.headers
-                      )
-                        .then((res) => {
-                          //console.log("update user successfully: ", res);
-                          if (res.status === 200) {
-                            var elem = document.getElementById(
-                              `user__admin__${teacher._id}}`
-                            );
-                            if (elem) {
-                              elem.remove();
+                  {admin.account !== "admin" && (
+                    <span
+                      className="card__link card__link__danger card__link__bottom"
+                      onClick={() => {
+                        AxiosCommon.delete(
+                          `/user/delete/${admin._id}`,
+                          AxiosCommon.defaults.headers
+                        )
+                          .then((res) => {
+                            //console.log("update user successfully: ", res);
+                            if (res.status === 200) {
+                              var elem = document.getElementById(
+                                `user_admin_row_${admin._id}`
+                              );
+                              if (elem) {
+                                elem.remove();
+                              }
+                            } else {
+                              console.log(res.data.msg);
                             }
-                          } else {
-                            console.log(res.data.msg);
-                          }
-                        })
-                        .catch((error) => {
-                          console.log(error.message);
-                        });
-                      //----------------------
-                    }}
-                  >
-                    Xóa quyền admin
-                  </span>
+                          })
+                          .catch((error) => {
+                            console.log(error.message);
+                          });
+                        //----------------------
+                      }}
+                    >
+                      Xóa quản trị viên
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

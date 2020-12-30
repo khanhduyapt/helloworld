@@ -154,10 +154,12 @@ function StudentEdit(props) {
     formData.append("facebook", facebook);
     formData.append("fullname", fullname);
     formData.append("local_id", local_id);
+    formData.append("phone_number", phone_number);
+
     formData.append("parent_email", parent_email);
     formData.append("parent_name", parent_name);
     formData.append("parent_phone", parent_phone);
-    formData.append("phone_number", phone_number);
+
     formData.append("skype_id", skype_id);
     formData.append("zoom_id", zoom_id);
     formData.append("user_notes", user_notes);
@@ -241,6 +243,7 @@ function StudentEdit(props) {
               {errors.course_end_date && (
                 <li>・{errors.course_end_date.message}</li>
               )}
+              <li> </li>
             </ul>
           </div>
 
