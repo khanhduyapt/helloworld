@@ -10,7 +10,7 @@ function Teachers() {
   useEffect(() => {
     AxiosCommon.get(`/user/teachers`, AxiosCommon.defaults.headers)
       .then((res) => {
-        //console.log("upload success file: ", res);
+        console.log("user/teachers", res.data);
         setStudentList(() => {
           return [...res.data];
         });

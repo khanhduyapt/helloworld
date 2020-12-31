@@ -10,7 +10,6 @@ function Courses() {
   useEffect(() => {
     AxiosCommon.get(`/courses`, AxiosCommon.defaults.headers)
       .then((res) => {
-        //console.log("upload success file: ", res);
         setCourseList(() => {
           return [...res.data];
         });

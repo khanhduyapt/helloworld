@@ -52,7 +52,10 @@ function TeacherCard({ teacher }) {
         <div className="teacher__sched">
           {teacher.course_details.map((course) => {
             return (
-              <div className="teacher__cardsched">
+              <div
+                className="teacher__cardsched"
+                key={`teacher_sched_${course._id}`}
+              >
                 <div className="teacher__card__time">
                   <CardIcon icon="online_class.jpg" alt="Khóa học" />
                   {course.course_name}

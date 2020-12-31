@@ -8,17 +8,31 @@ import HpHowToFree from "./components/HpHowToFree";
 import HpChoosePlan from "./components/HpChoosePlan";
 import HpInfiniteContents from "./components/HpInfiniteContents";
 import HpFooter from "./components/HpFooter";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import AdDashboard from "./admin/AdDashboard";
+import Login from "./components/Login";
 
 function App() {
+  const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={(props) =>
+        localStorage.getItem("user") ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/login" }} />
+        )
+      }
+    />
+  );
+
   return (
     <BrowserRouter>
       <div className="app">
         <Switch>
-          <Route path="/admin">
-            <AdDashboard />
-          </Route>
+          <Route path="/login" component={Login} />
+
+          <PrivateRoute path="/admin" component={AdDashboard} />
 
           <Route path="/">
             <HpMenu />

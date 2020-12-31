@@ -17,10 +17,6 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:3001/api/posts
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJuYW1lIjoiRHV5IiwiZW1haWwiOiJkQGQuZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYwNjc5NjAwMH0.W9SFcFS5I602iBIGkOpwKwm_eXLXg3XxEG99BLhbRFI
-
-###
 
 ###
 
@@ -287,4 +283,16 @@ GET http://localhost:3001/user/admins/5febf2757ead59371026952f
 ###
 GET http://localhost:3001/categories
 
+###
+POST http://localhost:3001/ulogin
+content-type: application/json
 
+{
+"username": "phuongvu",
+"password": "123456"
+}
+
+
+###
+GET http://localhost:3001/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRiMWE4NjIwNWRiODNkYjRhMzIwMDEiLCJhY2NvdW50IjoicGh1b25ndnUiLCJlbWFpbCI6InBodW9uZ3Z1QGdtYWlsLmNvbSIsImF2YXRhciI6ImltZ18xNjA4ODc4ODcxMDU3XzY4ODM5NC5qcGciLCJmdWxsbmFtZSI6IlbFqSDEkOG7lyBQaMawxqFuZyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjA5Mzg3NDcxfQ._qXpvVmQ-uF0gfl3kcm9_ICTP8xLFdRt8_0F2-e5C2g

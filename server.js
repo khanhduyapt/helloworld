@@ -100,6 +100,10 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
+//
+
+const uloginRouter = require("./routes/ulogin.router");
+app.use("/ulogin", uloginRouter);
 
 const articleRouter = require("./routes/articles.router");
 app.use("/articles", articleRouter);
@@ -108,7 +112,7 @@ const uploadRouter = require("./routes/upload.router");
 app.use("/upload", uploadRouter);
 
 const userRouter = require("./routes/users.router");
-app.use("/user", userRouter);
+app.use("/user", authenticateToken, userRouter);
 
 const courseRouter = require("./routes/courses.router");
 app.use("/courses", courseRouter);
@@ -117,6 +121,9 @@ const categoryRouter = require("./routes/categories.router");
 app.use("/categories", categoryRouter);
 //#endregion
 
+//#region Token
+//#endregion Token
+/*
 app.post("/api/login", (req, res) => {
   // Todo: authenticate user here
   const username = req.body.username;
@@ -135,6 +142,7 @@ app.get("/api/posts", authenticateToken, (req, res) => {
   console.log("user:", req.user);
   res.json({ message: "token login Ok" });
 });
+*/
 
 function authenticateToken(req, res, next) {
   try {

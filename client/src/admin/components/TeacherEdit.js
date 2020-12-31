@@ -162,7 +162,7 @@ function TeacherEdit(props) {
       headers: {
         Accept: "application/json",
         "Content-type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.sid,
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
 
@@ -324,6 +324,7 @@ function TeacherEdit(props) {
                   </div>
                   <input
                     name="password"
+                    type="password"
                     value={password}
                     ref={register({
                       required: "Cần nhập「Mật khẩu mặc định」",

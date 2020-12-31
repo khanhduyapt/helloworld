@@ -27,9 +27,23 @@ function HpMenu() {
             <Link to="/deets" className="nav-link">
               More deets
             </Link>
-            <Link to="/admin" className="nav-link" target={"_blank"}>
+            <Link to="/admin" className="nav-link">
               Admin
             </Link>
+
+            <span
+              className="nav-link card__link__danger"
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+              }}
+            >
+              Logout
+            </span>
+
+            {/* <Link to="/admin" className="nav-link">
+              User: {user && user.account}
+            </Link> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

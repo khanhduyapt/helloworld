@@ -2,15 +2,12 @@ import "./CategoryEdit.css";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import DatePicker from "react-datepicker"; //https://reactdatepicker.com/#example-date-range-with-disabled-navigation-shown
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import { Alert } from "bootstrap";
 import CardIcon from "../../components/commons/CardIcon";
 import RequiredIcon from "../../components/commons/RequiredIcon";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { objToStr } from "../CommonUtil";
 
 function CategoryEdit(props) {
@@ -158,7 +155,7 @@ function CategoryEdit(props) {
       headers: {
         Accept: "application/json",
         "Content-type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.sid,
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
 

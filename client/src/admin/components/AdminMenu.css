@@ -7,7 +7,7 @@
 }
 .dashboard__menu__header {
   text-align: center;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid #f58200;
 }
 
@@ -59,4 +59,9 @@
   margin: 0 auto;
   width: 120px !important;
   height: 120px !important;
+}
+
+.dashboard__menu__homepage {
+  display: flex;
+  width: fit-content;
 }

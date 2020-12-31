@@ -54,7 +54,11 @@ function HpInfiniteContents() {
               );
             } else {
               return (
-                <div data-aos="fade-up" data-aos-anchor-placement="top-center">
+                <div
+                  key={`infinite_row_${book._id}`}
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="top-center"
+                >
                   <ArticleCard
                     key={index}
                     title={ReactHtmlParser(book.title)}

@@ -10,7 +10,6 @@ function Admins() {
   useEffect(() => {
     AxiosCommon.get(`/user/admins`, AxiosCommon.defaults.headers)
       .then((res) => {
-        //console.log("upload success file: ", res);
         setAdministrators(() => {
           return [...res.data];
         });

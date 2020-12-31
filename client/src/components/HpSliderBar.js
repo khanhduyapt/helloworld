@@ -28,7 +28,6 @@ function HpSliderBar() {
 
     AxiosCommon.get("/upload/category/sliderbar", AxiosCommon.defaults.headers)
       .then((res) => {
-        console.log("upload success file: ", res);
         setUpImages(() => {
           return [...res.data];
         });

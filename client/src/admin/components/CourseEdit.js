@@ -91,7 +91,7 @@ function CourseEdit(props) {
       headers: {
         Accept: "application/json",
         "Content-type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.sid,
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
     };
 

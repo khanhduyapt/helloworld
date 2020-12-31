@@ -19,7 +19,6 @@ function HpMySpecial() {
 
     AxiosCommon.get(`/upload/category/${CNAME}`, AxiosCommon.defaults.headers)
       .then((res) => {
-        //console.log("upload success file: ", res);
         setUpImages(() => {
           return [...res.data];
         });

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminMenu.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
@@ -19,6 +19,14 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 
 function AdminMenu() {
+  // console.log("AdminMenu user", JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  const history = useHistory();
+
   const handleMenuAtive = (e) => {
     let menuItems = document.getElementsByClassName("dbmi__active");
     if (menuItems) {
@@ -32,11 +40,26 @@ function AdminMenu() {
   return (
     <div className="dashboard__menu">
       <header className="dashboard__menu__header">
-        <p className="dashboard__menu__user">username</p>
-        <p className="dashboard__menu__email">username@gmail.com</p>
+        <span
+          className="card__link dashboard__menu__homepage"
+          onClick={() => {
+            history.push("/");
+            window.location.reload();
+          }}
+        >
+          Home page
+        </span>
+        <div></div>
+        <p className="dashboard__menu__user">{user && user.account}</p>{" "}
+        <p className="dashboard__menu__user">{user && user.fullname}</p>
+        <p className="dashboard__menu__email">{user && user.email}</p>
         <Avatar
           className="dashboard__menu__avatar"
-          src={AxiosCommon.defaults.baseURL + "/images/noimage.jpg"}
+          src={
+            AxiosCommon.defaults.baseURL +
+            "/images/" +
+            (user && user.avatar ? user.avatar : "noimage.jpg")
+          }
         ></Avatar>
       </header>
 
