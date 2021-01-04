@@ -1,6 +1,7 @@
 const categoryRouter = require("express").Router();
 let Category = require("../models/category.model");
 let { getCallerIP, getUserName } = require("./utils");
+const { multer_upload } = require("./multer");
 
 categoryRouter.route("/").get((req, res) => {
   Category.find()
@@ -9,7 +10,7 @@ categoryRouter.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-categoryRouter.route("/add").post((req, res) => {
+categoryRouter.route("/add").post(multer_upload.any(), (req, res, next) => {
   console.log("categoryRouter->add", req.body);
 
   const newItem = new Category({
@@ -37,7 +38,7 @@ categoryRouter.route("/add").post((req, res) => {
 });
 
 categoryRouter.route("/:id").get((req, res) => {
-  // console.log("articleRouter.route->findById:", req.params.id);
+  console.log("categoryRouter.route->findById:", req.params.id);
 
   Category.findById(req.params.id)
     .then((item) => res.json(item))
@@ -52,32 +53,34 @@ categoryRouter.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-categoryRouter.route("/update/:id").post((req, res) => {
-  console.log("categoryRouter->update:", req.params);
-  Category.findById(req.params.id)
-    .then((item) => {
-      if (req.body.title) item.title = req.body.title;
-      if (req.body.slogan) item.slogan = req.body.slogan;
+categoryRouter
+  .route("/update/:id")
+  .post(multer_upload.any(), (req, res, next) => {
+    console.log("categoryRouter->update:", req.params);
+    Category.findById(req.params.id)
+      .then((item) => {
+        if (req.body.title) item.title = req.body.title;
+        if (req.body.slogan) item.slogan = req.body.slogan;
 
-      if (req.body.action_title1) item.action_title1 = req.body.action_title1;
-      if (req.body.action_body1) item.action_body1 = req.body.action_body1;
-      if (req.body.action_title2) item.action_title2 = req.body.action_title2;
-      if (req.body.action_body2) item.action_body2 = req.body.action_body2;
-      if (req.body.action_title3) item.action_title3 = req.body.action_title3;
-      if (req.body.action_body3) item.action_body3 = req.body.action_body3;
+        if (req.body.action_title1) item.action_title1 = req.body.action_title1;
+        if (req.body.action_body1) item.action_body1 = req.body.action_body1;
+        if (req.body.action_title2) item.action_title2 = req.body.action_title2;
+        if (req.body.action_body2) item.action_body2 = req.body.action_body2;
+        if (req.body.action_title3) item.action_title3 = req.body.action_title3;
+        if (req.body.action_body3) item.action_body3 = req.body.action_body3;
 
-      item.last_modify_id = getCallerIP(req);
-      item.last_modify_account = req.user;
+        item.last_modify_id = getCallerIP(req);
+        item.last_modify_account = req.user;
 
-      // if (req.body.avatar) item.avatar = req.body.avatar;
-      // if (req.body.body_img) item.body_img = req.body.body_img;
+        // if (req.body.avatar) item.avatar = req.body.avatar;
+        // if (req.body.body_img) item.body_img = req.body.body_img;
 
-      item
-        .save()
-        .then((updatedItem) => res.json(updatedItem))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+        item
+          .save()
+          .then((updatedItem) => res.json(updatedItem))
+          .catch((err) => res.status(400).json("Error: " + err));
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
 
 module.exports = categoryRouter;

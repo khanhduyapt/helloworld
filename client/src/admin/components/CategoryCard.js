@@ -17,31 +17,31 @@ function CategoryCard({ category }) {
 
       <div className="category__cardinfo">
         <div className="category__card__field">
-          <CardIcon icon="female_teacher.jpg" alt="full name" />
+          <CardIcon icon="female_teacher.jpg" alt="" />
 
           <Link className="card__link" to={`/admin/category/${category._id}`}>
-            {category.fullname}
+            {category.title}
           </Link>
         </div>
 
         <div className="category__card__field">
-          <CardIcon icon="id.png" alt="Mã học viên" />
-          {category.local_id}
+          <CardIcon icon="id.png" alt="" />
+          {category.slogan}
         </div>
 
         <div className="category__card__field">
-          <CardIcon icon="account.jpg" alt="Tài khoản" />
-          {category.account}
+          <CardIcon icon="account.jpg" alt="" />
+          {category.body_img}
         </div>
 
         <div className="category__card__field">
-          <CardIcon icon="phone_number.png" alt="Phone" />
-          {category.phone_number}
+          <CardIcon icon="phone_number.png" alt="" />
+          {category.action_title1}
         </div>
 
         <div className="category__card__field">
-          <CardIcon icon="email.png" alt="Email" />
-          {category.email}
+          <CardIcon icon="email.png" alt="" />
+          {category.action_body1}
         </div>
       </div>
     </div>

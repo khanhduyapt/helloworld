@@ -8,7 +8,7 @@ function Training() {
   const [Administrators, setAdministrators] = useState([]);
 
   useEffect(() => {
-    AxiosCommon.get(`/user/admins`, AxiosCommon.defaults.headers)
+    AxiosCommon.get(`/categories`, AxiosCommon.defaults.headers)
       .then((res) => {
         setAdministrators(() => {
           return [...res.data];

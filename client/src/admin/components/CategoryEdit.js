@@ -17,21 +17,6 @@ function CategoryEdit(props) {
   const [avatarPath, setAvatarPath] = useState("");
   const [_id, setId] = useState("");
 
-  const [account, set_account] = useState("");
-  const [password, set_password] = useState("");
-  const [address, set_address] = useState("");
-  const [avatar, set_avatar] = useState("");
-  const [date_join, set_date_join] = useState("");
-  const [date_of_birth, set_date_of_birth] = useState(new Date());
-  const [email, set_email] = useState("");
-  const [facebook, set_facebook] = useState("");
-  const [fullname, set_fullname] = useState("");
-  const [local_id, set_local_id] = useState("");
-  const [phone_number, set_phone_number] = useState("");
-  const [skype_id, set_skype_id] = useState("");
-  const [zoom_id, set_zoom_id] = useState("");
-  const [user_notes, set_user_notes] = useState("");
-
   const refBackLink = useRef(null);
   const [isAddNew, setIsAddNew] = useState(true);
 
@@ -58,7 +43,7 @@ function CategoryEdit(props) {
     if (_id && _id !== "add") {
       setIsAddNew(false);
 
-      AxiosCommon.get(`/user/admins/${_id}`, AxiosCommon.defaults.headers)
+      AxiosCommon.get(`/categories/${_id}`, AxiosCommon.defaults.headers)
         .then((res) => {
           console.log("getbyid successfully: ", res);
           if (res.status === 200) {
@@ -66,20 +51,14 @@ function CategoryEdit(props) {
               AxiosCommon.defaults.baseURL + "/images/" + res.data.avatar
             );
 
-            set_account(res.data.account);
-            set_password(res.data.password);
-            set_address(res.data.address);
-            set_avatar(res.data.avatar);
-            set_date_join(res.data.date_join);
-            set_date_of_birth(new Date(res.data.date_of_birth));
-            set_email(res.data.email);
-            set_facebook(res.data.facebook);
-            set_fullname(res.data.fullname);
-            set_local_id(res.data.local_id);
-            set_phone_number(res.data.phone_number);
-            set_skype_id(res.data.skype_id);
-            set_zoom_id(res.data.zoom_id);
-            set_user_notes(objToStr(res.data.user_notes));
+            set_title(res.data.title);
+            set_slogan(res.data.slogan);
+            set_action_title1(res.data.action_title1);
+            set_action_body1(res.data.action_body1);
+            set_action_title2(res.data.action_title2);
+            set_action_body2(res.data.action_body2);
+            set_action_title3(res.data.action_title3);
+            set_action_body3(res.data.action_body3);
           }
         })
         .catch((error) => {
@@ -105,8 +84,6 @@ function CategoryEdit(props) {
           if (file) {
             reader.readAsDataURL(file);
             setAvatarUrl(reader.result);
-
-            set_avatar(file.name);
           }
         }
       }
@@ -116,16 +93,7 @@ function CategoryEdit(props) {
   const onSubmitForm = (data, e) => {
     e.preventDefault();
 
-    AxiosCommon.get(
-      `/user/check/${account}/${_id}`,
-      AxiosCommon.defaults.headers
-    ).then((res) => {
-      if (res.status !== 200) {
-        set_server_message("・" + res.data.msg);
-      } else {
-        handleUpdate(data);
-      }
-    });
+    handleUpdate(data);
   };
 
   const handleUpdate = (data) => {
@@ -136,20 +104,14 @@ function CategoryEdit(props) {
     }
 
     formData.append("_id", _id);
-    formData.append("account", account);
-    formData.append("password", password);
-    formData.append("address", address);
-    formData.append("avatar", avatar);
-    formData.append("date_join", date_join);
-    formData.append("date_of_birth", date_of_birth);
-    formData.append("email", email);
-    formData.append("facebook", facebook);
-    formData.append("fullname", fullname);
-    formData.append("local_id", local_id);
-    formData.append("phone_number", phone_number);
-    formData.append("skype_id", skype_id);
-    formData.append("zoom_id", zoom_id);
-    formData.append("user_notes", user_notes);
+    formData.append("title", title);
+    formData.append("slogan", slogan);
+    formData.append("action_title1", action_title1);
+    formData.append("action_body1", action_body1);
+    formData.append("action_title2", action_title2);
+    formData.append("action_body2", action_body2);
+    formData.append("action_title3", action_title3);
+    formData.append("action_body3", action_body3);
 
     const config = {
       headers: {
@@ -159,9 +121,9 @@ function CategoryEdit(props) {
       },
     };
 
-    let url = `/user/admins/add`;
+    let url = `/categories/add`;
     if (_id && _id !== "add") {
-      url = `/user/admins/update/${_id}`;
+      url = `/categories/update/${_id}`;
     }
 
     AxiosCommon.post(url, formData, config)
