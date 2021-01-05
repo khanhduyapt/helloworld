@@ -126,7 +126,7 @@ function AdminMenu() {
             onClick={handleMenuAtive}
           >
             <LocalLibraryIcon />
-            Chương trình đào tạo
+            Danh mục khóa học
           </Link>
         </li>
         <li>

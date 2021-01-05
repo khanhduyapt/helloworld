@@ -4,6 +4,8 @@ let User = require("../models/user.model");
 let CourseDetail = require("../models/course_detail.model");
 const { FS_ROLE } = require("./FS_ROLE");
 const { multer_upload } = require("./multer");
+const currpath = require("path");
+const fs = require("fs");
 let { getCallerIP, getUserName, strToFloat, arrayRemove } = require("./utils");
 const course_details_exclude_fields =
   "-password -role -following_teachers -course_details";
@@ -168,7 +170,10 @@ userRouter
           if (req.body.local_id) item.local_id = req.body.local_id;
           if (req.body.fullname) item.fullname = req.body.fullname;
 
-          if (_file) item.avatar = _file.filename;
+          if (_file) {
+            if (item.avatar) fs.unlinkSync(getImagesFolder(item.avatar));
+            item.avatar = _file.filename;
+          }
 
           if (req.body.date_of_birth)
             item.date_of_birth = req.body.date_of_birth;
@@ -405,7 +410,10 @@ userRouter.route("/teacher/add").post(multer_upload.any(), (req, res, next) => {
       last_modify_account: getUserName(req),
     });
 
-    if (res.req.file) newUser.avatar = res.req.file.filename;
+    const _file = req.files[0];
+    if (_file) {
+      newUser.avatar = _file.filename;
+    }
 
     newUser
       .save()
@@ -437,7 +445,10 @@ userRouter
           if (req.body.local_id) item.local_id = req.body.local_id;
           if (req.body.fullname) item.fullname = req.body.fullname;
 
-          if (_file) item.avatar = _file.filename;
+          if (_file) {
+            if (item.avatar) fs.unlinkSync(getImagesFolder(item.avatar));
+            item.avatar = _file.filename;
+          }
 
           if (req.body.date_of_birth)
             item.date_of_birth = req.body.date_of_birth;
@@ -702,7 +713,10 @@ userRouter
           if (req.body.local_id) item.local_id = req.body.local_id;
           if (req.body.fullname) item.fullname = req.body.fullname;
 
-          if (_file) item.avatar = _file.filename;
+          if (_file) {
+            if (item.avatar) fs.unlinkSync(getImagesFolder(item.avatar));
+            item.avatar = _file.filename;
+          }
 
           if (req.body.date_of_birth)
             item.date_of_birth = req.body.date_of_birth;
@@ -863,6 +877,10 @@ userRouter.route("/delete/:id").delete((req, res) => {
       res.status(400).json(err);
     });
 });
+
+function getImagesFolder(filename) {
+  return currpath.join(__dirname, "..", "/public/images/", filename);
+}
 
 module.exports = userRouter;
 

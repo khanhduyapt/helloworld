@@ -2,6 +2,8 @@ const categoryRouter = require("express").Router();
 let Category = require("../models/category.model");
 let { getCallerIP, getUserName } = require("./utils");
 const { multer_upload } = require("./multer");
+const path = require("path");
+const fs = require("fs");
 
 categoryRouter.route("/").get((req, res) => {
   Category.find()
@@ -11,14 +13,11 @@ categoryRouter.route("/").get((req, res) => {
 });
 
 categoryRouter.route("/add").post(multer_upload.any(), (req, res, next) => {
-  console.log("categoryRouter->add", req.body);
+  //console.log("categoryRouter->add", req.body);
 
   const newItem = new Category({
     title: req.body.title,
     slogan: req.body.slogan,
-    avatar: "noimage.jpg",
-    body_img: "noimage.jpg",
-
     action_title1: req.body.action_title1,
     action_body1: req.body.action_body1,
     action_title2: req.body.action_title2,
@@ -30,7 +29,25 @@ categoryRouter.route("/add").post(multer_upload.any(), (req, res, next) => {
     last_modify_account: getUserName(req),
   });
 
-  //console.log(JSON.stringify(newItem));
+  const _file = req.files[0];
+  if (_file) {
+    req.files.forEach((file) => {
+      if (file.fieldname === "catg_img") {
+        //delete old file
+        if (newItem.avatar) fs.unlinkSync(getImagesFolder(newItem.avatar));
+
+        //update filename
+        newItem.avatar = file.filename;
+      } else if (file.fieldname === "body_img") {
+        //delete old file
+        if (newItem.body_img) fs.unlinkSync(getImagesFolder(newItem.body_img));
+
+        //update filename
+        newItem.body_img = file.filename;
+      }
+    });
+  }
+
   newItem
     .save()
     .then((item) => res.json(item))
@@ -56,7 +73,8 @@ categoryRouter.route("/:id").delete((req, res) => {
 categoryRouter
   .route("/update/:id")
   .post(multer_upload.any(), (req, res, next) => {
-    console.log("categoryRouter->update:", req.params);
+    //console.log("categoryRouter->update:", req.params, req.body, req.files);
+
     Category.findById(req.params.id)
       .then((item) => {
         if (req.body.title) item.title = req.body.title;
@@ -72,8 +90,24 @@ categoryRouter
         item.last_modify_id = getCallerIP(req);
         item.last_modify_account = req.user;
 
-        // if (req.body.avatar) item.avatar = req.body.avatar;
-        // if (req.body.body_img) item.body_img = req.body.body_img;
+        const _file = req.files[0];
+        if (_file) {
+          req.files.forEach((file) => {
+            if (file.fieldname === "catg_img") {
+              //delete old file
+              if (item.avatar) fs.unlinkSync(getImagesFolder(item.avatar));
+
+              //update filename
+              item.avatar = file.filename;
+            } else if (file.fieldname === "body_img") {
+              //delete old file
+              if (item.body_img) fs.unlinkSync(getImagesFolder(item.body_img));
+
+              //update filename
+              item.body_img = file.filename;
+            }
+          });
+        }
 
         item
           .save()
@@ -82,5 +116,9 @@ categoryRouter
       })
       .catch((err) => res.status(400).json("Error: " + err));
   });
+
+function getImagesFolder(filename) {
+  return path.join(__dirname, "..", "/public/images/", filename);
+}
 
 module.exports = categoryRouter;

@@ -51,7 +51,7 @@ function Training() {
                       className="card__link card__link__danger card__link__bottom"
                       onClick={() => {
                         AxiosCommon.delete(
-                          `/user/delete/${category._id}`,
+                          `/categories/${category._id}`,
                           AxiosCommon.defaults.headers
                         )
                           .then((res) => {
@@ -73,7 +73,7 @@ function Training() {
                         //----------------------
                       }}
                     >
-                      Xóa quản trị viên
+                      Xóa
                     </span>
                   )}
                 </div>

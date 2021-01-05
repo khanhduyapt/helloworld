@@ -36,9 +36,7 @@ uploadRouter
     if (_id !== "add") {
       if (newFilename) {
         UpImage.findById(_id).then((item) => {
-          const oldFilepath = getImagesFolder(item.filename);
-          //console.log("delete:", oldFilepath);
-          fs.unlinkSync(oldFilepath);
+          if (item.filename) fs.unlinkSync(getImagesFolder(item.filename));
 
           item.filename = newFilename;
           item.header = _header;
@@ -97,10 +95,7 @@ uploadRouter.route("/:id").delete((req, res) => {
 
   UpImage.findByIdAndDelete(req.params.id)
     .then((item) => {
-      const filepath = getImagesFolder(item.filename);
-
-      console.log("delete:", filepath);
-      fs.unlinkSync(filepath);
+      if (item.filename) fs.unlinkSync(getImagesFolder(item.filename));
 
       res.json({ msg: "deleted.", id: req.params.id });
     })

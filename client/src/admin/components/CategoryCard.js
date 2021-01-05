@@ -17,33 +17,30 @@ function CategoryCard({ category }) {
 
       <div className="category__cardinfo">
         <div className="category__card__field">
-          <CardIcon icon="female_teacher.jpg" alt="" />
-
           <Link className="card__link" to={`/admin/category/${category._id}`}>
             {category.title}
           </Link>
         </div>
 
-        <div className="category__card__field">
-          <CardIcon icon="id.png" alt="" />
-          {category.slogan}
-        </div>
+        <div className="category__card__field">{category.slogan}</div>
 
-        <div className="category__card__field">
-          <CardIcon icon="account.jpg" alt="" />
-          {category.body_img}
-        </div>
+        <div className="category__card__field">{category.action_title1}</div>
 
-        <div className="category__card__field">
-          <CardIcon icon="phone_number.png" alt="" />
-          {category.action_title1}
-        </div>
+        <div className="category__card__field">{category.action_body1}</div>
 
-        <div className="category__card__field">
-          <CardIcon icon="email.png" alt="" />
-          {category.action_body1}
-        </div>
+        <div className="category__card__field">{category.action_title2}</div>
+
+        <div className="category__card__field">{category.action_body2}</div>
+
+        <div className="category__card__field">{category.action_title3}</div>
+
+        <div className="category__card__field">{category.action_body3}</div>
       </div>
+      <img
+        className="category__card__imgBody"
+        src={AxiosCommon.defaults.baseURL + "/images/" + category.body_img}
+        alt=""
+      ></img>
     </div>
   );
 }

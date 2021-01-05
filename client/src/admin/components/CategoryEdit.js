@@ -14,7 +14,7 @@ function CategoryEdit(props) {
   //console.log(props);
 
   const { register, handleSubmit, errors } = useForm();
-  const [avatarPath, setAvatarPath] = useState("");
+
   const [_id, setId] = useState("");
 
   const refBackLink = useRef(null);
@@ -31,8 +31,13 @@ function CategoryEdit(props) {
 
   const [server_message, set_server_message] = useState("");
 
-  //src={AxiosCommon.defaults.baseURL + "/images/" + student.avatar}
+  const [avatarPath, setAvatarPath] = useState("");
   const [avatarUrl, setAvatarUrl] = useState(
+    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+  );
+
+  const [bodyImgPath, setBodyImgPath] = useState("");
+  const [bodyImgUrl, setBodyImgUrl] = useState(
     AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
   );
 
@@ -49,6 +54,9 @@ function CategoryEdit(props) {
           if (res.status === 200) {
             setAvatarUrl(
               AxiosCommon.defaults.baseURL + "/images/" + res.data.avatar
+            );
+            setBodyImgUrl(
+              AxiosCommon.defaults.baseURL + "/images/" + res.data.body_img
             );
 
             set_title(res.data.title);
@@ -67,7 +75,7 @@ function CategoryEdit(props) {
     }
   }, [props.match.params.id]);
 
-  const handleChangeImage = (e) => {
+  const handleChangeAvatar = (e) => {
     try {
       if (e.target && e.target.files) {
         const file = e.target.files[0];
@@ -90,6 +98,28 @@ function CategoryEdit(props) {
     } catch (error) {}
   };
 
+  const handleChangeBodyImg = (e) => {
+    try {
+      if (e.target && e.target.files) {
+        const file = e.target.files[0];
+        if (file.size > 5000000) Alert("File size cannot exceed more than 5Mb");
+        else {
+          console.log("File:", e.target.value);
+          setBodyImgPath(e.target.value);
+
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setBodyImgUrl(reader.result);
+          };
+
+          if (file) {
+            reader.readAsDataURL(file);
+            setBodyImgUrl(reader.result);
+          }
+        }
+      }
+    } catch (error) {}
+  };
   const onSubmitForm = (data, e) => {
     e.preventDefault();
 
@@ -100,7 +130,12 @@ function CategoryEdit(props) {
     let formData = new FormData();
     if (data && data.avatar && data.avatar.length > 0) {
       //console.log("upload: ", data.avatar[0]);
-      formData.append("img", data.avatar[0]);
+      formData.append("catg_img", data.avatar[0]);
+    }
+
+    if (data && data.bodyImg && data.bodyImg.length > 0) {
+      //console.log("upload: ", data.avatar[0]);
+      formData.append("body_img", data.bodyImg[0]);
     }
 
     formData.append("_id", _id);
@@ -160,7 +195,7 @@ function CategoryEdit(props) {
           <input
             name="avatar"
             value={avatarPath}
-            onChange={handleChangeImage}
+            onChange={handleChangeAvatar}
             ref={register}
             type="file"
             accept="image/*"
@@ -169,7 +204,7 @@ function CategoryEdit(props) {
         </div>
         <div className="admin__image__chooser">
           <div className="category__edit__label">
-            <CardIcon icon="address.png" alt="full name" />
+            <CardIcon icon="item.jpg" alt="full name" />
             Ảnh đại diện
           </div>
           <img src={avatarUrl} alt=""></img>
@@ -204,7 +239,7 @@ function CategoryEdit(props) {
           <div className="admin__edit__infoMain">
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Danh mục đào tạo
               </div>
               <input
@@ -222,7 +257,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Phương châm
               </div>
               <input
@@ -239,9 +274,9 @@ function CategoryEdit(props) {
         <br />
         <div className="admin__image__chooser">
           <input
-            name="avatar"
-            value={avatarPath}
-            onChange={handleChangeImage}
+            name="bodyImg"
+            value={bodyImgPath}
+            onChange={handleChangeBodyImg}
             ref={register}
             type="file"
             accept="image/*"
@@ -250,18 +285,18 @@ function CategoryEdit(props) {
         </div>
         <div className="admin__image__chooser">
           <div className="category__edit__label">
-            <CardIcon icon="address.png" alt="full name" />
+            <CardIcon icon="item.jpg" alt="full name" />
             Ảnh nền hoạt động
           </div>
-          <img src={avatarUrl} alt=""></img>
+          <img src={bodyImgUrl} alt=""></img>
 
           <button
             type="button"
             className="card__link upload__image__clear"
             onClick={() => {
               console.log("Xóa");
-              setAvatarPath("");
-              setAvatarUrl(
+              setBodyImgPath("");
+              setBodyImgUrl(
                 AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
               );
             }}
@@ -273,7 +308,7 @@ function CategoryEdit(props) {
           <div className="admin__edit__infoMain">
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Hoạt động 1
               </div>
               <input
@@ -287,7 +322,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Mục đích
               </div>
               <textarea
@@ -304,7 +339,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Hoạt động 2
               </div>
               <input
@@ -318,7 +353,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Mục đích
               </div>
               <textarea
@@ -334,7 +369,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Hoạt động 3
               </div>
               <input
@@ -348,7 +383,7 @@ function CategoryEdit(props) {
 
             <div className="category__edit__row">
               <div className="category__edit__label">
-                <CardIcon icon="address.png" alt="full name" />
+                <CardIcon icon="item.jpg" alt="full name" />
                 Mục đích
               </div>
               <textarea

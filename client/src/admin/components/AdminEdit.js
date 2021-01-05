@@ -126,7 +126,7 @@ function AdminEdit(props) {
     let formData = new FormData();
     if (data && data.user_image && data.user_image.length > 0) {
       //console.log("upload: ", data.user_image[0]);
-      formData.append("img", data.user_image[0]);
+      formData.append("admin", data.user_image[0]);
     }
 
     formData.append("_id", _id);
