@@ -119,6 +119,10 @@ app.use("/courses", courseRouter);
 
 const categoryRouter = require("./routes/categories.router");
 app.use("/categories", categoryRouter);
+
+const contactRouter = require("./routes/contact.router");
+app.use("/contacts", contactRouter);
+
 //#endregion
 
 //#region Token

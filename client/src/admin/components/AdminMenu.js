@@ -17,12 +17,21 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AxiosCommon from "../../components/commons/AxiosCommon";
+import { changeContactNotifyNum } from "../CommonUtil";
 
 function AdminMenu() {
   // console.log("AdminMenu user", JSON.parse(localStorage.getItem("user")));
   const [user, setUser] = useState(null);
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
+
+    AxiosCommon.get(`/contacts/waiting`, AxiosCommon.defaults.headers)
+      .then((res) => {
+        changeContactNotifyNum(res.data.length);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }, []);
 
   const history = useHistory();
@@ -110,9 +119,7 @@ function AdminMenu() {
           >
             <ContactPhoneIcon />
             Khách hàng mới
-            <div id="admin_contacts_badge" className="item__badge">
-              25
-            </div>
+            <div id="admin_contacts_badge" className="item__badge"></div>
           </Link>
         </li>
       </ul>

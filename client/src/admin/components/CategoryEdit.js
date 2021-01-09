@@ -8,7 +8,6 @@ import AxiosCommon from "../../components/commons/AxiosCommon";
 import { Alert } from "bootstrap";
 import CardIcon from "../../components/commons/CardIcon";
 import RequiredIcon from "../../components/commons/RequiredIcon";
-import { objToStr } from "../CommonUtil";
 
 function CategoryEdit(props) {
   //console.log(props);
@@ -167,11 +166,11 @@ function CategoryEdit(props) {
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
-          console.log(res.data.msg);
+          set_server_message(res.data.msg);
         }
       })
       .catch((error) => {
-        console.log(error.message);
+        set_server_message(error.message);
       });
 
     //----------------------

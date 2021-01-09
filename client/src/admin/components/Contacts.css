@@ -1,0 +1,29 @@
+.Contacts {
+  display: flex;
+}
+
+.contact__waiting {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px 20px 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+  width: 50%;
+}
+
+.contact__done {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 20px 10px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding-left: 10px;
+  width: 50%;
+}
+
+.contact__header {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  margin-left: 10px;
+}

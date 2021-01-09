@@ -31,21 +31,21 @@ function HpMenu() {
               Admin
             </Link>
 
-            <span
-              className="nav-link card__link__danger"
-              onClick={() => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("user");
-              }}
-            >
-              Logout
-            </span>
-
             {/* <Link to="/admin" className="nav-link">
               User: {user && user.account}
             </Link> */}
           </Nav>
         </Navbar.Collapse>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <span
+          className="nav-link card__link__danger"
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+          }}
+        >
+          Logout
+        </span>
       </Container>
     </Navbar>
   );

@@ -24,6 +24,10 @@
   margin-left: auto;
 }
 
+.item__badge__hide {
+  display: none;
+}
+
 .dashboard__content {
   flex: 1;
 }

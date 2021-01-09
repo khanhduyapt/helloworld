@@ -296,3 +296,7 @@ content-type: application/json
 ###
 GET http://localhost:3001/api/posts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRiMWE4NjIwNWRiODNkYjRhMzIwMDEiLCJhY2NvdW50IjoicGh1b25ndnUiLCJlbWFpbCI6InBodW9uZ3Z1QGdtYWlsLmNvbSIsImF2YXRhciI6ImltZ18xNjA4ODc4ODcxMDU3XzY4ODM5NC5qcGciLCJmdWxsbmFtZSI6IlbFqSDEkOG7lyBQaMawxqFuZyIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjA5Mzg3NDcxfQ._qXpvVmQ-uF0gfl3kcm9_ICTP8xLFdRt8_0F2-e5C2g
+
+
+###
+GET http://localhost:3001/contacts

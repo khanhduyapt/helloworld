@@ -55,7 +55,27 @@ function addMinutes(date, minutes) {
   return result;
 }
 
+function changeContactNotifyNum(number) {
+  let notifice = document.getElementById("admin_contacts_badge");
+
+  const name = "item__badge__hide";
+  const arr = notifice.className.split(" ");
+
+  if (number === 0) {
+    if (arr.indexOf(name) === -1) {
+      notifice.className += " " + name;
+    }
+  } else {
+    if (arr.indexOf(name) !== -1) {
+      notifice.className = notifice.className.replaceAll(name, "");
+    }
+
+    if (notifice) notifice.innerHTML = number;
+  }
+}
+
 export {
+  changeContactNotifyNum,
   strToFloat,
   strToDate,
   objToStr,

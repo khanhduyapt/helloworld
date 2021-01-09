@@ -1,0 +1,84 @@
+.ContactCard {
+  display: flex;
+  padding: 20px 10px 10px 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+}
+
+.contactcard__field {
+  display: flex;
+}
+
+.contactcard__contents {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.contactcard__client {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.contactcard__support {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.contactcard__client__content {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+  width: 100%;
+}
+
+.contactcard__support__content {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.contactcard__support__controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contactcard__label {
+  padding-top: 5px;
+  font-size: 1.1rem;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.contactcard__value {
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.contactcard__weight {
+  font-weight: 600;
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.contactcard__light {
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 0.8rem;
+}
+
+.contactcard__error {
+  color: #ff0000;
+}

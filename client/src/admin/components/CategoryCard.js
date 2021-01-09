@@ -1,7 +1,6 @@
 import "./CategoryCard.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import CardIcon from "../../components/commons/CardIcon";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 
 function CategoryCard({ category }) {

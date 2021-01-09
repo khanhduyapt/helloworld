@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Toast from "react-bootstrap/Toast";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AxiosCommon from "./commons/AxiosCommon";
 
 function HpHowToFree() {
   useEffect(() => {
@@ -16,10 +17,32 @@ function HpHowToFree() {
 
   const [show, setShow] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    setShow(true);
-    reset();
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    //console.log(data);
+
+    AxiosCommon.post(
+      `/contacts/add`,
+      {
+        fullname: data.full_name,
+        phone: data.phone_number,
+        contents: data.msg_detail,
+      },
+      AxiosCommon.defaults.headers
+    )
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("res", res);
+          setShow(true);
+          reset();
+        } else {
+          console.log("res", res);
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    //----------------------
   };
   //console.log(watch("full_name")); // watch input value by passing the name of it
 
