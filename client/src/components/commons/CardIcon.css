@@ -2,6 +2,10 @@
   height: 20px !important;
   text-align: center;
   padding: 0;
-  margin-right: 5px;
+  margin: 0px 5px 0 5px;
   margin-bottom: 2px;
+}
+
+.card__circle {
+  border-radius: 20px !important;
 }

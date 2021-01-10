@@ -21,7 +21,7 @@ import RequiredIcon from "../../components/commons/RequiredIcon";
 import ReactHtmlParser from "react-html-parser";
 
 function StudentCourse(props) {
-  const [_user_id, setUserId] = useState("");
+  const [_user_id, setUserId] = useState(props.match.params.id);
   const { register, handleSubmit } = useForm();
   const refBackLink = useRef(null);
   const [student, set_student] = useState({});
@@ -32,8 +32,8 @@ function StudentCourse(props) {
   const [course_id, set_course_id] = useState("");
   const [course_name, set_course_name] = useState("");
 
-  const [course_str_date, set_course_str_date] = useState(null);
-  const [course_end_date, set_course_end_date] = useState(null);
+  const [course_str_date, set_course_str_date] = useState(new Date());
+  const [course_end_date, set_course_end_date] = useState(new Date());
 
   const [duration_month, set_duration_month] = useState(0);
   const [lesson_minutes, set_lesson_minutes] = useState(0);
@@ -128,7 +128,7 @@ function StudentCourse(props) {
         AxiosCommon.defaults.headers
       )
         .then((res) => {
-          console.log("getbyid successfully: ", res);
+          console.log("/user/students/: ", res);
           if (res.status === 200) {
             set_student(res.data);
 
@@ -175,18 +175,18 @@ function StudentCourse(props) {
           console.log(error.message);
         });
     }
-  }, [props.match.params.id]);
+  }, [props, props.match, props.match.params.id]);
 
   const onSubmitForm = (data, e) => {
     e.preventDefault();
-
+    console.log("onSubmitForm");
     let temp_set_errors_msg = "";
-    // if (!fullname) {
-    //   temp_set_errors_msg += "Cần nhập「Họ tên học viên」\n";
-    // }
-    // if (!account) {
-    //   temp_set_errors_msg += "Cần nhập「Tài khoản đăng nhập」\n";
-    // }
+    if (!course_name) {
+      temp_set_errors_msg += "Cần nhập「Khóa học」\n";
+    }
+    if (course_str_date === null || course_end_date === null) {
+      temp_set_errors_msg += "Cần nhập「Ngày học」bắt đầu và kết thúc\n";
+    }
 
     if (temp_set_errors_msg.length > 0) {
       alert(temp_set_errors_msg);
@@ -224,14 +224,11 @@ function StudentCourse(props) {
       su_time_end,
       course_notes,
     };
-
-    AxiosCommon.post(
-      `/user/students/course_detail/${_user_id}`,
-      formData,
-      AxiosCommon.defaults.headers
-    )
+    let url = `/user/students/course_detail/${_user_id}`;
+    console.log(url);
+    AxiosCommon.post(url, formData, AxiosCommon.defaults.headers)
       .then((res) => {
-        //console.log("update user successfully: ", res);
+        console.log("update user successfully: ", res);
         if (res.status === 200) {
           refBackLink.current.click();
         } else {
@@ -266,7 +263,7 @@ function StudentCourse(props) {
             <div className="student__edit__contents">
               <div className="student__field">
                 <div className="student__edit__label">
-                  <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                  <CardIcon icon="online_class.jpg" alt="" />
                   Khóa học tham khảo
                 </div>
 
@@ -290,7 +287,7 @@ function StudentCourse(props) {
 
               <div className="student__field">
                 <div className="student__edit__label">
-                  <CardIcon icon="number_lessons.png" alt="Khóa học" />
+                  <CardIcon icon="number_lessons.png" alt="" />
                   Số tiết học
                 </div>
 
@@ -307,7 +304,7 @@ function StudentCourse(props) {
 
               <div className="student__field">
                 <div className="student__edit__label">
-                  <CardIcon icon="tuition_fee.png" alt="Khóa học" />
+                  <CardIcon icon="tuition_fee.png" alt="" />
                   Học phí tham khảo
                 </div>
                 <div className="student__field__content">
@@ -362,7 +359,7 @@ function StudentCourse(props) {
           <div className="student__edit__contents">
             <div className="student__field">
               <div className="student__edit__label">
-                <CardIcon icon="online_class.jpg" alt="Khóa học" />
+                <CardIcon icon="online_class.jpg" alt="" />
                 Khóa học
               </div>
               <span>
@@ -523,16 +520,7 @@ function StudentCourse(props) {
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Ngày bắt đầu"
               />
-              <input
-                name="course_str_date"
-                value={course_str_date}
-                ref={register({
-                  required: "Cần nhập「Ngày bắt đầu」của khóa học.",
-                })}
-                className="student__edit__hidden"
-              />
               <SymbolTo />
-
               <DatePicker
                 selected={course_end_date}
                 onChange={(date) => set_course_end_date(date)}
@@ -542,14 +530,6 @@ function StudentCourse(props) {
                 dropdownMode="select"
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Ngày kết thúc"
-              />
-              <input
-                name="course_end_date"
-                value={course_end_date}
-                ref={register({
-                  required: "Cần nhập「Ngày kết thúc」của khóa học.",
-                })}
-                className="student__edit__hidden"
               />
               <RequiredIcon />
             </div>
@@ -774,7 +754,7 @@ function StudentCourse(props) {
 
           <div className="student__field">
             <div className="student__edit__label">
-              <CardIcon icon="notes.png" alt="Khóa học" />
+              <CardIcon icon="notes.png" alt="" />
               Nội dung khóa học
             </div>
           </div>

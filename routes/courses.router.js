@@ -42,7 +42,7 @@ _file output {
 courseRouter
   .route("/add")
   .post(multer_avatar.single("img"), (req, res, next) => {
-    // console.log("courses ->add", req.params, res.body);
+    console.log("courses ->add", req.params, res.body);
     try {
       const newItem = new Course({
         course_name: req.body.course_name,

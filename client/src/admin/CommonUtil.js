@@ -57,7 +57,15 @@ function addMinutes(date, minutes) {
 
 function changeContactNotifyNum(number) {
   let notifice = document.getElementById("admin_contacts_badge");
+  setElementNotify(notifice, number);
+}
 
+function changeDayCalendarNotifyNum(number) {
+  let notifice = document.getElementById("admin_daycalendar_badge");
+  setElementNotify(notifice, number);
+}
+
+function setElementNotify(notifice, number = 0) {
   const name = "item__badge__hide";
   const arr = notifice.className.split(" ");
 
@@ -76,6 +84,7 @@ function changeContactNotifyNum(number) {
 
 export {
   changeContactNotifyNum,
+  changeDayCalendarNotifyNum,
   strToFloat,
   strToDate,
   objToStr,

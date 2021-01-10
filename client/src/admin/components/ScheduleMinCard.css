@@ -1,0 +1,11 @@
+.ScheduleMinCard {
+  display: flex;
+  justify-content: center;
+}
+
+.smc__marginLeft {
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  background-color: #ddd;
+  color: gray;
+}

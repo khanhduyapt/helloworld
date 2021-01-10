@@ -4,7 +4,6 @@ import "./AdDashboard.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import AdminMenu from "./components/AdminMenu";
 import DayCalendar from "./components/DayCalendar";
-import WeekCalendar from "./components/WeekCalendar";
 import MonthCalendar from "./components/MonthCalendar";
 import Contacts from "./components/Contacts";
 import Teachers from "./components/Teachers";
@@ -36,9 +35,6 @@ function AdDashboard() {
           <Switch>
             <Route path="/admin/daycalendar">
               <DayCalendar />
-            </Route>
-            <Route path="/admin/weekcalendar">
-              <WeekCalendar />
             </Route>
             <Route path="/admin/monthcalendar">
               <MonthCalendar />
@@ -80,6 +76,10 @@ function AdDashboard() {
             </Route>
             <Route path="/admin/vocabularies">
               <Vocabularies />
+            </Route>
+
+            <Route path="/admin">
+              <DayCalendar />
             </Route>
           </Switch>
         </div>

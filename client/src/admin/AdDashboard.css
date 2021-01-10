@@ -22,6 +22,7 @@
   color: rgb(255, 255, 255);
   margin-top: 2px;
   margin-left: auto;
+  margin-right: 5px;
 }
 
 .item__badge__hide {
@@ -33,6 +34,8 @@
 }
 
 .dashboard__header {
+  display: flex;
+  justify-content: center;
   padding-top: 2rem;
   text-align: center;
   font-size: 2rem !important;

@@ -7,6 +7,7 @@ const courseDetailSchema = new Schema(
     _id: { type: Schema.Types.ObjectId, auto: true },
 
     user_id: { type: Schema.Types.ObjectId, required: true },
+    teacher_id: { type: Schema.Types.ObjectId },
 
     course_id: { type: Schema.Types.ObjectId },
     course_name: { type: String, required: true },
@@ -38,6 +39,9 @@ const courseDetailSchema = new Schema(
     su_time_end: { type: String },
 
     course_notes: { type: String },
+
+    student_info: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    teacher_info: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     timestamps: true,

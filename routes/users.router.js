@@ -7,6 +7,8 @@ const { multer_upload } = require("./multer");
 const currpath = require("path");
 const fs = require("fs");
 let { getCallerIP, getUserName, strToFloat, arrayRemove } = require("./utils");
+const Course = require("../models/course.model");
+const student_info_fields = "_id account fullname phone_number skype_id avatar";
 const course_details_exclude_fields =
   "-password -role -following_teachers -course_details";
 const student_exclude_fields = "-password -role -teaching_students";
@@ -64,6 +66,58 @@ userRouter.route("/students/search").post((req, res) => {
   }
 });
 
+userRouter.route("/students/schedule").post((req, res) => {
+  console.log("/students/schedule", req.body);
+
+  const str_date = new Date(req.body.str_date).toISOString();
+  const end_date = new Date(req.body.str_date).toISOString();
+
+  console.log("condition:", str_date, end_date);
+
+  CourseDetail.find({
+    $and: [
+      // {
+      //   course_str_date: { $lte: $course_end_date },
+      // },
+      {
+        $or: [
+          {
+            $and: [
+              { course_str_date: { $gte: str_date } },
+              { course_end_date: { $gte: end_date } },
+              { course_end_date: { $gte: end_date } },
+            ],
+          },
+          {
+            $and: [
+              { course_str_date: { $lte: str_date } },
+              { course_end_date: { $gte: str_date } },
+              { course_end_date: { $lte: end_date } },
+            ],
+          },
+          {
+            $and: [
+              { course_str_date: { $gte: str_date } },
+              { course_end_date: { $lte: end_date } },
+            ],
+          },
+          {
+            $and: [
+              { course_str_date: { $lte: str_date } },
+              { course_end_date: { $gte: end_date } },
+            ],
+          },
+        ],
+      },
+    ],
+  })
+    .populate({
+      path: "student_info",
+      select: student_info_fields,
+    })
+    .then((items) => res.json(items));
+});
+
 userRouter.route("/students").get((req, res) => {
   User.find()
     .populate("course_details")
@@ -83,7 +137,7 @@ userRouter.route("/students").get((req, res) => {
 });
 
 userRouter.route("/students/:id").get((req, res) => {
-  //console.log("studentRouter.route->findById:", req.params.id);
+  console.log("studentRouter.route->findById:", req.params.id);
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).json(msg_id_invalid);
     return;
@@ -222,8 +276,8 @@ userRouter
 userRouter.route("/students/course_detail/:id").post((req, res) => {
   console.log("/students/course_detail/:id", req.body, req.params);
 
-  const id = req.params.id;
-  if (!ObjectId.isValid(id)) {
+  const user_id = req.params.id;
+  if (!ObjectId.isValid(user_id)) {
     res.status(400).json(msg_id_invalid);
     return;
   }
@@ -232,7 +286,7 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
   if (!ObjectId.isValid(req.body.pk_course_detail)) {
     const newItem = new CourseDetail();
 
-    newItem.user_id = id;
+    newItem.user_id = user_id;
     newItem.course_id = req.body.course_id;
     newItem.course_name = req.body.course_name;
     newItem.course_str_date = req.body.course_str_date;
@@ -268,6 +322,7 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
     newItem.sa_time_end = req.body.sa_time_end;
     newItem.su_time_str = req.body.su_time_str;
     newItem.su_time_end = req.body.su_time_end;
+    newItem.student_info = [user_id];
 
     if (req.body.course_notes) newItem.course_notes = req.body.course_notes;
 
@@ -276,7 +331,19 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
       .then((createdItem) => {
         console.log("/students/course_detail/:id createdItem", createdItem._id);
 
-        res.json(createdItem._id);
+        User.findById(user_id).then((user) => {
+          user.course_details.push(createdItem._id);
+
+          user
+            .save()
+            .then((updatedUser) => {
+              res.json(createdItem._id);
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(400).json(err);
+            });
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -321,6 +388,7 @@ userRouter.route("/students/course_detail/:id").post((req, res) => {
       updateItem.su_time_str = req.body.su_time_str;
       updateItem.su_time_end = req.body.su_time_end;
 
+      updateItem.student_info = [user_id];
       if (req.body.course_notes)
         updateItem.course_notes = req.body.course_notes;
 

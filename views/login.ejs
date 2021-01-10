@@ -60,7 +60,16 @@
         float: right;
         padding-top: 16px;
       }
-
+      .form_data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .form_button {
+        width: 200px;
+        margin: auto;
+        margin-top: 5px;
+      }
       /* Change styles for span and cancel button on extra small screens */
       @media screen and (max-width: 300px) {
         span.psw {
@@ -73,7 +82,7 @@
   <body class="body">
     <div class="container">
       <% if (messages.error) { %> <%= messages.error %> <% } %>
-      <form action="/login" method="POST">
+      <form action="/login" method="POST" class="form_data">
         <div>
           <input
             type="email"
@@ -92,9 +101,8 @@
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" class="form_button">Login</button>
       </form>
-      <span class="psw">Resend <a href="/getpassword">my password</a></span>
     </div>
   </body>
 </html>

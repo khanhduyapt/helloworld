@@ -14,7 +14,6 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ScheduleIcon from "@material-ui/icons/Schedule";
-import DateRangeIcon from "@material-ui/icons/DateRange";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import { changeContactNotifyNum } from "../CommonUtil";
@@ -67,7 +66,7 @@ function AdminMenu() {
           src={
             AxiosCommon.defaults.baseURL +
             "/images/" +
-            (user && user.avatar ? user.avatar : "noimage.jpg")
+            (user && user.avatar ? user.avatar : "undefined")
           }
         ></Avatar>
       </header>
@@ -78,26 +77,18 @@ function AdminMenu() {
           <li>
             <Link
               to="/admin/daycalendar"
-              className="dashboard__menu__item"
+              className="dashboard__menu__item dbmi__active"
               onClick={handleMenuAtive}
             >
               <ScheduleIcon />
               Lịch học trong ngày
-              <div id="admin_daycalendar_badge" className="item__badge">
-                2
-              </div>
+              <div
+                id="admin_daycalendar_badge"
+                className="item__badge item__badge__hide"
+              ></div>
             </Link>
           </li>
-          <li>
-            <Link
-              to="/admin/weekcalendar"
-              className="dashboard__menu__item"
-              onClick={handleMenuAtive}
-            >
-              <DateRangeIcon />
-              Lịch học trong tuần
-            </Link>
-          </li>
+
           <li>
             <Link
               to="/admin/monthcalendar"
@@ -119,7 +110,10 @@ function AdminMenu() {
           >
             <ContactPhoneIcon />
             Khách hàng mới
-            <div id="admin_contacts_badge" className="item__badge"></div>
+            <div
+              id="admin_contacts_badge"
+              className="item__badge item__badge__hide"
+            ></div>
           </Link>
         </li>
       </ul>

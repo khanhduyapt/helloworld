@@ -139,7 +139,7 @@ function UploadImage(props) {
             onClick={() => {
               //console.log("Xóa");
               setImagePath("");
-              setImageUrl(AxiosCommon.defaults.baseURL + "/images/noimage.jpg");
+              setImageUrl(AxiosCommon.defaults.baseURL + "/images/undefined");
             }}
           >
             Xóa

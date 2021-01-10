@@ -1,0 +1,34 @@
+.ScheduleCard {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 10px;
+  margin: 10px;
+}
+
+.schedulecard__column {
+  margin-right: 10px;
+}
+
+.schedulecard__avatar {
+  object-fit: cover;
+  min-width: 5vh;
+  max-width: 5vh;
+  min-height: 5vh;
+  max-height: 5vh;
+}
+
+.schedulecard__joinclass {
+  font-size: 1rem !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  font-weight: 100 !important;
+  border: 1px solid #f58200 !important;
+}
+
+.schedulecard__field {
+  display: flex;
+  min-width: 200px;
+  margin-top: 5px;
+}

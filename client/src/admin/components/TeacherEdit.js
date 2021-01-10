@@ -40,7 +40,7 @@ function TeacherEdit(props) {
 
   //src={AxiosCommon.defaults.baseURL + "/images/" + student.avatar}
   const [imageUrl, setImageUrl] = useState(
-    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+    AxiosCommon.defaults.baseURL + "/images/undefined"
   );
 
   useEffect(() => {
@@ -223,7 +223,7 @@ function TeacherEdit(props) {
             onClick={() => {
               console.log("Xóa");
               setImagePath("");
-              setImageUrl(AxiosCommon.defaults.baseURL + "/images/noimage.jpg");
+              setImageUrl(AxiosCommon.defaults.baseURL + "/images/undefined");
             }}
           >
             Xóa

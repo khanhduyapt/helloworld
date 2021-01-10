@@ -29,7 +29,7 @@ function CourseEdit(props) {
   const refBackLink = useRef(null);
 
   const [imageUrl, setImageUrl] = useState(
-    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+    AxiosCommon.defaults.baseURL + "/images/undefined"
   );
 
   useEffect(() => {
@@ -108,7 +108,12 @@ function CourseEdit(props) {
     formData.append("tuition_fee", tuition_fee);
     formData.append("notes", notes);
 
-    AxiosCommon.post(`/courses/update/${_id}`, formData, config)
+    let url = "/courses/add";
+    if (!isAddNew) url = `/courses/update/${_id}`;
+
+    console.log(url);
+
+    AxiosCommon.post(url, formData, config)
       .then((res) => {
         console.log("upload successfully: ", res);
         if (res.status === 200) {
@@ -153,7 +158,7 @@ function CourseEdit(props) {
             onClick={() => {
               //console.log("Xóa");
               setImagePath("");
-              setImageUrl(AxiosCommon.defaults.baseURL + "/images/noimage.jpg");
+              setImageUrl(AxiosCommon.defaults.baseURL + "/images/undefined");
             }}
           >
             Xóa

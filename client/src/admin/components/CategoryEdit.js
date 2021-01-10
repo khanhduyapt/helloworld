@@ -32,12 +32,12 @@ function CategoryEdit(props) {
 
   const [avatarPath, setAvatarPath] = useState("");
   const [avatarUrl, setAvatarUrl] = useState(
-    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+    AxiosCommon.defaults.baseURL + "/images/undefined"
   );
 
   const [bodyImgPath, setBodyImgPath] = useState("");
   const [bodyImgUrl, setBodyImgUrl] = useState(
-    AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
+    AxiosCommon.defaults.baseURL + "/images/undefined"
   );
 
   useEffect(() => {
@@ -214,9 +214,7 @@ function CategoryEdit(props) {
             onClick={() => {
               console.log("Xóa");
               setAvatarPath("");
-              setAvatarUrl(
-                AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
-              );
+              setAvatarUrl(AxiosCommon.defaults.baseURL + "/images/undefined");
             }}
           >
             Xóa
@@ -295,9 +293,7 @@ function CategoryEdit(props) {
             onClick={() => {
               console.log("Xóa");
               setBodyImgPath("");
-              setBodyImgUrl(
-                AxiosCommon.defaults.baseURL + "/images/noimage.jpg"
-              );
+              setBodyImgUrl(AxiosCommon.defaults.baseURL + "/images/undefined");
             }}
           >
             Xóa

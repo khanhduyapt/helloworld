@@ -1,0 +1,17 @@
+.daycalenar__datepicker {
+  font-size: 2rem !important;
+  width: 200px !important;
+}
+.day__calenar__body {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.datepicker__button {
+  font-size: 2rem !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  padding-top: 0px;
+  padding-bottom: 2px;
+}

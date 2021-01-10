@@ -15,6 +15,13 @@ const { FS_ROLE } = require("./routes/FS_ROLE");
 // Todo: authenticate user here
 const users = [
   { id: 123, name: "Duy", email: "d@d.d", password: "d", role: FS_ROLE.ADMIN },
+  {
+    id: "5ff33625dd3bb02ef020d340",
+    name: "Doan Khanh Duy",
+    email: "admin",
+    password: "d",
+    role: FS_ROLE.ADMIN,
+  },
 ];
 
 const passport = require("passport");
@@ -43,6 +50,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
+
 app.use(cors());
 //------------------------------------------
 
@@ -56,11 +64,27 @@ app.set("views", "./views");
 require("./src/SocketIO")(io);
 //#endregion
 
-// import { getCallerIP } from ("routes/getCallerIP");
+app.get("/dashboard/:id/:token", (req, res) => {
+  const token = req.params.token;
+  if (token == null) return res.sendStatus(401); //has not token
 
-app.get("/", checkAuthenticated, (req, res) => {
-  res.render("dashboard.ejs", { name: req.user.name });
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403); //has token but timeout or invalid
+    req.user = user;
+
+    console.log("/dashboard/:id/:token -> user=", user);
+    res.redirect("/join?cid=" + req.params.id + "&uid=" + user._id);
+  });
 });
+
+//checkAuthenticated
+app.get("/join", (req, res) => {
+  //console.log("/join", req.query, req.query.cid, req.query.uid);
+  res.render("Online_class", {
+    roomId: req.query.cid,
+    userId: req.query.uid,
+  });
+}); //TODO'
 
 app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
@@ -81,13 +105,6 @@ app.delete("/logout", (req, res) => {
   req.logOut();
   res.redirect("/login");
 });
-
-app.get("/join", checkAuthenticated, (req, res) => {
-  res.render("Online_class", {
-    roomId: "lop12A3",
-    userId: randomInt(1000),
-  });
-}); //TODO
 
 //#region mongosee
 const uri = process.env.LOCAL_MONGODB; //LOCAL_MONGODB=mongodb://localhost:27017/helloworld
@@ -112,7 +129,8 @@ const uploadRouter = require("./routes/upload.router");
 app.use("/upload", uploadRouter);
 
 const userRouter = require("./routes/users.router");
-app.use("/user", authenticateToken, userRouter);
+//app.use("/user", authenticateToken, userRouter);
+app.use("/user", userRouter);
 
 const courseRouter = require("./routes/courses.router");
 app.use("/courses", courseRouter);
@@ -124,29 +142,6 @@ const contactRouter = require("./routes/contact.router");
 app.use("/contacts", contactRouter);
 
 //#endregion
-
-//#region Token
-//#endregion Token
-/*
-app.post("/api/login", (req, res) => {
-  // Todo: authenticate user here
-  const username = req.body.username;
-  const password = req.body.password;
-
-  if (username && username == "d@d.d" && password && password == "d") {
-    const user = { id: 123, name: "Duy", email: "d@d.d", role: FS_ROLE.ADMIN };
-    const token = jwt.sign(user, process.env.TOKEN_SECRET);
-    res.json({ token });
-  } else {
-    res.sendStatus(402); //Login error
-  }
-});
-
-app.get("/api/posts", authenticateToken, (req, res) => {
-  console.log("user:", req.user);
-  res.json({ message: "token login Ok" });
-});
-*/
 
 function authenticateToken(req, res, next) {
   try {
@@ -169,6 +164,7 @@ function authenticateToken(req, res, next) {
 
 //==============================================
 function checkAuthenticated(req, res, next) {
+  console.log("checkAuthenticated", req.params, req.body, req.user);
   if (req.isAuthenticated()) {
     return next();
   }
