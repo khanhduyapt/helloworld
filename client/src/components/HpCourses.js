@@ -73,7 +73,7 @@ function HpCourses() {
   const [modalData, setModalData] = React.useState([]);
 
   return (
-    <div className="s4sourses">
+    <div className="s4sourses" id="featured_courses">
       <CourseModal
         data={modalData}
         show={modalShow}
@@ -85,7 +85,7 @@ function HpCourses() {
         data-aos="fade-up"
         data-aos-anchor-placement="top-center"
       >
-        Các khóa học nổi bật
+        Lớp học nổi bật
       </h1>
       <div className="special__courses">
         <CardDeck className="special__courses__deck">

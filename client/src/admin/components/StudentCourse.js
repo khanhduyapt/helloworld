@@ -10,13 +10,7 @@ import CardIcon from "../../components/commons/CardIcon";
 import DatePicker from "react-datepicker"; //https://reactdatepicker.com/#example-date-range-with-disabled-navigation-shown
 import SymbolTo from "../../components/commons/SymbolTo";
 import CurrencyInput from "react-currency-input";
-import {
-  strToFloat,
-  strToDate,
-  addMinutes,
-  addMonths,
-  tryParseInt,
-} from "../CommonUtil";
+import { strToFloat, strToDate, addMinutes, addMonths } from "../CommonUtil";
 import RequiredIcon from "../../components/commons/RequiredIcon";
 import ReactHtmlParser from "react-html-parser";
 
@@ -288,9 +282,8 @@ function StudentCourse(props) {
               <div className="student__field">
                 <div className="student__edit__label">
                   <CardIcon icon="number_lessons.png" alt="" />
-                  Số tiết học
+                  Số tiết học 1 tuần
                 </div>
-
                 <div className="student__field__content">
                   <CurrencyInput
                     name="cbx_number_lessons"
@@ -377,18 +370,17 @@ function StudentCourse(props) {
 
             <div className="student__field">
               <div className="student__edit__label">
-                <CardIcon icon="number_lessons.png" alt="Parent" />
-                Số tiết học
+                <CardIcon icon="calendar_time.jpg" alt="" />
+                Thời lượng
               </div>
-              <div className="student__field__content">
-                <CurrencyInput
-                  name="number_lessons"
-                  value={number_lessons}
-                  onChange={(mask, data) => set_number_lessons(data)}
-                  className="student__input__readonly"
-                  precision="0"
-                />
-              </div>
+              <CurrencyInput
+                name="duration_month"
+                value={duration_month}
+                onChange={(mask, data) => set_duration_month(data)}
+                precision="0"
+                className="student__input__readonly"
+                suffix=" (tháng)"
+              />
             </div>
 
             <div className="student__field">
@@ -411,17 +403,18 @@ function StudentCourse(props) {
 
             <div className="student__field">
               <div className="student__edit__label">
-                <CardIcon icon="calendar_time.jpg" alt="" />
-                Thời lượng
+                <CardIcon icon="number_lessons.png" alt="Parent" />
+                Số tiết học 1 tuần
               </div>
-              <CurrencyInput
-                name="duration_month"
-                value={duration_month}
-                onChange={(mask, data) => set_duration_month(data)}
-                precision="0"
-                className="student__input__readonly"
-                suffix=" (tháng)"
-              />
+              <div className="student__field__content">
+                <CurrencyInput
+                  name="number_lessons"
+                  value={number_lessons}
+                  onChange={(mask, data) => set_number_lessons(data)}
+                  className="student__input__readonly"
+                  precision="0"
+                />
+              </div>
             </div>
 
             <div className="student__field">
@@ -485,15 +478,11 @@ function StudentCourse(props) {
             </div>
 
             <div className="student__field">
-              <div className="student__edit__label">
-                <CardIcon icon="calc.jpg" alt="" />
-                Số buổi học 1 tuần
-              </div>
+              <div className="student__edit__label"></div>
 
               <span className="student__edit__day">
-                {number_lessons} / ({duration_month} x 4) ={" "}
-                {tryParseInt(number_lessons) /
-                  (tryParseInt(duration_month) * 4)}
+                {" Tổng cộng: "}
+                {number_lessons * 4 * duration_month} (tiết học)
               </span>
             </div>
           </div>

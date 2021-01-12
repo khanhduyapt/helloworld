@@ -5,7 +5,7 @@ import HpMySpecial from "../../components/HpMySpecial";
 function MySpecial() {
   return (
     <div className="MySpecial">
-      <h1 className="dashboard__header">Điểm đặc biệt của Kimini</h1>
+      <h1 className="dashboard__header">Điểm đặc biệt</h1>
       <UseImages CNAME="myspecial" />
 
       <div className="preview">

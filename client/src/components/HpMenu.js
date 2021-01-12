@@ -4,31 +4,73 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
+import { scrollIntoId } from "../admin/CommonUtil";
 
 function HpMenu() {
   return (
     <Navbar fixed="top" collapseOnSelect expand="xl" bg="light" variant="light">
       <Container>
-        <Link to="/" className="navbar-brand">
-          React-Bootstrap
-        </Link>
+        <span
+          className="navbar-brand"
+          onClick={() => {
+            scrollIntoId("carousel_slider");
+          }}
+        >
+          Gia sư Online
+        </span>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto"></Nav>
           <Nav>
-            <Link to="/features" className="nav-link">
-              Features
-            </Link>
+            <span
+              className="nav-link"
+              onClick={() => {
+                scrollIntoId("education_program");
+              }}
+            >
+              Khóa học
+            </span>
 
-            <Link to="/pricing" className="nav-link">
-              Pricing
-            </Link>
-            <Link to="/deets" className="nav-link">
-              More deets
-            </Link>
-            <Link to="/admin" className="nav-link">
-              Admin
+            <span
+              className="nav-link"
+              onClick={() => {
+                scrollIntoId("featured_courses");
+              }}
+            >
+              Lớp học
+            </span>
+
+            <span
+              className="nav-link"
+              onClick={() => {
+                scrollIntoId("experience_online_classes");
+              }}
+            >
+              Trải nghiệm
+            </span>
+            <span
+              className="nav-link"
+              onClick={() => {
+                scrollIntoId("contacts");
+              }}
+            >
+              Liên hệ
+            </span>
+
+            <span
+              className="nav-link"
+              onClick={() => {
+                scrollIntoId("common_vocabulary");
+              }}
+            >
+              Từ vựng
+            </span>
+            <Link
+              to="/admin"
+              className="btn__outline__normal nav__login__button"
+            >
+              Vào lớp học
             </Link>
 
             {/* <Link to="/admin" className="nav-link">
@@ -36,16 +78,6 @@ function HpMenu() {
             </Link> */}
           </Nav>
         </Navbar.Collapse>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <span
-          className="nav-link card__link__danger"
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-          }}
-        >
-          Logout
-        </span>
       </Container>
     </Navbar>
   );

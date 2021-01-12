@@ -82,6 +82,10 @@ function setElementNotify(notifice, number = 0) {
   }
 }
 
+function scrollIntoId(id) {
+  document.getElementById(id).scrollIntoView();
+}
+
 export {
   changeContactNotifyNum,
   changeDayCalendarNotifyNum,
@@ -93,4 +97,5 @@ export {
   addMonths,
   addMinutes,
   tryParseInt,
+  scrollIntoId,
 };

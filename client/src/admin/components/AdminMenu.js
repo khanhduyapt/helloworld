@@ -15,6 +15,8 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AxiosCommon from "../../components/commons/AxiosCommon";
 import { changeContactNotifyNum } from "../CommonUtil";
 
@@ -48,15 +50,33 @@ function AdminMenu() {
   return (
     <div className="dashboard__menu">
       <header className="dashboard__menu__header">
-        <span
-          className="card__link dashboard__menu__homepage"
-          onClick={() => {
-            history.push("/");
-            window.location.reload();
-          }}
-        >
-          Home page
-        </span>
+        <div className="dashboard__menu__control">
+          <Link
+            to="/"
+            className="card__link dashboard__menu__homepage"
+            onClick={() => {
+              history.push("/");
+              window.location.reload();
+            }}
+          >
+            <HomeIcon />
+            Home page
+          </Link>
+
+          <Link
+            to="/"
+            className="card__link card__link__danger"
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              history.push("/");
+              window.location.reload();
+            }}
+          >
+            Logout
+            <ExitToAppIcon />
+          </Link>
+        </div>
         <div></div>
         <p className="dashboard__menu__user">{user && user.account}</p>{" "}
         <p className="dashboard__menu__user">{user && user.fullname}</p>
@@ -217,7 +237,7 @@ function AdminMenu() {
             onClick={handleMenuAtive}
           >
             <LibraryBooksIcon />
-            Các khóa học nổi bật
+            Lớp học nổi bật
           </Link>
         </li>
 
@@ -228,7 +248,7 @@ function AdminMenu() {
             onClick={handleMenuAtive}
           >
             <YouTubeIcon />
-            Lớp học mẫu
+            Trải nghiệm Youtube
           </Link>
         </li>
 

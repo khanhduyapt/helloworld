@@ -31,7 +31,7 @@ function HpMySpecial() {
   return (
     <div className="whyus">
       <div className="whyus__title">
-        <h1 className="blog__header">Điểm đặc biệt của Kimini</h1>
+        <h1 className="blog__header">Điểm đặc biệt</h1>
       </div>
       <div
         className="whyus__motive"

@@ -224,7 +224,7 @@ function CourseEdit(props) {
           <div className="course__edit__field">
             <label className="course__edit__label">
               <CardIcon icon="number_lessons.png" alt="Parent" />
-              Số tiết học
+              Số tiết học 1 tuần
             </label>
             <CurrencyInput
               name="number_lessons"
@@ -233,6 +233,12 @@ function CourseEdit(props) {
               className="course__edit__input"
               precision="0"
             />
+
+            <label className="course__edit__span">
+              <CardIcon icon="calc.jpg" alt="" />
+              {number_lessons} buổi x 4 tuần x {duration_month} tháng ={" "}
+              {number_lessons * 4 * duration_month} (buổi)
+            </label>
           </div>
 
           <div className="course__edit__field">

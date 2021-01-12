@@ -61,7 +61,7 @@ courseRouter
       if (_file) {
         //console.log("res.req.file.filename", res.req.file);
         const avatar = "avatar_400_" + _file.filename;
-        fs.unlinkSync(getImagePath(newItem.avatar)); //delete old file
+        if (newItem.avatar) fs.unlinkSync(getImagePath(newItem.avatar)); //delete old file
         sharp(_file.path)
           .resize(400, 400)
           .toFile("./public/images/" + avatar)

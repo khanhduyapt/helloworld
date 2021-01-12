@@ -40,11 +40,17 @@
 
 .carousel__item__aptionHeader {
   font-size: 3.5em !important;
+  background: rgba(255, 170, 60, 0.3);
+  border-radius: 20px 20px 0 0;
+  padding: 40px 40px 20px 40px;
 }
 
 .carousel__item__aptionContent {
   font-size: 2em !important;
   letter-spacing: 0.05em;
+  background: rgba(255, 170, 60, 0.3);
+  border-radius: 0 0 20px 20px;
+  padding: 0 40px 40px 40px;
 }
 
 @media (min-width: 1200px) {

@@ -64,13 +64,13 @@ function HpHowToFree() {
             </h5>
           </Toast.Body>
         </Toast>
-        <h2
+        <h1
           className="form-title"
           data-aos="fade-up"
           data-aos-anchor-placement="top-center"
         >
           Liên hệ với giáo viên
-        </h2>
+        </h1>
 
         <div
           className="howfree__container"

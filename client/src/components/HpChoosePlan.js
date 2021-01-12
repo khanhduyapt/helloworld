@@ -71,7 +71,7 @@ function HpChoosePlan() {
   ];
 
   return (
-    <div className="plan">
+    <div className="plan" id="experience_online_classes">
       <VideoModal
         data={videoData}
         show={videoShow}

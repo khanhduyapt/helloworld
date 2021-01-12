@@ -34,7 +34,7 @@ function HpInfiniteContents() {
   );
 
   return (
-    <div className="infinite">
+    <div className="infinite" id="common_vocabulary">
       <h1
         className="blog__header"
         data-aos="fade-up"

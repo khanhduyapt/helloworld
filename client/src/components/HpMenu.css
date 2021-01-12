@@ -12,3 +12,8 @@
   font-weight: 600;
   margin-right: 20px;
 }
+
+.nav__login__button {
+  margin: 0;
+  margin-top: 5px;
+}

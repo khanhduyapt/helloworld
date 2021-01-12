@@ -7,7 +7,7 @@ import ReactHtmlParser from "react-html-parser";
 import CurrencyInput from "react-currency-input";
 
 function CourseCard({ course }) {
-  console.log("CourseCard:", course);
+  //console.log("CourseCard:", course);
 
   return (
     <div className="course__card">
@@ -75,9 +75,21 @@ function CourseCard({ course }) {
             <div className="course__card__field">
               <div className="course__card__label">
                 <CardIcon icon="number_lessons.png" alt="" />
-                Số tiết học
+                Số tiết học 1 tuần
               </div>
-              <div className="course__card__label">{course.number_lessons}</div>
+              <div className="course__card__label">
+                {course.number_lessons}
+                {" / tuần"}
+              </div>
+            </div>
+            <div className="course__card__field">
+              <div className="course__card__label">
+                <CardIcon icon="calc.jpg" alt="" />
+                Tổng
+              </div>
+              <div className="course__card__label">
+                {course.number_lessons * 4 * course.duration_month} (tiết học)
+              </div>
             </div>
           </div>
 

@@ -16,6 +16,7 @@ function HpTraining() {
   return (
     <div
       className="satisfact"
+      id="education_program"
       data-aos="fade-up"
       data-aos-anchor-placement="top-center"
     >

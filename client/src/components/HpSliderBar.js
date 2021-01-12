@@ -38,7 +38,7 @@ function HpSliderBar() {
   }, []);
 
   return (
-    <div className="sliderbar">
+    <div className="sliderbar" id="carousel_slider">
       <Carousel
         className="carousel"
         activeIndex={index}
