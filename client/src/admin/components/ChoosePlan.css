@@ -1,0 +1,9 @@
+.chooseplan__deck {
+  height: fit-content;
+  overflow-y: visible;
+  margin: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  grid-column-gap: 3vw;
+  justify-content: center;
+}

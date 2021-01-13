@@ -163,6 +163,10 @@
   padding: 20px;
 }
 
+.nav-link {
+  cursor: pointer;
+}
+
 h1 {
   font-size: 3rem !important;
   letter-spacing: 0.05em !important;

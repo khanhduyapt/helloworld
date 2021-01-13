@@ -1,19 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./HpCourses.css";
-import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import CourseModal from "./commons/CourseModal";
-import Rating from "./commons/Rating";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import HpCourseCard from "./commons/HpCourseCard";
+import AxiosCommon from "./commons/AxiosCommon";
 
 function HpCourses() {
+  const [CourseList, setCourseList] = useState([]);
+
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-    AOS.refresh();
+    AxiosCommon.get(`/public/courses`, AxiosCommon.defaults.headers)
+      .then((res) => {
+        setCourseList(() => {
+          return [...res.data];
+        });
+
+        AOS.init({
+          duration: 1000,
+          once: true,
+        });
+        AOS.refresh();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }, []);
 
   const contents = [
@@ -85,71 +97,12 @@ function HpCourses() {
         data-aos="fade-up"
         data-aos-anchor-placement="top-center"
       >
-        Lớp học nổi bật
+        Khóa học nổi bật
       </h1>
       <div className="special__courses">
         <CardDeck className="special__courses__deck">
-          {contents.map((course) => {
-            return (
-              <Card
-                className="special__courses__card"
-                key={course.course_name}
-                data-aos="fade-up"
-                data-aos-anchor-placement="top-center"
-              >
-                <Card.Img
-                  variant="top"
-                  src={course.imgage}
-                  className="card__link"
-                  onClick={() => {
-                    setModalData(course);
-                    setModalShow(true);
-                  }}
-                />
-                <Card.Body>
-                  <p
-                    className="card__link textLeft"
-                    onClick={() => {
-                      setModalData(course);
-                      setModalShow(true);
-                    }}
-                  >
-                    {course.course_name}
-                  </p>
-                  <div className="textLeft">
-                    <div className="courses__card__lession">
-                      <div className="courses__card__lession-item">
-                        <p>Tiết học</p>
-                        <p className="bold">{course.one_lession_time}</p>
-                      </div>
-                      <div className="courses__card__lession-item">
-                        <p>Bài giảng</p>
-                        <p className="bold"> {course.lessions}</p>
-                      </div>
-                    </div>
-                  </div>
-                </Card.Body>
-                <Card.Footer className="courses__card__footer text-muted">
-                  <img
-                    src="http://localhost:3000/icon/www.png"
-                    className="card__icon"
-                    alt="Web"
-                  ></img>
-                  <img
-                    src="http://localhost:3000/icon/skype.png"
-                    className="card__icon"
-                    alt="Skype"
-                  ></img>
-                  <img
-                    src="http://localhost:3000/icon/zoom.png"
-                    className="card__icon"
-                    alt="Zoom"
-                  ></img>
-
-                  <Rating star={5} />
-                </Card.Footer>
-              </Card>
-            );
+          {CourseList.map((course) => {
+            return <HpCourseCard key={course._id} course={course} />;
           })}
         </CardDeck>
       </div>

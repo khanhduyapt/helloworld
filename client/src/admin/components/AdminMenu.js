@@ -237,7 +237,7 @@ function AdminMenu() {
             onClick={handleMenuAtive}
           >
             <LibraryBooksIcon />
-            Lớp học nổi bật
+            Khóa học nổi bật
           </Link>
         </li>
 

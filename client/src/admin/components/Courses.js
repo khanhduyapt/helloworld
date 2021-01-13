@@ -21,7 +21,7 @@ function Courses() {
 
   return (
     <div className="course__list">
-      <h1 className="dashboard__header">Danh sách khóa học</h1>
+      <h1 className="dashboard__header">Khóa học & Học phí tham khảo</h1>
 
       <div className="main__top__controls">
         <Link

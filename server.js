@@ -119,6 +119,9 @@ connection.once("open", () => {
 });
 //
 
+const publicRouter = require("./routes/public.router");
+app.use("/public", publicRouter);
+
 const uloginRouter = require("./routes/ulogin.router");
 app.use("/ulogin", uloginRouter);
 

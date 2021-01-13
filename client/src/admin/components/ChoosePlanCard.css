@@ -1,0 +1,45 @@
+.chooseplan__row {
+  display: flex;
+  margin-bottom: 20px;
+
+  padding-left: 10px;
+}
+
+.chooseplan__info {
+  flex: 1;
+  margin: 10px 20px 10px 50px;
+}
+
+.chooseplan__notes {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chooseplan__field {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.chooseplan__label {
+  min-width: 250px;
+  max-width: 250px;
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.chooseplan__checkbox {
+  width: 30px;
+  height: 30px;
+}
+
+.chooseplan__money {
+  border: none;
+  font-size: 1.1rem;
+  padding-top: 5px;
+}

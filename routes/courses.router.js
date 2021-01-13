@@ -141,4 +141,21 @@ courseRouter
     }
   });
 
+courseRouter.route("/show/:id").post((req, res) => {
+  console.log("courseRouter.route->show:", req.params, req.body);
+  try {
+    Course.findById(req.params.id)
+      .then((item) => {
+        item.show_public = req.body.show_public;
+        item
+          .save()
+          .then((updatedItem) => res.json(updatedItem.show_public))
+          .catch((err) => res.status(400).json("Error: " + err));
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = courseRouter;
