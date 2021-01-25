@@ -115,7 +115,7 @@ function ContactCard(props) {
             onClick={() => {
               if (
                 window.confirm(
-                  `Bạn có muốn xóa bài viết?\n${props.contact.contents}`
+                  `Bạn có muốn xóa tin nhắn?\n${props.contact.contents}`
                 ) === true
               ) {
                 AxiosCommon.delete(

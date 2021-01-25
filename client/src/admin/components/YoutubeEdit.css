@@ -1,0 +1,148 @@
+.youtube__edit {
+  width: 60vw;
+  margin: auto;
+  max-width: 1060px;
+}
+
+.youtube__edit__title {
+  width: fit-content;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.youtube__edit__form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #f58200;
+  padding: 20px 50px 0px 50px;
+  margin: auto;
+}
+
+.youtube__edit__chooser {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.youtube__edit__chooser > img {
+  object-fit: cover;
+  min-width: 10vh;
+  max-width: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
+}
+
+.youtube__edit__choosefile {
+  background-color: #fff;
+  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.youtube__edit__clear {
+  margin-left: 20px;
+  margin-top: auto;
+}
+
+.youtube__edit__header {
+  margin-bottom: 10px;
+}
+
+.youtube__edit__content {
+  margin-bottom: 10px;
+}
+
+.youtube__edit__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.youtube__edit__submit {
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: 20px;
+  margin-left: auto;
+}
+
+.youtube__edit__contents {
+  display: flex;
+  flex-direction: column;
+}
+
+.youtube__edit__img {
+  min-width: 10vw;
+  max-width: 10vw;
+  margin: 10px;
+  display: flex;
+  max-height: 10vh;
+  min-height: 10vh;
+}
+
+.youtube__edit__img > img {
+  object-fit: cover;
+  min-width: 10vw;
+  max-height: 10vh;
+}
+
+::-webkit-file-upload-button {
+  cursor: pointer;
+  outline: none;
+  background-color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0977bc;
+  text-decoration: none;
+  border: none;
+}
+
+.youtube__edit__field {
+  display: flex;
+  flex: 1 1;
+  min-width: 400px;
+  height: 32px;
+  margin-bottom: 5px;
+}
+
+.youtube__edit__label {
+  min-width: 200px;
+  max-width: 200px;
+  padding-top: 5px;
+  font-size: 1.1rem;
+}
+
+.youtube__edit__input {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 2px 10px;
+  background-color: #fffce3;
+}
+
+.youtube__edit__ckeditor {
+  height: 100%;
+}
+
+.youtube__edit__ckeditor .ck-editor__editable {
+  min-height: 40vh !important;
+}
+
+.youtube__edit__error__msg {
+  display: flex;
+}
+
+.youtube__edit__error__msg > ul > li {
+  color: red;
+}
+
+.youtube__edit__fullwidth {
+  flex: 1;
+}
+
+.youtube__edit__span {
+  padding-top: 5px;
+  margin-left: 5px;
+}

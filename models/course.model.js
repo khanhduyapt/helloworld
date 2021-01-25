@@ -15,7 +15,7 @@ const courseSchema = new Schema(
     lesson_minutes: { type: Number },
     tuition_fee: { type: Number },
 
-    show_public: { type: Boolean },
+    show_public: { type: Boolean, default: false },
 
     notes: { type: String },
   },

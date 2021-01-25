@@ -11,7 +11,7 @@
 .special__courses__deck {
   width: 80%;
   display: grid;
-  grid-template-columns: repeat(3, 30%);
+  grid-template-columns: repeat(1, 100%);
   grid-column-gap: 3vw;
   justify-content: center;
 }

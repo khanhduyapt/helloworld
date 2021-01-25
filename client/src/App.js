@@ -5,7 +5,7 @@ import HpMySpecial from "./components/HpMySpecial";
 import HpTraining from "./components/HpTraining";
 import HpCourses from "./components/HpCourses";
 import HpHowToFree from "./components/HpHowToFree";
-import HpChoosePlan from "./components/HpChoosePlan";
+// import HpChoosePlan from "./components/HpChoosePlan";
 import HpInfiniteContents from "./components/HpInfiniteContents";
 import HpFooter from "./components/HpFooter";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
@@ -37,10 +37,10 @@ function App() {
           <Route path="/">
             <HpMenu />
             <HpSliderBar />
-            <HpMySpecial />
-            <HpTraining />
             <HpCourses />
-            <HpChoosePlan />
+            <HpTraining />
+            <HpMySpecial />
+            {/* <HpChoosePlan /> */}
             <HpHowToFree />
             <HpInfiniteContents />
             <HpFooter />

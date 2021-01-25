@@ -25,14 +25,14 @@ function ArticleCard({
 
       <div className="articleCard__header">
         <h3 className="articleCard__header__title">
-          <p
+          <div
             className="card__link"
             onClick={() => {
               openInNewTab(artical_url);
             }}
           >
             {title}
-          </p>
+          </div>
         </h3>
 
         <div className="articleCard__header__reads">
@@ -41,14 +41,14 @@ function ArticleCard({
       </div>
 
       <div className="articleCard__caterogy__name">
-        <p
+        <div
           className="card__link"
           onClick={() => {
             openInNewTab(category_url);
           }}
         >
           {category_name}
-        </p>
+        </div>
       </div>
 
       <div className="articleCard__short__content">{short_content} [...]</div>

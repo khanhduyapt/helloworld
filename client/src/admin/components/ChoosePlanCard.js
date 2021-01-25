@@ -5,6 +5,7 @@ import HpCourseCard from "../../components/commons/HpCourseCard";
 import CurrencyInput from "react-currency-input";
 import CardIcon from "../../components/commons/CardIcon";
 import AxiosCommon from "../../components/commons/AxiosCommon";
+import { Link } from "react-router-dom";
 
 function ChoosePlanCard({ course }) {
   const [checked, set_checked] = useState(course.show_public);
@@ -63,13 +64,10 @@ function ChoosePlanCard({ course }) {
           </div>
 
           <div className="chooseplan__field">
-            <div className="chooseplan__label">
-              <CardIcon icon="tuition_fee.png" alt="" />
-              Nội dung khóa học
-            </div>
-          </div>
-          <div className="chooseplan__notes">
-            {ReactHtmlParser(course.notes)}
+            <div className="chooseplan__label"></div>
+            <Link className="card__link" to={`/admin/course/${course._id}`}>
+              Chỉnh sửa
+            </Link>
           </div>
         </div>
       </div>

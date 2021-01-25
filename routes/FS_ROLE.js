@@ -1,5 +1,3 @@
-const { model } = require("../models/user.model");
-
 const FS_ROLE = {
   ADMIN: "admin",
   TEACHER: "teacher",

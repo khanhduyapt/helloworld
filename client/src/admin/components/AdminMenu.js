@@ -11,7 +11,7 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import FlareIcon from "@material-ui/icons/Flare";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import YouTubeIcon from "@material-ui/icons/YouTube";
+// import YouTubeIcon from "@material-ui/icons/YouTube";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -241,7 +241,7 @@ function AdminMenu() {
           </Link>
         </li>
 
-        <li>
+        {/* <li>
           <Link
             to="/admin/samples"
             className="dashboard__menu__item"
@@ -250,7 +250,7 @@ function AdminMenu() {
             <YouTubeIcon />
             Trải nghiệm Youtube
           </Link>
-        </li>
+        </li> */}
 
         <li>
           <Link

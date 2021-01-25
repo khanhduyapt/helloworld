@@ -311,3 +311,22 @@ content-type: application/json
   "str_date" : "2021-07-01T00:00:01.000Z", 
   "end_date" : "2021-07-03T23:59:59.000Z"
 }
+
+###========================================================================================
+GET http://localhost:3001/public/courses
+
+
+###
+GET http://localhost:3001/public/youtube
+###
+GET http://localhost:3001/youtube
+###
+POST http://localhost:3001/youtube/add
+content-type: application/json
+
+{
+  "title" : "Pantado English - Hoàng Oanh - Class 13/D39 - K109/9", 
+  "url" : "https://www.youtube.com/watch?v=4pr8i4a7Lzg&ab_channel=OanhHoang",
+  "description" : "descript iondescrip  tiond escript ndescriptio nde sc ription Hoàng Oanh ",
+  "show_public": true
+}

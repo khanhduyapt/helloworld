@@ -144,6 +144,9 @@ app.use("/categories", categoryRouter);
 const contactRouter = require("./routes/contact.router");
 app.use("/contacts", contactRouter);
 
+const youtubeRouter = require("./routes/youtube.router");
+app.use("/youtube", youtubeRouter);
+
 //#endregion
 
 function authenticateToken(req, res, next) {

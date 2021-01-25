@@ -50,27 +50,33 @@ function Admins() {
                     <span
                       className="card__link card__link__danger card__link__bottom"
                       onClick={() => {
-                        AxiosCommon.delete(
-                          `/user/delete/${admin._id}`,
-                          AxiosCommon.defaults.headers
-                        )
-                          .then((res) => {
-                            //console.log("update user successfully: ", res);
-                            if (res.status === 200) {
-                              var elem = document.getElementById(
-                                `user_admin_row_${admin._id}`
-                              );
-                              if (elem) {
-                                elem.remove();
+                        if (
+                          window.confirm(
+                            `Bạn có muốn xóa tài khoản?\n${admin.account}`
+                          ) === true
+                        ) {
+                          AxiosCommon.delete(
+                            `/user/delete/${admin._id}`,
+                            AxiosCommon.defaults.headers
+                          )
+                            .then((res) => {
+                              //console.log("update user successfully: ", res);
+                              if (res.status === 200) {
+                                var elem = document.getElementById(
+                                  `user_admin_row_${admin._id}`
+                                );
+                                if (elem) {
+                                  elem.remove();
+                                }
+                              } else {
+                                console.log(res.data.msg);
                               }
-                            } else {
-                              console.log(res.data.msg);
-                            }
-                          })
-                          .catch((error) => {
-                            console.log(error.message);
-                          });
-                        //----------------------
+                            })
+                            .catch((error) => {
+                              console.log(error.message);
+                            });
+                          //----------------------
+                        }
                       }}
                     >
                       Xóa quản trị viên

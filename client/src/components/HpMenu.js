@@ -26,29 +26,30 @@ function HpMenu() {
             <span
               className="nav-link"
               onClick={() => {
+                scrollIntoId("featured_courses");
+              }}
+            >
+              Thông báo
+            </span>
+
+            <span
+              className="nav-link"
+              onClick={() => {
                 scrollIntoId("education_program");
               }}
             >
               Khóa học
             </span>
 
-            <span
-              className="nav-link"
-              onClick={() => {
-                scrollIntoId("featured_courses");
-              }}
-            >
-              Lớp học
-            </span>
-
-            <span
+            {/* <span
               className="nav-link"
               onClick={() => {
                 scrollIntoId("experience_online_classes");
               }}
             >
               Trải nghiệm
-            </span>
+            </span> */}
+
             <span
               className="nav-link"
               onClick={() => {

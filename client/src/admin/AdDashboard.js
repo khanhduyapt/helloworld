@@ -13,7 +13,7 @@ import Sliderbar from "./components/Sliderbar";
 import MySpecial from "./components/MySpecial";
 import Training from "./components/Training";
 import ChoosePlan from "./components/ChoosePlan";
-import Samples from "./components/Samples";
+import Youtube from "./components/Youtube";
 import Vocabularies from "./components/Vocabularies";
 import UploadImage from "./components/UploadImage";
 import StudentEdit from "./components/StudentEdit";
@@ -72,7 +72,7 @@ function AdDashboard() {
               <ChoosePlan />
             </Route>
             <Route path="/admin/samples">
-              <Samples />
+              <Youtube />
             </Route>
             <Route path="/admin/vocabularies">
               <Vocabularies />

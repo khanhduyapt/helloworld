@@ -2,6 +2,7 @@
   width: 100%;
   margin: 10px;
   margin-bottom: 4vh !important;
+  border-radius: 10px;
 }
 
 .special__courses__card > img {
@@ -25,4 +26,15 @@
   height: 40px;
   align-items: center;
   padding: 0 1.2rem;
+}
+
+.special__courses__cardBody {
+  display: flex;
+  flex-direction: row;
+}
+
+.cardbody__right {
+  text-align: left;
+  width: 70%;
+  padding-left: 20px;
 }
