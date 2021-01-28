@@ -606,9 +606,28 @@ userRouter.route("/teacher/schedule/add").post((req, res) => {
                 .then((user) => {
                   //console.log("student.following_teachers.push:", teacher_id);
 
-                  res.json(
-                    student_id + " đã được thêm cho giáo viên " + teacher_id
-                  );
+                  CourseDetail.findOne()
+                    .where("user_id")
+                    .equals(student_id)
+                    .then((coursedetail) => {
+                      coursedetail.teacher_info = [teacher_id];
+
+                      coursedetail.save().then((course_detail_updated) => {
+                        console.log(
+                          "course_detail_updated",
+                          course_detail_updated
+                        );
+                        res.json(
+                          student_id +
+                            " đã được thêm cho giáo viên " +
+                            teacher_id
+                        );
+                      });
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                      res.status(400).json(err);
+                    });
                 })
                 .catch((err) => {
                   console.log(err);
