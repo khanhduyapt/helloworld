@@ -45,30 +45,21 @@ function HpInfiniteContents() {
 
       <div className="infinite__content">
         <div className="infinite__content__deck">
-          {books.map((book, index) => {
+          {books.map((content, index) => {
             if (books.length === index + 1) {
               return (
                 <div ref={lastBookElementRef} key={index + 1}>
-                  {ReactHtmlParser(book.title)}
+                  {ReactHtmlParser(content.title)}
                 </div>
               );
             } else {
               return (
                 <div
-                  key={`infinite_row_${book._id}`}
+                  key={`infinite_row_${content._id}`}
                   data-aos="fade-up"
                   data-aos-anchor-placement="top-center"
                 >
-                  <ArticleCard
-                    key={index}
-                    title={ReactHtmlParser(book.title)}
-                    artical_url="https://llv.edu.vn/vi/kham-pha-nhung-cau-noi-khich-le-tinh-than-bang-thanh-ngu-tieng-anh/"
-                    category_name={book.category_name}
-                    category_url="https://llv.edu.vn/vi/ngu-phap/"
-                    read_count={book.read_count}
-                    short_content={ReactHtmlParser(book.short_content)}
-                    thumbnail={book.thumbnail}
-                  ></ArticleCard>
+                  <ArticleCard key={index} content={content}></ArticleCard>
                 </div>
               );
             }

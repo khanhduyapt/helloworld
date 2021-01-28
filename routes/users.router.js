@@ -70,7 +70,7 @@ userRouter.route("/students/schedule").post((req, res) => {
   console.log("/students/schedule", req.body);
 
   const str_date = new Date(req.body.str_date).toISOString();
-  const end_date = new Date(req.body.str_date).toISOString();
+  const end_date = new Date(req.body.end_date).toISOString();
 
   console.log("condition:", str_date, end_date);
 
@@ -113,6 +113,10 @@ userRouter.route("/students/schedule").post((req, res) => {
   })
     .populate({
       path: "student_info",
+      select: student_info_fields,
+    })
+    .populate({
+      path: "teacher_info",
       select: student_info_fields,
     })
     .then((items) => res.json(items));

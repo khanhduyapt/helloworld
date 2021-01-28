@@ -53,6 +53,15 @@ function HpMenu() {
             <span
               className="nav-link"
               onClick={() => {
+                scrollIntoId("hpwhyus");
+              }}
+            >
+              Ưu điểm
+            </span>
+
+            <span
+              className="nav-link"
+              onClick={() => {
                 scrollIntoId("contacts");
               }}
             >

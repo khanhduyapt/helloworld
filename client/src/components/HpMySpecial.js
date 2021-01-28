@@ -29,7 +29,7 @@ function HpMySpecial() {
   }, []);
 
   return (
-    <div className="whyus">
+    <div className="whyus" id="hpwhyus">
       <div className="whyus__title">
         <h1 className="blog__header">Điểm đặc biệt</h1>
       </div>

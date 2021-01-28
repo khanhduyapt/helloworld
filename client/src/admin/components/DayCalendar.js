@@ -14,8 +14,22 @@ function DayCalendar() {
       const year = date.getFullYear();
       const month = date.getMonth();
 
-      const str_date = new Date(year, month, 1, 7, 0, 1).toISOString(); //GMT+7
-      const end_date = new Date(year, month, 1, 30, 59, 59).toISOString();
+      const str_date = new Date(
+        year,
+        month,
+        date.getDate(),
+        7,
+        0,
+        1
+      ).toISOString(); //GMT+7
+      const end_date = new Date(
+        year,
+        month,
+        date.getDate(),
+        30,
+        59,
+        59
+      ).toISOString();
       //console.log("search: str_date, end_date =", str_date, end_date);
 
       AxiosCommon.post(

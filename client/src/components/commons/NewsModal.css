@@ -1,0 +1,24 @@
+.mmodel {
+  width: 80vw !important;
+  min-width: 80vw !important;
+  display: flex;
+  flex-direction: column;
+  height: 86vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mmodel__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
+.mmodel__left__img {
+  max-width: 400px;
+  width: 100%;
+}
+
+.mmodel__center {
+  margin-left: 20px;
+}

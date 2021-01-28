@@ -1,6 +1,5 @@
 import "./ChoosePlanCard.css";
 import React, { useState } from "react";
-import ReactHtmlParser from "react-html-parser";
 import HpCourseCard from "../../components/commons/HpCourseCard";
 import CurrencyInput from "react-currency-input";
 import CardIcon from "../../components/commons/CardIcon";
